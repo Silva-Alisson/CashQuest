@@ -1,9 +1,11 @@
 import { View, Text, Image , Pressable, TextInput, TouchableOpacity, StatusBar,SafeAreaView } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import COLORS from '../constants/colors';
 import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox"
 import Button from '../components/Button';
+import { useForm } from 'react-hook-form';
+import { login } from '../services/login-service';
 
 const Login = ({ navigation }) => {
 
