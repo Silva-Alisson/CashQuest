@@ -6,6 +6,24 @@ import Checkbox from "expo-checkbox"
 import Button from '../components/Button';
 
 const Login = ({ navigation }) => {
+
+    //forms start
+    const { register, setValue, handleSubmit } = useForm();
+    
+    useEffect(() => {
+        register('email')
+        register('senha')
+      }, [register]);
+
+      const onSubmit = async (data) => {
+        console.log(data.email, data.senha);
+        login(data);
+        if(login) {
+            //redireicionar para a página certa
+        }
+      }
+    //forms end
+
     const [isPasswordShown, setIsPasswordShown] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     
@@ -60,6 +78,8 @@ const Login = ({ navigation }) => {
                         paddingLeft: 22
                     }}>
                         <TextInput
+                            label={'Email'}
+                            onChangeText={text => setValue('email', text)}
                             placeholder='Insira seu e-mail'
                             placeholderTextColor={COLORS.grey}
                             keyboardType='email-address'
@@ -88,6 +108,8 @@ const Login = ({ navigation }) => {
                         paddingLeft: 22
                     }}>
                         <TextInput
+                            label={'senha'}
+                            onChangeText={text => setValue('senha', text)}
                             placeholder='Insira sua senha'
                             placeholderTextColor={COLORS.grey}
                             secureTextEntry={isPasswordShown}
@@ -130,6 +152,7 @@ const Login = ({ navigation }) => {
                 </View>
 
                 <Button
+                    onPress={handleSubmit(onSubmit)}
                     title="Entrar"
                     filled
                     style={{
