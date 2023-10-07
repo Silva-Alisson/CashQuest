@@ -1,12 +1,34 @@
 import { View, Text, Image, Pressable, TextInput, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from "react-native-safe-area-context";
 import COLORS from '../constants/colors';
 import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox"
 import Button from '../components/Button';
-
+import { useForm } from 'react-hook-form';
+import { register_user } from '../services/register-user-service';
 const Signup = ({ navigation }) => {
+
+    //forms start
+    const { register, setValue, handleSubmit } = useForm();
+    
+    useEffect(() => {
+        register('nome')
+        register('sobrenome')
+        register('email')
+        register('senha')
+
+      }, [register]);
+
+      const onSubmit = async (data) => {
+        console.log(data.nome, data.sobrenome, data.email, data.senha);
+        register_user(data);
+        if(register_user) {
+            //redireicionar para a página certa
+        }
+      }
+    //forms end
+
     const [isPasswordShown, setIsPasswordShown] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     return (
@@ -58,7 +80,39 @@ const Signup = ({ navigation }) => {
                         paddingLeft: 22
                     }}>
                         <TextInput
+                            label={'nome'}
+                            onChangeText={text => setValue('nome', text)}
                             placeholder='Insira seu nome'
+                            placeholderTextColor={COLORS.grey}
+                            keyboardType='name-phone-pad'
+                            style={{
+                                width: "100%"
+                            }}
+                        />
+                    </View>
+                </View>
+
+                <View style={{ marginBottom: 10 }}>
+                    <Text style={{
+                        fontSize: 16,
+                        fontWeight: 400,
+                        marginVertical: 8
+                    }}>Sobrenome</Text>
+
+                    <View style={{
+                        width: "100%",
+                        height: 48,
+                        borderColor: COLORS.black,
+                        borderWidth: 1,
+                        borderRadius: 8,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        paddingLeft: 22
+                    }}>
+                        <TextInput
+                            label={'sobrenome'}
+                            onChangeText={text => setValue('sobrenome', text)}
+                            placeholder='Insira seu sobrenome'
                             placeholderTextColor={COLORS.grey}
                             keyboardType='name-phone-pad'
                             style={{
@@ -86,52 +140,13 @@ const Signup = ({ navigation }) => {
                         paddingLeft: 22
                     }}>
                         <TextInput
+                            label={'Email'}
+                            onChangeText={text => setValue('email', text)}
                             placeholder='Insira seu e-mail'
                             placeholderTextColor={COLORS.grey}
                             keyboardType='email-address'
                             style={{
                                 width: "100%"
-                            }}
-                        />
-                    </View>
-                </View>
-
-                <View style={{ marginBottom: 10 }}>
-                    <Text style={{
-                        fontSize: 16,
-                        fontWeight: 400,
-                        marginVertical: 8
-                    }}>Celular / Telefone</Text>
-
-                    <View style={{
-                        width: "100%",
-                        height: 48,
-                        borderColor: COLORS.black,
-                        borderWidth: 1,
-                        borderRadius: 8,
-                        alignItems: "center",
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        paddingLeft: 22
-                    }}>
-                        <TextInput
-                            placeholder='+91'
-                            placeholderTextColor={COLORS.black}
-                            keyboardType='numeric'
-                            style={{
-                                width: "12%",
-                                borderRightWidth: 1,
-                                borderLeftColor: COLORS.grey,
-                                height: "100%"
-                            }}
-                        />
-
-                        <TextInput
-                            placeholder='Insira seu numero'
-                            placeholderTextColor={COLORS.grey}
-                            keyboardType='numeric'
-                            style={{
-                                width: "80%"
                             }}
                         />
                     </View>
@@ -155,6 +170,8 @@ const Signup = ({ navigation }) => {
                         paddingLeft: 22
                     }}>
                         <TextInput
+                            label={'senha'}
+                            onChangeText={text => setValue('senha', text)}
                             placeholder='Insira sua senha'
                             placeholderTextColor={COLORS.grey}
                             secureTextEntry={isPasswordShown}
@@ -197,6 +214,7 @@ const Signup = ({ navigation }) => {
                 </View>
 
                 <Button
+                    onPress={handleSubmit(onSubmit)}
                     title="Confirmar"
                     filled
                     style={{
