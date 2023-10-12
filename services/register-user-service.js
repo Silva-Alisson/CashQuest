@@ -1,37 +1,30 @@
-import axios from "axios";
-import { getData, storeData } from "./verify-token-service";
+import baseUrl from "../helpers/base-url-api";
 
-export const register_user =async (params) => {
-    const nome = params.nome;
-    const sobrenome = params.sobrenome;
-    const email = params.email;
-    const senha = params.senha;
+export const register_user = async (params) => {
+  const nome = params.nome;
+  const sobrenome = params.sobrenome;
+  const email = params.email;
+  const senha = params.senha;
 
-    console.log(params)
+  let myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
 
-    let data = JSON.stringify({
-        "firstName": nome,
-        "lastName": sobrenome,
-        "email": email,
-        "password": senha
-        });
+  const raw = JSON.stringify({
+    "firstName": nome,
+    "lastName": sobrenome,
+    "email": email,
+    "password": senha
+  });
 
-    let config = {
-    method: 'post',
-    maxBodyLength: Infinity,
-    url: 'http://172.26.0.255:8000/api/create-user',
-    headers: { 
-        'Content-Type': 'application/json'
-    },
-    data : data
-    };
+  const requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  };
 
-    axios.request(config)
-    .then((response) => {
-    console.log(JSON.stringify(response.data));
-    return true;
-    })
-    .catch((error) => {
-    console.log(error);
-    });
-}
+  fetch(baseUrl+"/create-user", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+};

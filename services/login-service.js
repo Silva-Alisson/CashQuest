@@ -1,38 +1,44 @@
 import axios from "axios";
-import { getData, storeData } from "./verify-token-service"
+import { getData, storeData } from "./verify-token-service";
+import baseUrl from "../helpers/base-url-api";
 
-export const login =  async (params) => {
-    const email = params.email;
-    const senha = params.senha;
+export const login = async (params) => {
+  const email = params.email;
+  const senha = params.senha;
 
-    console.log(params)
+  let myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
 
-    const data = JSON.stringify({
-        "email": email,
-        "password": senha
-      });
-      
-    const config = {
-        method: 'post',
-        url: 'http://172.26.0.255:8000/api/auth/login',
-        headers: { 
-          'Content-Type': 'application/json'
-        },
-        data : data
-    };
-      
-    try {
-        let existToken =  await getData();
-        console.log(existToken);
-        if(!existToken) {
-            const response = await axios(config);
-            const data = response.data;
-            storeData(data.token);
-            return true;
+  const raw = JSON.stringify({
+    "email": email,
+    "password": senha
+  });
+
+  const requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  };
+
+  try {
+    let existToken = await getData();
+    console.log(existToken);
+    if (!existToken) {
+      fetch(
+        baseUrl+"/auth/login", requestOptions)
+      .then(response => response.text())
+      .then(async result => { 
+        const token = result.token
+        if(token) {
+          await storeData(token);
+          return true;
         }
-        
-    } catch (error) {
-        console.error(error);
+      })
+      .catch(error => console.log('error', error));
     }
-}
-
+    console.warn("já está logado");
+  } catch (error) {
+    console.error(JSON.stringify(error));
+  }
+};
