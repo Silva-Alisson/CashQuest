@@ -24,7 +24,7 @@ export const register_user = async (params) => {
   };
 
   fetch(baseUrl+"/create-user", requestOptions)
-    .then(response => response.text())
+    .then(response => response.json())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
 };
