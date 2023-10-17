@@ -6,6 +6,7 @@ import Checkbox from "expo-checkbox"
 import Button from '../components/Button';
 import { useForm } from 'react-hook-form';
 import { login } from '../services/login-service';
+import styles from '../components/styles';
 
 const Login = ({ navigation }) => {
 
@@ -69,16 +70,7 @@ const Login = ({ navigation }) => {
                         marginVertical: 8
                     }}>E-mail</Text>
 
-                    <View style={{
-                        width: "100%",
-                        height: 48,
-                        borderColor: COLORS.black,
-                        borderWidth: 1,
-                        borderRadius: 8,
-                        alignItems: "center",
-                        justifyContent: "center",
-                        paddingLeft: 22
-                    }}>
+                    <View style={styles.input}>
                         <TextInput
                             label={'Email'}
                             onChangeText={text => setValue('email', text)}
@@ -99,16 +91,7 @@ const Login = ({ navigation }) => {
                         marginVertical: 8
                     }}>Senha</Text>
 
-                    <View style={{
-                        width: "100%",
-                        height: 48,
-                        borderColor: COLORS.black,
-                        borderWidth: 1,
-                        borderRadius: 8,
-                        alignItems: "center",
-                        justifyContent: "center",
-                        paddingLeft: 22
-                    }}>
+                    <View style={styles.input}>
                         <TextInput
                             label={'senha'}
                             onChangeText={text => setValue('senha', text)}

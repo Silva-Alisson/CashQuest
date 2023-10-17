@@ -14,25 +14,24 @@ const Welcome = ({ navigation }) => {
         <LinearGradient
             style={{
                 flex: 1,
-                
+
             }}
             colors={[COLORS.secondary, COLORS.primary]}
         >
-            <View style={{ flex: 1,
+            <View style={{ flex: 1, 
             }}>
                 <View>
                     <Image
-                        source={require("../assets/pri.png")}
+                        source={require("../assets/turtle_nivel_1.png")}
                         style={{
                             height: 100,
-                            width: 100,
-                            borderRadius: 20,
+                            width: 80,
                             position: "absolute",
                             top: 10,
                             transform: [
                                 { translateX: 20 },
                                 { translateY: 50 },
-                                { rotate: "-15deg" }
+                                { rotate: "15deg" }
                             ]
                         }}
                     />
@@ -54,35 +53,35 @@ const Welcome = ({ navigation }) => {
                     />
 
                     <Image
-                        source={require("../assets/seg.png")}
+                        source={require("../assets/turtle_nivel_2.png")}
                         style={{
-                            width: 175,
+                            width: 140,
                             height: 160,
                             borderRadius: 20,
                             position: "absolute",
                             top: 130,
                             left: -50,
                             transform: [
-                                { translateX: 50 },
+                                { translateX: 60 },
                                 { translateY: 50 },
-                                { rotate: "15deg" }
+                                { rotate: "-15deg" }
                             ]
                         }}
                     />
 
                     <Image
-                        source={require("../assets/tri.png")}
+                        source={require("../assets/turtle_nivel_3.png")}
                         style={{
-                            height: 210,
-                            width: 180,
+                            height: 250,
+                            width: 140,
                             borderRadius: 20,
                             position: "absolute",
                             top: 110,
                             left: 115,
                             transform: [
-                                { translateX: 50 },
-                                { translateY: 50 },
-                                { rotate: "-15deg" }
+                                { translateX: 65 },
+                                { translateY: 45 },
+                                { rotate: "-8deg" }
                             ]
                         }}
                     />
@@ -97,25 +96,22 @@ const Welcome = ({ navigation }) => {
                     width: "100%"
                 }}>
                     <Text style={{
+                        marginTop: '7%',
                         fontSize: 33,
                         fontWeight: 800,
                         color: COLORS.white
-                    }}>Seja Inteligente Com</Text>
-                    <Text style={{
-                        fontSize: 33,
-                        fontWeight: 800,
-                        color: COLORS.white
-                    }}>Suas Finanças</Text>
+                    }}>Seja Inteligente Com Suas Finanças</Text>
 
                     <View style={{ marginVertical: 22 }}>
                         <Text style={{
                             fontSize: 16,
                             color: COLORS.white,
-                            marginVertical: 4
+                            marginTop: '1%'
                         }}>Comece hoje a construir seu planejamento</Text>
                         <Text style={{
                             fontSize: 16,
                             color: COLORS.white,
+                            
                         }}>financeiro para um futuro próspero e seguro.</Text>
                     </View>
 
@@ -123,14 +119,14 @@ const Welcome = ({ navigation }) => {
                         title="Registre-se agora!"
                         onPress={() => navigation.navigate("Signup")}
                         style={{
-                            marginTop: 22,
+                            marginTop: '7%',
                             width: "100%"
                         }}
                     />
 
                     <View style={{
                         flexDirection: "row",
-                        marginTop: 12,
+                        marginTop: '6%',
                         justifyContent: "center"
                     }}>
                         <Text style={{

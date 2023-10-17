@@ -7,6 +7,7 @@ import Checkbox from "expo-checkbox"
 import Button from '../components/Button';
 import { useForm } from 'react-hook-form';
 import { register_user } from '../services/register-user-service';
+import styles from '../components/styles';
 const Signup = ({ navigation }) => {
 
     //forms start
@@ -69,16 +70,7 @@ const Signup = ({ navigation }) => {
                         marginVertical: 8
                     }}>Nome</Text>
 
-                    <View style={{
-                        width: "100%",
-                        height: 48,
-                        borderColor: COLORS.black,
-                        borderWidth: 1,
-                        borderRadius: 8,
-                        alignItems: "center",
-                        justifyContent: "center",
-                        paddingLeft: 22
-                    }}>
+                    <View style={styles.input}>
                         <TextInput
                             label={'nome'}
                             onChangeText={text => setValue('nome', text)}
@@ -99,16 +91,7 @@ const Signup = ({ navigation }) => {
                         marginVertical: 8
                     }}>Sobrenome</Text>
 
-                    <View style={{
-                        width: "100%",
-                        height: 48,
-                        borderColor: COLORS.black,
-                        borderWidth: 1,
-                        borderRadius: 8,
-                        alignItems: "center",
-                        justifyContent: "center",
-                        paddingLeft: 22
-                    }}>
+                    <View style={styles.input}>
                         <TextInput
                             label={'sobrenome'}
                             onChangeText={text => setValue('sobrenome', text)}
@@ -129,16 +112,7 @@ const Signup = ({ navigation }) => {
                         marginVertical: 8
                     }}>E-mail</Text>
 
-                    <View style={{
-                        width: "100%",
-                        height: 48,
-                        borderColor: COLORS.black,
-                        borderWidth: 1,
-                        borderRadius: 8,
-                        alignItems: "center",
-                        justifyContent: "center",
-                        paddingLeft: 22
-                    }}>
+                    <View style={styles.input}>
                         <TextInput
                             label={'Email'}
                             onChangeText={text => setValue('email', text)}
@@ -159,16 +133,7 @@ const Signup = ({ navigation }) => {
                         marginVertical: 8
                     }}>Senha</Text>
 
-                    <View style={{
-                        width: "100%",
-                        height: 48,
-                        borderColor: COLORS.black,
-                        borderWidth: 1,
-                        borderRadius: 8,
-                        alignItems: "center",
-                        justifyContent: "center",
-                        paddingLeft: 22
-                    }}>
+                    <View style={styles.input}>
                         <TextInput
                             label={'senha'}
                             onChangeText={text => setValue('senha', text)}
