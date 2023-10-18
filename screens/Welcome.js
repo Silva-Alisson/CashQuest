@@ -16,7 +16,7 @@ const Welcome = ({ navigation }) => {
                 flex: 1,
 
             }}
-            colors={[COLORS.secondary, COLORS.primary]}
+            colors={[COLORS.secondary, COLORS.primary, COLORS.third]}
         >
             <View style={{ flex: 1, 
             }}>
@@ -37,7 +37,7 @@ const Welcome = ({ navigation }) => {
                     />
 
                     <Image
-                        source={require("../assets/pngegg.png")}
+                        source={require("../assets/egg.png")}
                         style={{
                             height: 80,
                             width: 65,
