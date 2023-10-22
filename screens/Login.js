@@ -1,6 +1,6 @@
 import { View, Text, Image , Pressable, TextInput, TouchableOpacity, StatusBar,SafeAreaView } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import COLORS from '../constants/colors';
+import { COLORS,  SIZES, icons, images } from '../constants'
 import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox"
 import Button from '../components/Button';
@@ -22,7 +22,7 @@ const Login = ({ navigation }) => {
         console.log(data.email, data.senha);
         login(data);
         if(login) {
-            //redireicionar para a página certa
+            navigation.navigate('Profile')//redireicionar para a página certa
         }
       }
     //forms end
@@ -47,7 +47,7 @@ const Login = ({ navigation }) => {
                 />
             </View>
             <View style={{ flex: 1, marginHorizontal: 22, top:120 }}>
-                <View style={{ marginVertical: 22 }}>
+                <View style={{ marginVertical: 25 }}>
                     <Text style={{
                         fontSize: 22,
                         fontWeight: 'bold',
@@ -137,7 +137,7 @@ const Login = ({ navigation }) => {
                 </View>
 
                 <Button
-                    onPress={handleSubmit(onSubmit)}
+                    onPress={handleSubmit(onSubmit) }
                     title="Entrar"
                     filled
                     style={{

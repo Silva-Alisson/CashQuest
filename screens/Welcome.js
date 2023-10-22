@@ -1,7 +1,7 @@
 import { View, Text, Pressable, Image } from 'react-native'
 import React from 'react'
 import { LinearGradient } from "expo-linear-gradient";
-import COLORS from '../constants/colors';
+import { COLORS,  SIZES, icons, images } from '../constants'
 import Button from '../components/Button';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -117,7 +117,7 @@ const Welcome = ({ navigation }) => {
 
                     <Button
                         title="Registre-se agora!"
-                        onPress={() => navigation.navigate("Signup")}
+                        onPress={() => navigation.navigate("Singup")}
                         style={{
                             marginTop: '7%',
                             width: "100%"
