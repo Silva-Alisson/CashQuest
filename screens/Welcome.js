@@ -117,7 +117,7 @@ const Welcome = ({ navigation }) => {
 
                     <Button
                         title="Registre-se agora!"
-                        onPress={() => navigation.navigate("Singup")}
+                        onPress={() => navigation.navigate("Signup")}
                         style={{
                             marginTop: '7%',
                             width: "100%"

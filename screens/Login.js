@@ -27,7 +27,7 @@ const Login = ({ navigation }) => {
       }
     //forms end
 
-    const [isPasswordShown, setIsPasswordShown] = useState(false);
+    const [isPasswordShown, setIsPasswordShown] = useState(true);
     const [isChecked, setIsChecked] = useState(false);
     
     return (
