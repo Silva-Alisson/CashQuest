@@ -1,15 +1,15 @@
 import baseUrl from "../../helpers/base-url-api";
-import { getData } from "../verify-token-service";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const getWallet = async () => {
   const myHeaders = new Headers();
-  const userId = getData("userId");
-  console.log(userId);
-  const token = getData("token");
-  console.log(token);
+  const userId = await AsyncStorage.getItem('@asyncStorage:userId');
+  console.log({idusuario: userId});
+  const token = await AsyncStorage.getItem('@asyncStorage:Token');
+  console.log({tokenusurario: token});
   myHeaders.append("Authorization", "Bearer " + token);
 
-  var requestOptions = {
+  const requestOptions = {
     method: 'GET',
     headers: myHeaders,
     redirect: 'follow'

@@ -9,17 +9,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS,  SIZES, icons, images } from '../constants'
 import { MaterialIcons } from "@expo/vector-icons";
 import getWallet from "../services/wallet-service/wallet-service";
-import { removeData } from "../services/verify-token-service";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const Profile = ({ navigation }) => {
 
-    const handleSair = () => {
-        if(removeData('token'))
-         {
-            if(removeData('userId')) {
-                navigation.navigate('Welcome');
-            }
-        }
+    const handleSair = async () => {
+        await AsyncStorage.removeItem('@asyncStorage:Token');
+        await AsyncStorage.removeItem("@asyncStorage:userId");
+        navigation.navigate("Welcome");
     };
 
     const [dados, setDados] = useState([]);
@@ -189,7 +186,6 @@ export const Profile = ({ navigation }) => {
                             marginHorizontal: SIZES.padding * 1,
                             marginVertical: 15,
                         }}
-                        onPress={handleSair}
                     >
 
                         <MaterialIcons name="star" size={50} color="white" />
@@ -249,6 +245,7 @@ export const Profile = ({ navigation }) => {
                             marginHorizontal: SIZES.padding * 1,
                             marginVertical: 5,
                         }}
+                        onPress={handleSair}
                     >
                             <Text
                                 style={{

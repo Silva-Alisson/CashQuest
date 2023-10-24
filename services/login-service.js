@@ -1,6 +1,5 @@
-import axios from "axios";
-import { getData, storeData } from "./verify-token-service";
 import baseUrl from "../helpers/base-url-api";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const login = async (params) => {
   const email = params.email;
@@ -22,17 +21,18 @@ export const login = async (params) => {
   };
 
   try {
-    let existToken = await getData();
+    let existToken = await AsyncStorage.getItem('@asyncStorage:Token');
     console.log(existToken);
-    if (!existToken) {
+    if (existToken == null) {
       fetch(baseUrl + "/auth/login", requestOptions)
         .then((response) => response.json())
         .then(async (result) => {
           const token = result["token"];
+          console.log(token);
           const userId = result["user"].id;
           if (token) {
-            await storeData('token', token);
-            await storeData('userId', userId);
+            await AsyncStorage.setItem('@asyncStorage:Token', token);
+            await AsyncStorage.setItem('@asyncStorage:userId', userId);
             return true;
           }
         })
