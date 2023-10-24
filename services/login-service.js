@@ -29,10 +29,10 @@ export const login = async (params) => {
         .then((response) => response.json())
         .then(async (result) => {
           const token = result["token"];
-          console.log("result", { result });
-          console.log("token", token);
+          const userId = result["user"].id;
           if (token) {
-            await storeData(token);
+            await storeData('token', token);
+            await storeData('userId', userId);
             return true;
           }
         })

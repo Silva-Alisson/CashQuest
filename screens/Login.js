@@ -1,4 +1,4 @@
-import { View, Text, Image , Pressable, TextInput, TouchableOpacity, StatusBar,SafeAreaView } from 'react-native'
+import { View, Text, Image , Pressable, TextInput, TouchableOpacity, StatusBar, SafeAreaView } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { COLORS,  SIZES, icons, images } from '../constants'
 import { Ionicons } from "@expo/vector-icons";
@@ -19,10 +19,9 @@ const Login = ({ navigation }) => {
       }, [register]);
 
       const onSubmit = async (data) => {
-        console.log(data.email, data.senha);
         login(data);
         if(login) {
-            navigation.navigate('Profile')//redireicionar para a página certa
+            navigation.navigate('Profile');
         }
       }
     //forms end
@@ -171,7 +170,6 @@ const Login = ({ navigation }) => {
                     justifyContent: 'center'
                 }}>
                     <TouchableOpacity
-                        onPress={() => console.log("Pressed")}
                         style={{
                             flex: 1,
                             alignItems: 'center',

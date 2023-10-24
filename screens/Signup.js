@@ -23,7 +23,6 @@ const Signup = ({ navigation }) => {
       }, [register]);
 
       const onSubmit = async (data) => {
-        console.log(data.nome, data.sobrenome, data.email, data.senha);
         register_user(data);
         if(register_user) {
             //redireicionar para a página certa
@@ -201,7 +200,7 @@ const Signup = ({ navigation }) => {
                     }}>
                         <Text style={{ fontSize: 16, color: COLORS.black }}>Você já tem conta conosco ?</Text>
                         <Pressable
-                            onPress={() => navigation.navigate("Login")}
+                            onPress={() => navigation.navigate("profice")}
                         >
                             <Text style={{
                                 fontSize: 16,
