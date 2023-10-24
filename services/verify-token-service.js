@@ -20,3 +20,12 @@ export const getData = async () => {
       // error reading value
     }
 };
+
+export const removeData = async (item) => {
+  try {
+    await AsyncStorage.removeItem(item);
+    console.log(`Token '${item}' removido com sucesso.`);
+  } catch (e) {
+    console.error(`Erro ao remover token '${item}':`, e);
+  }
+};
