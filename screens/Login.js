@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { login } from '../services/login-service';
 import styles from '../components/styles';
 
+
 const Login = ({ navigation }) => {
 
     //forms start
@@ -21,7 +22,7 @@ const Login = ({ navigation }) => {
       const onSubmit = async (data) => {
         login(data);
         if(login) {
-            navigation.navigate('Profile');
+            navigation.navigate('Home');
         }
       }
     //forms end
