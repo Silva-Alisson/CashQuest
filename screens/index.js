@@ -5,10 +5,9 @@ import Profile from "./Profile";
 import Home from "./Home";
 
 export {
-    
     Login,
     Welcome,
     Signup,
     Profile,
-    Home
+    Home,
 }

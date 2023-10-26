@@ -20,10 +20,10 @@ const Login = ({ navigation }) => {
       }, [register]);
 
       const onSubmit = async (data) => {
-        login(data);
-        if(login) {
-            navigation.navigate('Home');
+        if(await login(data)) {
+            navigation.navigate("Home");
         }
+        console.log("dados incorretos")
       }
     //forms end
 
