@@ -1,16 +1,15 @@
 import { View, Text, Image , Pressable, TextInput, TouchableOpacity, StatusBar, SafeAreaView } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { COLORS,  SIZES, icons, images } from '../constants'
 import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox"
 import Button from '../components/Button';
 import { useForm } from 'react-hook-form';
-import { login } from '../services/login-service';
 import styles from '../components/styles';
-
+import { Context } from "../context/authContext";
 
 const Login = ({ navigation }) => {
-
+    const { loginUser } = useContext(Context);
     //forms start
     const { register, setValue, handleSubmit } = useForm();
     
@@ -18,13 +17,6 @@ const Login = ({ navigation }) => {
         register('email')
         register('senha')
       }, [register]);
-
-      const onSubmit = async (data) => {
-        if(await login(data)) {
-            navigation.navigate("Home");
-        }
-        console.log("dados incorretos")
-      }
     //forms end
 
     const [isPasswordShown, setIsPasswordShown] = useState(true);
@@ -137,7 +129,9 @@ const Login = ({ navigation }) => {
                 </View>
 
                 <Button
-                    onPress={handleSubmit(onSubmit) }
+                    onPress={handleSubmit((data) => {
+                        loginUser(data);
+                        navigation.navigate("Home");})}
                     title="Entrar"
                     filled
                     style={{

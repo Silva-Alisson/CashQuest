@@ -18,7 +18,7 @@ const Home = ({ navigation }) => {
         fetchData();
     }, []);
     
-    const progressValue = dados.length > 0 ? dados[0] / MAX_VALUE : 0;
+    // const progressValue = dados.length > 0 ? dados[0] / MAX_VALUE : 0;
 
     return (
         <SafeAreaView
@@ -85,7 +85,7 @@ const Home = ({ navigation }) => {
                                 }}>Reservas</Text>
                         </View>
                     </View>
-                    <View style={{ alignItems: "center" }}>
+                    {/* <View style={{ alignItems: "center" }}>
                         <ProgressBar 
                             progress={progressValue}
                             width={200}
@@ -97,7 +97,7 @@ const Home = ({ navigation }) => {
                         <Text style={{ fontSize: 16, color: COLORS.primary }}>
                             Progresso: {Math.round(progressValue * 100)}%
                         </Text>
-                    </View>
+                    </View> */}
                 </View>
             </View>
         </SafeAreaView>
