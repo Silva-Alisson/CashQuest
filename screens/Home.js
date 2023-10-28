@@ -20,6 +20,7 @@ const Home = ({ navigation }) => {
     }, []);
     
     // const progressValue = dados.length > 0 ? dados[0] / MAX_VALUE : 0;
+    // const progressValue = dados.length > 0 ? dados[0] / MAX_VALUE : 0;
 
     return (
         <SafeAreaView

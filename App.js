@@ -1,18 +1,18 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Login, Profile, Home, Signup, Welcome } from "./screens";
 import Routes from './routes'
 
+import { Provider } from "./context/authContext";
+
+import { SafeAreaProvider } from "react-native-safe-area-context";
+
 const Stack = createNativeStackNavigator();
 
-export default function App() {
-  
+const App = () => {
   return (
-    
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName='Welcome'
-      >
+      <Stack.Navigator initialRouteName="Welcome">
         <Stack.Screen
           name="Welcome"
           component={Welcome}
@@ -41,7 +41,7 @@ export default function App() {
             headerShown: false
           }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="Home"
           component={Home}
           options={{
@@ -51,4 +51,14 @@ export default function App() {
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
+
+export default () => {
+  return (
+    <Provider>
+      <SafeAreaProvider>
+        <App />
+      </SafeAreaProvider>
+    </Provider>
+  );
+};

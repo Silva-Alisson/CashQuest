@@ -28,12 +28,10 @@ export const login = async (params) => {
         .then((response) => response.json())
         .then(async (result) => {
           const token = result["token"];
-          console.log(token);
           const userId = result["user"].id;
           if (token) {
             await AsyncStorage.setItem('@asyncStorage:Token', token);
             await AsyncStorage.setItem('@asyncStorage:userId', userId);
-            return true;
           } else {
             console.log(response);
           }
