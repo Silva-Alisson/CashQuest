@@ -34,6 +34,8 @@ export const login = async (params) => {
             await AsyncStorage.setItem('@asyncStorage:Token', token);
             await AsyncStorage.setItem('@asyncStorage:userId', userId);
             return true;
+          } else {
+            console.log(response);
           }
         })
         .catch((error) => console.log("error", error));

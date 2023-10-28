@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { login } from '../services/login-service';
 import styles from '../components/styles';
 
+
 const Login = ({ navigation }) => {
 
     //forms start
@@ -19,10 +20,10 @@ const Login = ({ navigation }) => {
       }, [register]);
 
       const onSubmit = async (data) => {
-        login(data);
-        if(login) {
-            navigation.navigate('Profile');
+        if(await login(data)) {
+            navigation.navigate("Home");
         }
+        console.log("dados incorretos")
       }
     //forms end
 

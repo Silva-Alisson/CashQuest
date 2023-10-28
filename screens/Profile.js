@@ -2,7 +2,8 @@ import {
     View,
     Text,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    StyleSheet
 } from "react-native";
 import React, { useEffect, useState, useForm } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -12,6 +13,8 @@ import getWallet from "../services/wallet-service/wallet-service";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const Profile = ({ navigation }) => {
+
+    
 
     const handleSair = async () => {
         await AsyncStorage.removeItem('@asyncStorage:Token');
@@ -33,31 +36,17 @@ export const Profile = ({ navigation }) => {
     
     return (
         <SafeAreaView
-            style={{
-                flex: 1,
-                backgroundColor: COLORS.white,
-            }}
+            style={Styles2.container2}
         >
 
-            <View style={{ flex: 1, alignItems: "center" }}>
+            <View style={Styles2.viewAvatar}>
                 <Image
                     source={require("../assets/avatar.png")}
                     resizeMode="contain"
-                    style={{
-                        height: '20%',
-                        width: '40%',
-                        borderRadius: 999,
-                        borderColor: COLORS.primary,
-                        borderWidth: 2,
-                        marginTop: 25,
-                    }} />
+                    style={Styles2.image} />
 
                 <Text
-                    style={{
-                        color: COLORS.primary,
-                        marginVertical: 8,
-                        fontSize: 29
-                    }}
+                    style={Styles2.textName}
                 >
                     Presdove
                 </Text>
@@ -81,81 +70,48 @@ export const Profile = ({ navigation }) => {
                 </View>
 
                 <View
-                    style={{
-                            margin: 8,
-                        flexDirection: "row",
-                        backgroundColor: COLORS.primary,
-                        borderRadius: 16,
-                        width: '90%',
-                        padding: 28,
-                        justifyContent: 'center',
-                        
-                    }}
+                    style={Styles2.walletContainer}
                 >
                     <View
-                        style={{
-                            flexDirection: "column",
-                            alignItems: "center",
-                            marginHorizontal: SIZES.padding,
-                        }}
+                        style={Styles2.viewWallet}
                     >
                         <Text
-                            style={{
-                                color: COLORS.white,
-                            }}
+                            style={Styles2.textWallet}
                         >
                           R$ {dados[0]}
                         </Text>
                         <Text
-                            style={{
-                                color: COLORS.white,
-                            }}
+                            style={Styles2.textWallet}
                         >
                             Carteira
                         </Text>
                     </View>
 
                     <View
-                        style={{
-                            flexDirection: "column",
-                            alignItems: "center",
-                            marginHorizontal: SIZES.padding,
-                        }}
+                        style={Styles2.viewWallet}
                     >
                         <Text
-                            style={{
-                                color: COLORS.white,
-                            }}
+                            style={Styles2.textWallet}
                         >
                            R$ {dados[3]}
                         </Text>
                         <Text
-                            style={{
-                                color: COLORS.white,
-                            }}
+                            style={Styles2.textWallet}
                         >
                             Reservas
                         </Text>
                     </View>
 
                     <View
-                        style={{
-                            flexDirection: "column",
-                            alignItems: "center",
-                            marginHorizontal: SIZES.padding,
-                        }}
+                        style={Styles2.viewWallet}
                     >
                         <Text
-                            style={{
-                                color: COLORS.white,
-                            }}
+                            style={Styles2.textWallet}
                         >
                            R$ {dados[2]}
                         </Text>
                         <Text
-                            style={{
-                                color: COLORS.white,
-                            }}
+                            style={Styles2.textWallet}
                         >
                             Gastos no mês
                         </Text>
@@ -163,39 +119,20 @@ export const Profile = ({ navigation }) => {
                 </View>
 
                 <Text
-                    style={{
-                        color: COLORS.primary,
-                        paddingTop: 30,
-                        fontSize: 24,
-                        
-                    }}
+                    style={Styles2.textTittle}
                 >
                     Conquistas e relatórios
                 </Text>
 
-                <View style={{ flexDirection: "row", marginHorizontal: 10 }}>
+                <View style={Styles2.viewMarginH}>
 
                     <TouchableOpacity
-                        style={{
-                            width: '45%',
-                            height: '60%',
-                            justifyContent: "center",
-                            textAlign: "center",
-                            backgroundColor: COLORS.primary,
-                            borderRadius: 16,
-                            marginHorizontal: SIZES.padding * 1,
-                            marginVertical: 15,
-                        }}
+                        style={Styles2.formaIcon}
                     >
 
                         <MaterialIcons name="star" size={50} color="white" />
                         <Text
-                            style={{
-                                color: COLORS.white,
-                                alignContent: "center",
-                                justifyContent: "center",
-                                textAlign: "center",
-                            }}
+                            style={Styles2.textIcon}
                         >
                             Conquistas
                         </Text>
@@ -204,25 +141,11 @@ export const Profile = ({ navigation }) => {
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        style={{
-                            width: '45%',
-                            height: '60%',
-                            justifyContent: "center",
-                            textAlign: "center",
-                            backgroundColor: COLORS.primary,
-                            borderRadius: 16,
-                            marginHorizontal: SIZES.padding * 1,
-                            marginVertical: 15,
-                        }}
+                        style={Styles2.formaIcon}
                     >
                         <MaterialIcons name="graphic-eq" size={50} color="white" />
                         <Text
-                            style={{
-                                color: COLORS.white,
-                                alignContent: "center",
-                                justifyContent: "center",
-                                textAlign: "center",
-                            }}
+                            style={Styles2.textIcon}
                         >
                             Relatórios
                         </Text>
@@ -231,31 +154,18 @@ export const Profile = ({ navigation }) => {
 
                 </View>
 
-                <View style={{flexDirection: "row", marginHorizontal: 10}}>
+                <View style={Styles2.viewMarginH}>
                     <TouchableOpacity
-                        style={{
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            padding: 16,
-                            width: '95%',
-                            height: 52,
-                            backgroundColor: COLORS.primary,
-                            borderRadius: 16,
-                            marginHorizontal: SIZES.padding * 1,
-                            marginVertical: 5,
-                        }}
+                        style={Styles2.buttonSair}
                         onPress={handleSair}
                     >
                             <Text
-                                style={{
-                                    color: COLORS.white,
-                                }}
+                                style={Styles2.textButton}
 
                             >
                                 Sair
                             </Text>
-                            <MaterialIcons name="chevron-right" size={20} color="white" />
+                            <MaterialIcons name="chevron-right" size={20} style={Styles2.textButton} />
                         
                         
                     </TouchableOpacity>
@@ -266,4 +176,91 @@ export const Profile = ({ navigation }) => {
     );
 };
 
+const Styles2 = StyleSheet.create({
+    container2: {
+        flex: 1,
+        backgroundColor: COLORS.white,
+      },
+    viewAvatar: {
+        flex: 1,
+        alignItems: "center",
+    },
+    image: {
+        height: '20%',
+        width: '40%',
+        borderRadius: 999,
+        borderColor: COLORS.primary,
+        borderWidth: 2,
+        marginTop: 25,
+    },
+    textName: {
+        color: COLORS.primary,
+        marginVertical: 8,
+        fontSize: 29
+    },
+    walletContainer: {
+        margin: 8,
+        flexDirection: "row",
+        backgroundColor: COLORS.primary,
+        borderRadius: 16,
+        width: '90%',
+        padding: 28,
+        justifyContent: 'center',
+    },
+    viewWallet: {
+        flexDirection: "column",
+        alignItems: "center",
+        marginHorizontal: SIZES.padding,
+    },
+    textWallet: {
+        color: COLORS.white,
+    },
+    textTittle: {
+        color: COLORS.primary,
+        paddingTop: 30,
+        fontSize: 24,
+    },
+    viewMarginH:{
+        flexDirection: "row", 
+        marginHorizontal: 10,
+
+    },
+    formaIcon:{
+        width: '45%',
+        height: '60%',
+        justifyContent: "center",
+        textAlign: "center",
+        backgroundColor: COLORS.primary,
+        borderRadius: 16,
+        marginHorizontal: SIZES.padding * 1,
+        marginVertical:5
+    },
+    textIcon: {
+        color: COLORS.white,
+        alignContent: "center",
+        justifyContent: "center",
+        textAlign: "center",
+    },
+    icon: {
+        size: 50,
+        color: COLORS.white
+    },
+    buttonSair: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: 16,
+        width: '95%',
+        height: 52,
+        backgroundColor: COLORS.primary,
+        borderRadius: 16,
+        marginHorizontal: SIZES.padding * 1,
+    },
+    textButton: {
+        color: COLORS.white,
+    }
+
+
+
+});
 export default Profile

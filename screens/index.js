@@ -5,7 +5,6 @@ import Profile from "./Profile";
 import Achievements from "./Achievements";
 
 export {
-    
     Login,
     Welcome,
     Signup,
