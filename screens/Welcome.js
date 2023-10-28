@@ -134,7 +134,7 @@ const Welcome = ({ navigation }) => {
                             color: COLORS.white
                         }}>Você já tem conta conosco ?</Text>
                         <Pressable
-                            onPress={() => navigation.navigate("Login")}
+                            onPress={() => navigation.navigate("Home")}
                         >
                             <Text style={{
                                 fontSize: 16,
