@@ -2,8 +2,9 @@ import {View,Text,Image} from "react-native";
 import React, { useEffect, useState, useForm } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS,  SIZES, icons, images } from '../constants';
-import { ProgressBar } from "react-native-progress";
+import * as Progress from 'react-native-progress';
 import getWallet from "../services/wallet-service/wallet-service";
+import Routes from '../routes'
 
 const Home = ({ navigation }) => {
     const [dados, setDados] = useState([]);
@@ -18,7 +19,7 @@ const Home = ({ navigation }) => {
         fetchData();
     }, []);
     
-    const progressValue = dados.length > 0 ? dados[0] / MAX_VALUE : 0;
+    // const progressValue = dados.length > 0 ? dados[0] / MAX_VALUE : 0;
 
     return (
         <SafeAreaView
@@ -28,27 +29,25 @@ const Home = ({ navigation }) => {
             }}>
 
             <View style={{ flex: 1, alignItems: "center"}}>
-                <View style={{alignItems: "center", backgroundColor: COLORS.primary, width:'100%', height:'50%'}}>
+                <View style={{ alignItems: "center", backgroundColor: COLORS.primary, width:'100%', height:'50%'}}>
                     <Image
                         source={require("../assets/pet_teste.png")}
                         resizeMode="contain"
-                        style={{                        height: '20%',
-                            width: '20%',
+                        style={{                        
+                            height: '30%',
+                            width: '30%',
                             borderRadius: 999,
                             borderColor: COLORS.white,
                             borderWidth: 2,
-                            marginTop: 25,
+                            margin: 25,
                     }} />
                     <Text
                         style={{
                             color: COLORS.white,
-                            marginVertical: 8,
-                            fontSize: 25
-                            }}
-                    >Arquielorinho</Text>
+                            fontSize: 20
+                            }}>Arquielorinho</Text>
                     <View
                         style={{
-                                margin: 8,
                             flexDirection: "row",
                             backgroundColor: COLORS.primary,
                             borderRadius: 16,
@@ -59,7 +58,6 @@ const Home = ({ navigation }) => {
                         <View style={{
                             flexDirection: "column",
                             alignItems: "center",
-                            marginHorizontal: SIZES.padding,
                         }} >
                             <Text style={{
                                 color: COLORS.white,
@@ -73,7 +71,6 @@ const Home = ({ navigation }) => {
                         <View style={{
                             flexDirection: "column",
                             alignItems: "center",
-                            marginHorizontal: SIZES.padding,
                         }}>
                             <Text
                                 style={{
@@ -86,18 +83,20 @@ const Home = ({ navigation }) => {
                         </View>
                     </View>
                     <View style={{ alignItems: "center" }}>
-                        <ProgressBar 
-                            progress={progressValue}
-                            width={200}
-                            color={COLORS.primary}
-                            height={10}
-                            borderRadius={5}
-                            style={{ marginVertical: 20 }}
-                        />
-                        <Text style={{ fontSize: 16, color: COLORS.primary }}>
-                            Progresso: {Math.round(progressValue * 100)}%
-                        </Text>
-                    </View>
+                            <Progress.Bar 
+                            progress={0.3}
+                            width={350}
+                            height={20}
+                            color={COLORS.orange}
+                            backgroundColor={COLORS.grey}
+                            borderRadius={15}
+                            borderWidth={0}
+                            style={{ marginTop: 20 }}
+                            />
+                        </View>
+                </View>
+                <View style={{ alignItems: "center" }}>
+                    <Routes/>
                 </View>
             </View>
         </SafeAreaView>
