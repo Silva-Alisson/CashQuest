@@ -3,6 +3,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { Ionicons } from '@expo/vector-icons'; 
 import Home from "../screens/Home";
 import Profile from "../screens/Profile";
+import Register from "../screens/Register";
 import { COLORS} from '../constants';
 
 const Tab = createMaterialBottomTabNavigator();
@@ -25,6 +26,16 @@ export default function TabNavigator() {
         }}
       />
       <Tab.Screen
+        name="Register"
+        component={Register}
+        options={{
+          
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="ios-person" size={24} color={'#5DA660'} />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="Profile"
         component={Profile}
         options={{
@@ -34,6 +45,7 @@ export default function TabNavigator() {
           ),
         }}
       />
+
     </Tab.Navigator>
   );
 }

@@ -6,7 +6,7 @@ import TabNavigator from "./TabNavigator"; // Importe o TabNavigator
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
-  const userIsAuthenticated = false; // Verifique se o usuário está autenticado
+  const userIsAuthenticated = true; // Verifique se o usuário está autenticado
 
   return (
     <Stack.Navigator>
