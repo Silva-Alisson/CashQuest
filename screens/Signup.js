@@ -200,7 +200,7 @@ const Signup = ({ navigation }) => {
                     }}>
                         <Text style={{ fontSize: 16, color: COLORS.black }}>Você já tem conta conosco ?</Text>
                         <Pressable
-                            onPress={() => navigation.navigate("profice")}
+                            onPress={() => navigation.navigate("LoginStack")}
                         >
                             <Text style={{
                                 fontSize: 16,

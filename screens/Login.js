@@ -131,7 +131,7 @@ const Login = ({ navigation }) => {
                 <Button
                     onPress={handleSubmit((data) => {
                         loginUser(data);
-                        navigation.navigate("Home");})}
+                        navigation.navigate("AppNavigator");})}
                     title="Entrar"
                     filled
                     style={{
@@ -225,7 +225,7 @@ const Login = ({ navigation }) => {
                 }}>
                     <Text style={{ fontSize: 16, color: COLORS.black }}>Não tem uma conta ? </Text>
                     <Pressable
-                        onPress={() => navigation.navigate("Signup")}
+                        onPress={() => navigation.navigate("SignupStack")}
                     >
                         <Text style={{
                             fontSize: 16,

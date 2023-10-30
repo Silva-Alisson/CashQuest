@@ -4,7 +4,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS,  SIZES, icons, images } from '../constants';
 import * as Progress from 'react-native-progress';
 import getWallet from "../services/wallet-service/wallet-service";
-import Routes from '../routes'
 
 const Home = ({ navigation }) => {
     const [dados, setDados] = useState([]);
@@ -19,7 +18,6 @@ const Home = ({ navigation }) => {
         fetchData();
     }, []);
     
-    // const progressValue = dados.length > 0 ? dados[0] / MAX_VALUE : 0;
     // const progressValue = dados.length > 0 ? dados[0] / MAX_VALUE : 0;
 
     return (
@@ -95,9 +93,6 @@ const Home = ({ navigation }) => {
                             style={{ marginTop: 20 }}
                             />
                         </View>
-                </View>
-                <View style={{ alignItems: "center" }}>
-                    <Routes/>
                 </View>
             </View>
         </SafeAreaView>

@@ -4,6 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { COLORS,  SIZES, icons, images } from '../constants'
 import Button from '../components/Button';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Login from './Login';
 
 const Welcome = ({ navigation }) => {
 
@@ -117,7 +118,7 @@ const Welcome = ({ navigation }) => {
 
                     <Button
                         title="Registre-se agora!"
-                        onPress={() => navigation.navigate("Signup")}
+                        onPress={() => navigation.navigate("SignupStack")}
                         style={{
                             marginTop: '7%',
                             width: "100%"
@@ -134,7 +135,7 @@ const Welcome = ({ navigation }) => {
                             color: COLORS.white
                         }}>Você já tem conta conosco ?</Text>
                         <Pressable
-                            onPress={() => navigation.navigate("Home")}
+                            onPress={() => navigation.navigate("LoginStack")}
                         >
                             <Text style={{
                                 fontSize: 16,
