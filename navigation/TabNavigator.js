@@ -1,51 +1,94 @@
 import React from "react";
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { Ionicons } from '@expo/vector-icons'; 
+import { Image, View, Text } from 'react-native'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Home from "../screens/Home";
 import Profile from "../screens/Profile";
 import Register from "../screens/Register";
-import { COLORS} from '../constants';
+import { COLORS } from '../constants';
+import { Entypo } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
-export default function TabNavigator() {
+const BottomTabNavigation = () => {
   return (
-    <Tab.Navigator
-      tabBarOptions={{
-        activeTintColor: '#5DA660', // Cor dos ícones quando a guia está ativa (selecionada)
-      }}
-    >
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{
-          tabBarLabel: 'Home',
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="ios-home" size={24} color={'#5DA660'} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Register"
-        component={Register}
-        options={{
-          
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="ios-person" size={24} color={'#5DA660'} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          tabBarLabel: 'Profile',
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="ios-person" size={24} color={'#5DA660'} />
-          ),
-        }}
-      />
-
-    </Tab.Navigator>
-  );
+     <Tab.Navigator
+       screenOptions={{
+        tabBarShowLabel:false,
+        headerShown:false,
+        tabBarStyle:{
+          position: "absolute",
+          bottom: 2,
+          right: 2,
+          left: 2,
+          height: 60,
+          background: "#fff",
+          borderTopWidth: 1,
+          borderRadius: 22
+         }
+       }}
+     >
+        <Tab.Screen 
+          name="Home" 
+          component={Home} 
+          options={{
+            
+            tabBarIcon: ({focused})=>{
+              return (
+                <View style={{alignItems: "center", justifyContent: "center"}}> 
+                  <Entypo name="home" size={24} color={focused ? COLORS.primary : COLORS.secondary} />
+            </View>
+              )
+            }
+          }}
+          />
+          <Tab.Screen
+          name="Register"
+          component={Register}
+          options={{
+            tabBarStyle: {display: 'none'},
+            tabBarIcon: ({ focused })=>{
+              return (
+                <View
+                 style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: COLORS.primary,
+                  width: Platform.OS == "ios" ? 50 : 60,
+                  height: Platform.OS == "ios" ? 50 : 60,
+                  top: Platform.OS == "ios" ? -10 : -20,
+                  borderRadius: Platform.OS == "ios" ? 25 : 30,
+                  shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: -3,
+                },
+                shadowOpacity: 0.27,
+                shadowRadius: 4.65,
+                elevation: 6,
+                 }}
+                >
+                  <FontAwesome name="exchange" size={24} color="#fff" />
+                </View>
+              )
+            }
+          }}
+        />
+          <Tab.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            tabBarIcon: ({ focused })=>{
+              return (
+                <View style={{alignItems: "center", justifyContent: "center"}}> 
+                  <FontAwesome name="user" size={24} color={focused ? COLORS.primary : COLORS.secondary} />
+            </View>
+              )
+            }
+          }}
+        />
+     </Tab.Navigator>
+  )
 }
+
+export default BottomTabNavigation
