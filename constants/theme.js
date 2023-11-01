@@ -7,7 +7,7 @@ export const COLORS = {
     primary: "#5DA660",
     secondary: "#BAE6BC",
     third: "#206627",
-    grey: "#CCCCCC",
+    grey: "#585865",
     orange: "#D87661"
 }
 export const SIZES = {

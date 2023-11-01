@@ -128,6 +128,7 @@ export const Profile = ({ navigation }) => {
 
                     <TouchableOpacity
                         style={Styles2.formaIcon}
+                        onPress={() => navigation.navigate("AchievementsStack")}
                     >
 
                         <MaterialIcons name="star" size={50} color="white" />
