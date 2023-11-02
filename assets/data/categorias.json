@@ -1,383 +1,358 @@
 {
-  "categorias": {
-    "Entretenimento": [
-      "Boliche",
-      "Cinema",
-      "Shows",
-      "Eletrônicos",
-      "Entretenimento",
-      "Academia",
-      "Hobby",
-      "Bar",
-      "Esportes",
-      "Assinatura de streaming",
-      "Férias"
-    ],
-    "Alimentação e Bebidas": [
-      "Doces",
-      "Café",
-      "Bebidas",
-      "Alimentos",
-      "Compras de Supermercado",
-      "Restaurante"
-    ],
-    "Moradia": [
-      "Padaria",
-      "Contas",
-      "Eletricidade",
-      "Suprimentos para Casa",
-      "Moradia",
-      "Seguro",
-      "Internet",
-      "Empréstimo",
-      "Manutenção",
-      "Aluguel",
-      "Serviços",
-      "TV",
-      "Impostos",
-      "Telefone",
-      "Água"
-    ],
-    "Diversos": [
-      "Custos Bancários",
-      "Roupas",
-      "Cuidados de Saúde",
-      "Diversos",
-      "Empréstimo Estudantil",
-      "Desconhecido"
-    ],
-    "Economias": [
-      "Economias de Emergência",
-      "Poupança",
-      "Poupança para Férias"
-    ],
-    "Renda": [
-      "Renda",
-      "Juros",
-      "Investimentos",
-      "Pensão",
-      "Salário"
-    ],
-    "Estilo de Vida": [
-      "Caridade",
-      "Dentista",
-      "Médico",
-      "Educação",
-      "Presente",
-      "Hotel",
-      "Estilo de Vida",
-      "Despesas de Escritório",
-      "Animal de Estimação",
-      "Farmácia",
-      "Compras",
-      "Viagem",
-      "Trabalho"
-    ],
-    "Transporte": [
-      "Custos de Carro",
-      "Seguro de Carro",
-      "Empréstimo de Carro",
-      "Voo",
-      "Gasolina",
-      "Estacionamento",
-      "Transporte Público",
-      "Reparo",
-      "Táxi",
-      "Transporte"
-    ]
-  }
-}
-  
-
-  {
-  "categoriasIcones": {
-    "Entretenimento": [
-      {
-        "nome": "Boliche",
-        "icone": "sports_bowling"
-      },
-      {
-        "nome": "Cinema",
-        "icone": "local_movies"
-      },
-      {
-        "nome": "Shows",
-        "icone": "music_note"
-      },
-      {
-        "nome": "Eletrônicos",
-        "icone": "devices"
-      },
-      {
-        "nome": "Academia",
-        "icone": "fitness_center"
-      },
-      {
-        "nome": "Hobby",
-        "icone": "brush"
-      },
-      {
-        "nome": "Bar",
-        "icone": "local_bar"
-      },
-      {
-        "nome": "Esportes",
-        "icone": "sports"
-      },
-      {
-        "nome": "Assinatura de streaming",
-        "icone": "cast"
-      },
-      {
-        "nome": "Férias",
-        "icone": "beach_access"
-      }
-    ],
-    "Alimentação e Bebidas": [
-      {
-        "nome": "Doces",
-        "icone": "local_cafe"
-      },
-      {
-        "nome": "Café",
-        "icone": "free_breakfast"
-      },
-      {
-        "nome": "Bebidas",
-        "icone": "local_drink"
-      },
-      {
-        "nome": "Alimentos",
-        "icone": "restaurant"
-      },
-      {
-        "nome": "Compras de Supermercado",
-        "icone": "shopping_cart"
-      },
-      {
-        "nome": "Restaurante",
-        "icone": "local_dining"
-      }
-    ],
-    "Moradia": [
-      {
-        "nome": "Padaria",
-        "icone": "bakery_dining"
-      },
-      {
-        "nome": "Contas",
-        "icone": "receipt"
-      },
-      {
-        "nome": "Eletricidade",
-        "icone": "electricity"
-      },
-      {
-        "nome": "Suprimentos para Casa",
-        "icone": "home"
-      },
-      {
-        "nome": "Moradia",
-        "icone": "house"
-      },
-      {
-        "nome": "Seguro",
-        "icone": "insurance"
-      },
-      {
-        "nome": "Internet",
-        "icone": "wifi"
-      },
-      {
-        "nome": "Empréstimo",
-        "icone": "credit_card"
-      },
-      {
-        "nome": "Manutenção",
-        "icone": "build"
-      },
-      {
-        "nome": "Aluguel",
-        "icone": "payment"
-      },
-      {
-        "nome": "Serviços",
-        "icone": "miscellaneous_services"
-      },
-      {
-        "nome": "TV",
-        "icone": "tv"
-      },
-      {
-        "nome": "Impostos",
-        "icone": "attach_money"
-      },
-      {
-        "nome": "Telefone",
-        "icone": "phone"
-      },
-      {
-        "nome": "Água",
-        "icone": "water_damage"
-      }
-    ],
-    "Diversos": [
-      {
-        "nome": "Custos Bancários",
-        "icone": "account_balance"
-      },
-      {
-        "nome": "Roupas",
-        "icone": "wardrobe"
-      },
-      {
-        "nome": "Cuidados de Saúde",
-        "icone": "local_hospital"
-      },
-      {
-        "nome": "Diversos",
-        "icone": "miscellaneous"
-      },
-      {
-        "nome": "Empréstimo Estudantil",
-        "icone": "school"
-      },
-      {
-        "nome": "Desconhecido",
-        "icone": "help"
-      }
-    ],
-    "Economias": [
-      {
-        "nome": "Economias de Emergência",
-        "icone": "emergency"
-      },
-      {
-        "nome": "Poupança",
-        "icone": "savings"
-      },
-      {
-        "nome": "Poupança para Férias",
-        "icone": "flight"
-      }
-    ],
-    "Renda": [
-      {
-        "nome": "Renda",
-        "icone": "attach_money"
-      },
-      {
-        "nome": "Juros",
-        "icone": "monetization_on"
-      },
-      {
-        "nome": "Investimentos",
-        "icone": "trending_up"
-      },
-      {
-        "nome": "Pensão",
-        "icone": "account_balance"
-      },
-      {
-        "nome": "Salário",
-        "icone": "credit_card"
-      }
-    ],
-    "Estilo de Vida": [
-      {
-        "nome": "Caridade",
-        "icone": "favorite"
-      },
-      {
-        "nome": "Dentista",
-        "icone": "local_hospital"
-      },
-      {
-        "nome": "Médico",
-        "icone": "local_hospital"
-      },
-      {
-        "nome": "Educação",
-        "icone": "school"
-      },
-      {
-        "nome": "Presente",
-        "icone": "redeem"
-      },
-      {
-        "nome": "Hotel",
-        "icone": "hotel"
-      },
-      {
-        "nome": "Estilo de Vida",
-        "icone": "directions_run"
-      },
-      {
-        "nome": "Despesas de Escritório",
-        "icone": "business"
-      },
-      {
-        "nome": "Animal de Estimação",
-        "icone": "pets"
-      },
-      {
-        "nome": "Farmácia",
-        "icone": "local_pharmacy"
-      },
-      {
-        "nome": "Compras",
-        "icone": "shopping_bag"
-      },
-      {
-        "nome": "Viagem",
-        "icone": "flight"
-      },
-      {
-        "nome": "Trabalho",
-        "icone": "work"
-      }
-    ],
-    "Transporte": [
-      {
-        "nome": "Custos de Carro",
-        "icone": "directions_car"
-      },
-      {
-        "nome": "Seguro de Carro",
-        "icone": "local_taxi"
-      },
-      {
-        "nome": "Empréstimo de Carro",
-        "icone": "directions_car"
-      },
-      {
-        "nome": "Voo",
-        "icone": "flight"
-      },
-      {
-        "nome": "Gasolina",
-        "icone": "local_gas_station"
-      },
-      {
-        "nome": "Estacionamento",
-        "icone": "local_parking"
-      },
-      {
-        "nome": "Transporte Público",
-        "icone": "directions_bus"
-      },
-      {
-        "nome": "Reparo",
-        "icone": "build"
-      },
-      {
-        "nome": "Táxi",
-        "icone": "local_taxi"
-      },
-      {
-        "nome": "Transporte",
-        "icone": "commute"
-      }
-    ]
-  }
+  "Entretenimento": [
+    {
+      "name": "Boliche",
+      "icon": "sports_bowling",
+      "categorie": "Entretenimento"
+    },
+    {
+      "name": "Cinema",
+      "icon": "local_movies",
+      "categorie": "Entretenimento"
+    },
+    {
+      "name": "Shows",
+      "icon": "music_note",
+      "categorie": "Entretenimento"
+    },
+    {
+      "name": "Eletrônicos",
+      "icon": "devices",
+      "categorie": "Entretenimento"
+    },
+    {
+      "name": "Academia",
+      "icon": "fitness_center",
+      "categorie": "Entretenimento"
+    },
+    {
+      "name": "Hobby",
+      "icon": "brush",
+      "categorie": "Entretenimento"
+    },
+    {
+      "name": "Bar",
+      "icon": "local_bar",
+      "categorie": "Entretenimento"
+    },
+    {
+      "name": "Esportes",
+      "icon": "sports",
+      "categorie": "Entretenimento"
+    },
+    {
+      "name": "Assinatura de streaming",
+      "icon": "cast",
+      "categorie": "Entretenimento"
+    },
+    {
+      "name": "Férias",
+      "icon": "beach_access",
+      "categorie": "Entretenimento"
+    }
+  ],
+  "Alimentação e Bebidas": [
+    {
+      "name": "Doces",
+      "icon": "local_cafe",
+      "categorie": "Alimentação e Bebidas"
+    },
+    {
+      "name": "Café",
+      "icon": "free_breakfast",
+      "categorie": "Alimentação e Bebidas"
+    },
+    {
+      "name": "Bebidas",
+      "icon": "local_drink",
+      "categorie": "Alimentação e Bebidas"
+    },
+    {
+      "name": "Alimentos",
+      "icon": "restaurant",
+      "categorie": "Alimentação e Bebidas"
+    },
+    {
+      "name": "Compras de Supermercado",
+      "icon": "shopping_cart",
+      "categorie": "Alimentação e Bebidas"
+    },
+    {
+      "name": "Restaurante",
+      "icon": "local_dining",
+      "categorie": "Alimentação e Bebidas"
+    }
+  ],
+  "Moradia": [
+    {
+      "name": "Padaria",
+      "icon": "bakery_dining",
+      "categorie": "Moradia"
+    },
+    {
+      "name": "Contas",
+      "icon": "receipt",
+      "categorie": "Moradia"
+    },
+    {
+      "name": "Eletricidade",
+      "icon": "electricity",
+      "categorie": "Moradia"
+    },
+    {
+      "name": "Suprimentos para Casa",
+      "icon": "home",
+      "categorie": "Moradia"
+    },
+    {
+      "name": "Moradia",
+      "icon": "house",
+      "categorie": "Moradia"
+    },
+    {
+      "name": "Seguro",
+      "icon": "insurance",
+      "categorie": "Moradia"
+    },
+    {
+      "name": "Internet",
+      "icon": "wifi",
+      "categorie": "Moradia"
+    },
+    {
+      "name": "Empréstimo",
+      "icon": "credit_card",
+      "categorie": "Moradia"
+    },
+    {
+      "name": "Manutenção",
+      "icon": "build",
+      "categorie": "Moradia"
+    },
+    {
+      "name": "Aluguel",
+      "icon": "payment",
+      "categorie": "Moradia"
+    },
+    {
+      "name": "Serviços",
+      "icon": "miscellaneous_services",
+      "categorie": "Moradia"
+    },
+    {
+      "name": "TV",
+      "icon": "tv",
+      "categorie": "Moradia"
+    },
+    {
+      "name": "Impostos",
+      "icon": "attach_money",
+      "categorie": "Moradia"
+    },
+    {
+      "name": "Telefone",
+      "icon": "phone",
+      "categorie": "Moradia"
+    },
+    {
+      "name": "Água",
+      "icon": "water_damage",
+      "categorie": "Moradia"
+    }
+  ],
+  "Diversos": [
+    {
+      "name": "Custos Bancários",
+      "icon": "account_balance",
+      "categorie": "Diversos"
+    },
+    {
+      "name": "Roupas",
+      "icon": "wardrobe",
+      "categorie": "Diversos"
+    },
+    {
+      "name": "Cuidados de Saúde",
+      "icon": "local_hospital",
+      "categorie": "Diversos"
+    },
+    {
+      "name": "Diversos",
+      "icon": "miscellaneous",
+      "categorie": "Diversos"
+    },
+    {
+      "name": "Empréstimo Estudantil",
+      "icon": "school",
+      "categorie": "Diversos"
+    },
+    {
+      "name": "Desconhecido",
+      "icon": "help",
+      "categorie": "Diversos"
+    }
+  ],
+  "Economias": [
+    {
+      "name": "Economias de Emergência",
+      "icon": "emergency",
+      "categorie": "Economias"
+    },
+    {
+      "name": "Poupança",
+      "icon": "savings",
+      "categorie": "Economias"
+    },
+    {
+      "name": "Poupança para Férias",
+      "icon": "flight",
+      "categorie": "Economias"
+    }
+  ],
+  "Renda": [
+    {
+      "name": "Renda",
+      "icon": "attach_money",
+      "categorie": "Renda"
+    },
+    {
+      "name": "Juros",
+      "icon": "monetization_on",
+      "categorie": "Renda"
+    },
+    {
+      "name": "Investimentos",
+      "icon": "trending_up",
+      "categorie": "Renda"
+    },
+    {
+      "name": "Pensão",
+      "icon": "account_balance",
+      "categorie": "Renda"
+    },
+    {
+      "name": "Salário",
+      "icon": "credit_card",
+      "categorie": "Renda"
+    }
+  ],
+  "Estilo de Vida": [
+    {
+      "name": "Caridade",
+      "icon": "favorite",
+      "categorie": "Estilo de Vida"
+    },
+    {
+      "name": "Dentista",
+      "icon": "local_hospital",
+      "categorie": "Estilo de Vida"
+    },
+    {
+      "name": "Médico",
+      "icon": "local_hospital",
+      "categorie": "Estilo de Vida"
+    },
+    {
+      "name": "Educação",
+      "icon": "school",
+      "categorie": "Estilo de Vida"
+    },
+    {
+      "name": "Presente",
+      "icon": "redeem",
+      "categorie": "Estilo de Vida"
+    },
+    {
+      "name": "Hotel",
+      "icon": "hotel",
+      "categorie": "Estilo de Vida"
+    },
+    {
+      "name": "Estilo de Vida",
+      "icon": "directions_run",
+      "categorie": "Estilo de Vida"
+    },
+    {
+      "name": "Despesas de Escritório",
+      "icon": "business",
+      "categorie": "Estilo de Vida"
+    },
+    {
+      "name": "Animal de Estimação",
+      "icon": "pets",
+      "categorie": "Estilo de Vida"
+    },
+    {
+      "name": "Farmácia",
+      "icon": "local_pharmacy",
+      "categorie": "Estilo de Vida"
+    },
+    {
+      "name": "Compras",
+      "icon": "shopping_bag",
+      "categorie": "Estilo de Vida"
+    },
+    {
+      "name": "Viagem",
+      "icon": "flight",
+      "categorie": "Estilo de Vida"
+    },
+    {
+      "name": "Trabalho",
+      "icon": "work",
+      "categorie": "Estilo de Vida"
+    }
+  ],
+  "Transporte": [
+    {
+      "name": "Custos de Carro",
+      "icon": "directions_car",
+      "categorie": "Transporte"
+    },
+    {
+      "name": "Seguro de Carro",
+      "icon": "local_taxi",
+      "categorie": "Transporte"
+    },
+    {
+      "name": "Empréstimo de Carro",
+      "icon": "directions_car",
+      "categorie": "Transporte"
+    },
+    {
+      "name": "Voo",
+      "icon": "flight",
+      "categorie": "Transporte"
+    },
+    {
+      "name": "Gasolina",
+      "icon": "local_gas_station",
+      "categorie": "Transporte"
+    },
+    {
+      "name": "Estacionamento",
+      "icon": "local_parking",
+      "categorie": "Transporte"
+    },
+    {
+      "name": "Transporte Público",
+      "icon": "directions_bus",
+      "categorie": "Transporte"
+    },
+    {
+      "name": "Reparo",
+      "icon": "build",
+      "categorie": "Transporte"
+    },
+    {
+      "name": "Táxi",
+      "icon": "local_taxi",
+      "categorie": "Transporte"
+    },
+    {
+      "name": "Transporte",
+      "icon": "commute",
+      "categorie": "Transporte"
+    }
+  ]
 }

@@ -158,7 +158,7 @@ export const Profile = ({ navigation }) => {
                 <View style={Styles2.viewMarginH}>
                     <TouchableOpacity
                         style={Styles2.buttonSair}
-                        onPress={handleSair}
+                        onPress={()=> navigation.navigate("SettingsStack")}
                     >
                             <Text
                                 style={Styles2.textButton}

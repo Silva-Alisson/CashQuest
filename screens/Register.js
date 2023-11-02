@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Dimensions, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { COLORS } from '../constants';
@@ -6,7 +6,16 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import styles from '../components/styles';
 
-const Register = () => {
+const Register = ({ navigation , route}) => {
+
+    const [selectedCategory, setSelectedCategory] = useState('');
+    
+    useEffect(() => {
+        if (route.params && route.params.selectedCategory) {
+            setSelectedCategory(route.params.selectedCategory);
+          }
+      }, [route.params]);
+
   const [selectedOption, setSelectedOption] = useState('option1');
 
   const getButtonStyle = (option) => {
@@ -83,19 +92,21 @@ const Register = () => {
                             fontWeight: 400,
                             marginVertical: 8
                         }}>Categoria</Text>
-
-                        <View style={styles.input}>
+                        <TouchableOpacity style={styles.input} onPress={() => navigation.navigate("CategoriesStack")}>
                             <TextInput
+                                type="button"
                                 label={'nome'}
                                 onChangeText={text => setValue('nome', text)}
-                                placeholder='salário'
+                                placeholder={selectedCategory}
                                 placeholderTextColor={COLORS.grey}
                                 keyboardType='name-phone-pad'
                                 style={{
                                     width: "100%"
                                 }}
+                                editable={false}
                             />
-                        </View>
+                        </TouchableOpacity>
+
                         <Text style={{
                             fontSize: 16,
                             fontWeight: 400,

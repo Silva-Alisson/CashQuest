@@ -2,6 +2,8 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Achievements from "../screens/Achievements";
 import TabNavigator from "./TabNavigator"; // Importe o TabNavigator
+import Settings from "../screens/Settings";
+import Categories from "../screens/Categories";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +20,20 @@ const OtherRoutes = () => {
       <Stack.Screen
         name="AchievementsStack"
         component={Achievements}
+        options={{
+          headerShown: false
+        }}
+      />
+      <Stack.Screen
+        name="SettingsStack"
+        component={Settings}
+        options={{
+          headerShown: false
+        }}
+      />
+      <Stack.Screen
+        name="CategoriesStack"
+        component={Categories}
         options={{
           headerShown: false
         }}
