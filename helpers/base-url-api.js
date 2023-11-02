@@ -1,4 +1,4 @@
 const baseUrl =
-  "https://cashquest-2eqpuveue-costaowillians-projects.vercel.app/api/";
+  "https://cashquest-88a8t2y42-costaowillians-projects.vercel.app/api/";
 
 export default baseUrl;
