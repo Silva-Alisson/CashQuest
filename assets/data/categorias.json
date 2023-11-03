@@ -1,18 +1,13 @@
 {
   "Entretenimento": [
     {
-      "name": "Boliche",
-      "icon": "sports_bowling",
-      "categorie": "Entretenimento"
-    },
-    {
       "name": "Cinema",
-      "icon": "local_movies",
+      "icon": "theater",
       "categorie": "Entretenimento"
     },
     {
       "name": "Shows",
-      "icon": "music_note",
+      "icon": "dance-ballroom",
       "categorie": "Entretenimento"
     },
     {
@@ -22,7 +17,7 @@
     },
     {
       "name": "Academia",
-      "icon": "fitness_center",
+      "icon": "dumbbell",
       "categorie": "Entretenimento"
     },
     {
@@ -32,61 +27,61 @@
     },
     {
       "name": "Bar",
-      "icon": "local_bar",
+      "icon": "glass-cocktail",
       "categorie": "Entretenimento"
     },
     {
       "name": "Esportes",
-      "icon": "sports",
+      "icon": "bike",
       "categorie": "Entretenimento"
     },
     {
       "name": "Assinatura de streaming",
-      "icon": "cast",
+      "icon": "cast-variant",
       "categorie": "Entretenimento"
     },
     {
       "name": "Férias",
-      "icon": "beach_access",
+      "icon": "umbrella-beach",
       "categorie": "Entretenimento"
     }
   ],
   "Alimentação e Bebidas": [
     {
       "name": "Doces",
-      "icon": "local_cafe",
+      "icon": "candy",
       "categorie": "Alimentação e Bebidas"
     },
     {
       "name": "Café",
-      "icon": "free_breakfast",
+      "icon": "coffee",
       "categorie": "Alimentação e Bebidas"
     },
     {
       "name": "Bebidas",
-      "icon": "local_drink",
+      "icon": "glass-mug-variant",
       "categorie": "Alimentação e Bebidas"
     },
     {
       "name": "Alimentos",
-      "icon": "restaurant",
+      "icon": "food-turkey",
       "categorie": "Alimentação e Bebidas"
     },
     {
       "name": "Compras de Supermercado",
-      "icon": "shopping_cart",
+      "icon": "cart-minus",
       "categorie": "Alimentação e Bebidas"
     },
     {
       "name": "Restaurante",
-      "icon": "local_dining",
+      "icon": "food",
       "categorie": "Alimentação e Bebidas"
     }
   ],
   "Moradia": [
     {
       "name": "Padaria",
-      "icon": "bakery_dining",
+      "icon": "baguette",
       "categorie": "Moradia"
     },
     {
@@ -96,7 +91,7 @@
     },
     {
       "name": "Eletricidade",
-      "icon": "electricity",
+      "icon": "home-lightning-bolt",
       "categorie": "Moradia"
     },
     {
@@ -106,12 +101,12 @@
     },
     {
       "name": "Moradia",
-      "icon": "house",
+      "icon": "home-heart",
       "categorie": "Moradia"
     },
     {
       "name": "Seguro",
-      "icon": "insurance",
+      "icon": "shield-car",
       "categorie": "Moradia"
     },
     {
@@ -121,32 +116,27 @@
     },
     {
       "name": "Empréstimo",
-      "icon": "credit_card",
+      "icon": "credit-card-multiple",
       "categorie": "Moradia"
     },
     {
       "name": "Manutenção",
-      "icon": "build",
+      "icon": "wrench",
       "categorie": "Moradia"
     },
     {
       "name": "Aluguel",
-      "icon": "payment",
+      "icon": "home-lightbulb",
       "categorie": "Moradia"
     },
     {
       "name": "Serviços",
-      "icon": "miscellaneous_services",
+      "icon": "account-wrench",
       "categorie": "Moradia"
     },
     {
       "name": "TV",
-      "icon": "tv",
-      "categorie": "Moradia"
-    },
-    {
-      "name": "Impostos",
-      "icon": "attach_money",
+      "icon": "television",
       "categorie": "Moradia"
     },
     {
@@ -156,16 +146,11 @@
     },
     {
       "name": "Água",
-      "icon": "water_damage",
+      "icon": "water-pump",
       "categorie": "Moradia"
     }
   ],
   "Diversos": [
-    {
-      "name": "Custos Bancários",
-      "icon": "account_balance",
-      "categorie": "Diversos"
-    },
     {
       "name": "Roupas",
       "icon": "wardrobe",
@@ -173,12 +158,12 @@
     },
     {
       "name": "Cuidados de Saúde",
-      "icon": "local_hospital",
+      "icon": "hospital-box",
       "categorie": "Diversos"
     },
     {
       "name": "Diversos",
-      "icon": "miscellaneous",
+      "icon": "archive-star",
       "categorie": "Diversos"
     },
     {
@@ -188,170 +173,170 @@
     },
     {
       "name": "Desconhecido",
-      "icon": "help",
+      "icon": "archive-alert",
       "categorie": "Diversos"
     }
   ],
   "Economias": [
     {
       "name": "Economias de Emergência",
-      "icon": "emergency",
+      "icon": "piggy-bank",
       "categorie": "Economias"
     },
     {
       "name": "Poupança",
-      "icon": "savings",
+      "icon": "account-cash-outline",
       "categorie": "Economias"
     },
     {
       "name": "Poupança para Férias",
-      "icon": "flight",
+      "icon": "beach",
       "categorie": "Economias"
     }
   ],
   "Renda": [
     {
       "name": "Renda",
-      "icon": "attach_money",
+      "icon": "cash-plus",
       "categorie": "Renda"
     },
     {
       "name": "Juros",
-      "icon": "monetization_on",
+      "icon": "cash-refund",
       "categorie": "Renda"
     },
     {
       "name": "Investimentos",
-      "icon": "trending_up",
+      "icon": "bank-check",
       "categorie": "Renda"
     },
     {
       "name": "Pensão",
-      "icon": "account_balance",
+      "icon": "cash-fast",
       "categorie": "Renda"
     },
     {
       "name": "Salário",
-      "icon": "credit_card",
+      "icon": "cash-check",
       "categorie": "Renda"
     }
   ],
   "Estilo de Vida": [
     {
       "name": "Caridade",
-      "icon": "favorite",
+      "icon": "puzzle-star",
       "categorie": "Estilo de Vida"
     },
     {
       "name": "Dentista",
-      "icon": "local_hospital",
+      "icon": "hospital-building",
       "categorie": "Estilo de Vida"
     },
     {
       "name": "Médico",
-      "icon": "local_hospital",
+      "icon": "doctor",
       "categorie": "Estilo de Vida"
     },
     {
       "name": "Educação",
-      "icon": "school",
+      "icon": "town-hall",
       "categorie": "Estilo de Vida"
     },
     {
       "name": "Presente",
-      "icon": "redeem",
+      "icon": "wallet-giftcard",
       "categorie": "Estilo de Vida"
     },
     {
       "name": "Hotel",
-      "icon": "hotel",
+      "icon": "city-variant",
       "categorie": "Estilo de Vida"
     },
     {
       "name": "Estilo de Vida",
-      "icon": "directions_run",
+      "icon": "meditation",
       "categorie": "Estilo de Vida"
     },
     {
       "name": "Despesas de Escritório",
-      "icon": "business",
+      "icon": "domain",
       "categorie": "Estilo de Vida"
     },
     {
       "name": "Animal de Estimação",
-      "icon": "pets",
+      "icon": "paw",
       "categorie": "Estilo de Vida"
     },
     {
       "name": "Farmácia",
-      "icon": "local_pharmacy",
+      "icon": "pill",
       "categorie": "Estilo de Vida"
     },
     {
       "name": "Compras",
-      "icon": "shopping_bag",
+      "icon": "shopping",
       "categorie": "Estilo de Vida"
     },
     {
       "name": "Viagem",
-      "icon": "flight",
+      "icon": "train-car",
       "categorie": "Estilo de Vida"
     },
     {
       "name": "Trabalho",
-      "icon": "work",
+      "icon": "briefcase",
       "categorie": "Estilo de Vida"
     }
   ],
   "Transporte": [
     {
       "name": "Custos de Carro",
-      "icon": "directions_car",
+      "icon": "car-back",
       "categorie": "Transporte"
     },
     {
       "name": "Seguro de Carro",
-      "icon": "local_taxi",
+      "icon": "shield-car",
       "categorie": "Transporte"
     },
     {
       "name": "Empréstimo de Carro",
-      "icon": "directions_car",
+      "icon": "car-sports",
       "categorie": "Transporte"
     },
     {
       "name": "Voo",
-      "icon": "flight",
+      "icon": "airplane-takeoff",
       "categorie": "Transporte"
     },
     {
       "name": "Gasolina",
-      "icon": "local_gas_station",
+      "icon": "gas-station",
       "categorie": "Transporte"
     },
     {
       "name": "Estacionamento",
-      "icon": "local_parking",
+      "icon": "car-brake-parking",
       "categorie": "Transporte"
     },
     {
       "name": "Transporte Público",
-      "icon": "directions_bus",
+      "icon": "bus",
       "categorie": "Transporte"
     },
     {
       "name": "Reparo",
-      "icon": "build",
+      "icon": "car-wrench",
       "categorie": "Transporte"
     },
     {
       "name": "Táxi",
-      "icon": "local_taxi",
+      "icon": "taxi",
       "categorie": "Transporte"
     },
     {
       "name": "Transporte",
-      "icon": "commute",
+      "icon": "car-multiple",
       "categorie": "Transporte"
     }
   ]

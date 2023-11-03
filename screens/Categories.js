@@ -21,7 +21,7 @@ export default function Categories({ navigation }) {
         onPress={() => handleCategorySelection(item.name)}
         >
           <View style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: '#eee', justifyContent: 'center', alignItems: 'center' }}>
-            <MaterialCommunityIcons name="close" size={40} color='#5DA660' />
+            <MaterialCommunityIcons name={item.icon} size={40} color='#5DA660' />
           </View>
           <Text style={styles.text}>{item.name}</Text>
         </TouchableOpacity>
