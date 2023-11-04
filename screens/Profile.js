@@ -14,14 +14,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const Profile = ({ navigation }) => {
 
-    
-
-    const handleSair = async () => {
-        await AsyncStorage.removeItem('@asyncStorage:Token');
-        await AsyncStorage.removeItem("@asyncStorage:userId");
-        navigation.navigate("Welcome");
-    };
-
     const [dados, setDados] = useState([]);
 
     useEffect(() => {

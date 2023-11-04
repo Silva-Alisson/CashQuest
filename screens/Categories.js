@@ -9,7 +9,7 @@ export default function Categories({ navigation }) {
 
     function handleCategorySelection(category) {
         navigation.navigate('Register', { selectedCategory: category });
-      }
+    }
     const groupedCategories = Object.keys(categorias).map((categoria) => ({
       categoria,
       itens: categorias[categoria],

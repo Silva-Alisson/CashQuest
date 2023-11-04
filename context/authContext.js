@@ -41,6 +41,18 @@ const createUser = (dispatch) => {
   };
 };
 
+const logoutUser = (dispatch) => {
+  return async () => {
+    try {
+      await AsyncStorage.removeItem('@asyncStorage:Token');
+      await AsyncStorage.removeItem('@asyncStorage:userId');    
+      return true;
+    } catch (error) {
+      console.error('Erro ao fazer logout:', error);
+    }
+  };
+};
+
 const loginUser = (dispatch) => {
   return async (params) => {
     const email = params.email;
@@ -69,8 +81,10 @@ const loginUser = (dispatch) => {
         if (token) {
           await AsyncStorage.setItem("@asyncStorage:Token", token);
           await AsyncStorage.setItem("@asyncStorage:userId", userId);
+          return true;
         } else {
           console.log(response);
+          return false;
         }
       })
     .catch((error) => console.log("error", error));
@@ -79,6 +93,6 @@ const loginUser = (dispatch) => {
 
 export const { Context, Provider } = createContext(
   reducer,
-  { createUser, loginUser },
+  { createUser, loginUser, logoutUser },
   initialState
 );

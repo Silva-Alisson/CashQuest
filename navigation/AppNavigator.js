@@ -1,34 +1,20 @@
-import React, {useEffect, useState } from "react";
+import React from "react";
+import { View, Text } from 'react-native'
+
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AuthStack from "./AuthStack"; // Importe o AuthStack
-import TabNavigator from "./TabNavigator"; // Importe o TabNavigator
+import AuthStack from "./AuthStack";
 import OtherRoutes from "./otherRoutes";
+import {useAuth} from '../context/auth';
 
 const Stack = createNativeStackNavigator();
 
-const getToken = async () => {
-  const existToken = await AsyncStorage.getItem('@asyncStorage:Token');
-  return existToken;
-}
-
 export default function AppNavigator() {
 
-  const [authenticated, setAuthenticated] = useState(true);
-
-  useEffect(() => {
-    const checkAuthentication = async () => {
-      const token = await AsyncStorage.getItem('@asyncStorage:isLoggedIn');
-      if (token !== null) {
-        setAuthenticated(true);
-      }
-    };
-
-    checkAuthentication();
-  }, []);
-
+  const {authData} = useAuth();
+  
   return (
     <Stack.Navigator>
-      {authenticated ? (
+      {authData && authData.userId ? (
         <Stack.Screen
           name="OtherRoutes"
           component={OtherRoutes}

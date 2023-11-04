@@ -2,18 +2,28 @@ import React from "react";
 import { StyleSheet, Text, View, Image, FlatList, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAuth } from "../context/auth";
 
 const settingsText = [ 
     { key: "Editar perfil",
-    description: "Altere seu nome, foto, nome do pet e outras informações"}, 
+    description: "Altere seu nome, foto, nome do pet e outras informações", navigate: ""}, 
     { key: "Alterar informações do pet",
-    description: "Altere o nome do seu pet" }, 
+    description: "Altere o nome do seu pet", navigate: "" }, 
     { key: "Excluir conta permanentemente",
-    description: "Excluir sua conta permanentemente" }, 
-    { key: "Sair da sua conta", description: "Sair da sua conta temporariamente" }
+    description: "Excluir sua conta permanentemente", navigate: "" }, 
+    { key: "Sair da sua conta", description: "Sair da sua conta temporariamente", navigate: "signOut" }
 ];
 
 export default function Settings({ navigation }) { 
+    const {signOut} = useAuth();
+    const handleSingOut = async () => {
+        try {
+            signOut();
+          } catch (error) {
+            console.error('Erro ao fazer login:', error);
+          }
+    }
+
     return ( 
         <SafeAreaView
             style={styles.container}
@@ -27,7 +37,7 @@ export default function Settings({ navigation }) {
         
         <FlatList data={settingsText} 
             renderItem={({ item }) => (
-                <TouchableOpacity  style={styles.list}>
+                <TouchableOpacity  style={styles.list} onPress={handleSingOut}>
                     <View style={styles.item}>
                         <View>
                             <Text style={styles.text}>{item.key}</Text> 

@@ -1,30 +1,30 @@
 import { View, Text, Image , Pressable, TextInput, TouchableOpacity, StatusBar, SafeAreaView } from 'react-native'
-import React, { useState, useEffect, useContext } from 'react'
-import { COLORS,  SIZES, icons, images } from '../constants'
+import React, { useState } from 'react'
+import { COLORS } from '../constants'
 import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox"
 import Button from '../components/Button';
-import { useForm } from 'react-hook-form';
 import styles from '../components/styles';
-import { Context } from "../context/authContext";
+import {useAuth} from '../context/auth';
 
 const Login = ({ navigation }) => {
-    const { loginUser } = useContext(Context);
-    //forms start
-    const { register, setValue, handleSubmit } = useForm();
-    
-    useEffect(() => {
-        register('email')
-        register('senha')
-      }, [register]);
-    //forms end
+    const {signIn} = useAuth();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleLogin = async () => {
+        try {
+            signIn(email, password);
+          } catch (error) {
+            console.error('Erro ao fazer login:', error);
+          }
+    }
 
     const [isPasswordShown, setIsPasswordShown] = useState(true);
     const [isChecked, setIsChecked] = useState(false);
     
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
-            {/* <StatusBar translucent backgroundColor="transparent"/> */}
             <View style={{marginHorinzontal: 22, alignItems: "center" }}>
                 <Image
                     source={require("../assets/cashquest.png")}
@@ -65,7 +65,7 @@ const Login = ({ navigation }) => {
                     <View style={styles.input}>
                         <TextInput
                             label={'Email'}
-                            onChangeText={text => setValue('email', text)}
+                            onChangeText={setEmail}
                             placeholder='Insira seu e-mail'
                             placeholderTextColor={COLORS.grey}
                             keyboardType='email-address'
@@ -86,7 +86,7 @@ const Login = ({ navigation }) => {
                     <View style={styles.input}>
                         <TextInput
                             label={'senha'}
-                            onChangeText={text => setValue('senha', text)}
+                            onChangeText={setPassword}
                             placeholder='Insira sua senha'
                             placeholderTextColor={COLORS.grey}
                             secureTextEntry={isPasswordShown}
@@ -129,9 +129,7 @@ const Login = ({ navigation }) => {
                 </View>
 
                 <Button
-                    onPress={handleSubmit((data) => {
-                        loginUser(data);
-                        navigation.navigate("AppNavigator");})}
+                    onPress={handleLogin}
                     title="Entrar"
                     filled
                     style={{
