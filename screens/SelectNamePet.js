@@ -29,6 +29,7 @@ export default function SelectNamePet({ navigation }) {
         const user = await AsyncStorage.getItem('@UserData');
         const userData = JSON.parse(user);
         signIn(userData.email, userData.senha);
+        await AsyncStorage.removeItem('@UserData');
       } catch (error) {
         console.error('Erro ao fazer login:', error);
       }
