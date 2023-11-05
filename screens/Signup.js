@@ -1,9 +1,8 @@
 import { View, Text, Image, Pressable, TextInput, TouchableOpacity } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from "react-native-safe-area-context";
-import { COLORS,  SIZES, icons, images } from '../constants'
+import { COLORS } from '../constants'
 import { Ionicons } from "@expo/vector-icons";
-import Checkbox from "expo-checkbox"
 import Button from '../components/Button';
 import { useForm } from 'react-hook-form';
 import { register_user } from '../services/register-user-service';
@@ -23,9 +22,13 @@ const Signup = ({ navigation }) => {
       }, [register]);
 
       const onSubmit = async (data) => {
-        register_user(data);
-        if(register_user) {
-            //redireicionar para a página certa
+        console.log({data})
+        const result = await register_user(data);
+        console.log(result);
+        if(result) {
+            navigation.navigate("UploadProfileImgStack");
+        } else {
+            console.log("Falha ao cadastrar, tente novamente.");
         }
       }
     //forms end
@@ -168,7 +171,7 @@ const Signup = ({ navigation }) => {
                             </TouchableOpacity>
                         </View>
                     </View>
-
+{/* 
                     <View style={{
                         flexDirection: 'row',
                         marginVertical: 6
@@ -181,7 +184,7 @@ const Signup = ({ navigation }) => {
                         />
 
                         <Text>Eu concordo com os termos e condições</Text>
-                    </View>
+                    </View> */}
 
                     <Button
                         onPress={handleSubmit(onSubmit)}

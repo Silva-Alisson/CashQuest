@@ -36,7 +36,6 @@ export const Profile = ({ navigation }) => {
                     source={require("../assets/avatar.png")}
                     resizeMode="contain"
                     style={Styles2.image} />
-
                 <Text
                     style={Styles2.textName}
                 >

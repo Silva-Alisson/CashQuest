@@ -8,7 +8,8 @@ export const COLORS = {
     secondary: "#BAE6BC",
     third: "#206627",
     grey: "#585865",
-    orange: "#D87661"
+    orange: "#D87661",
+    darkBlue: "#1E2E33"
 }
 export const SIZES = {
     // global SIZES
