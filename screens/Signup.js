@@ -187,7 +187,8 @@ const Signup = ({ navigation }) => {
                     </View> */}
 
                     <Button
-                        onPress={handleSubmit(onSubmit)}
+                        onPress={() => navigation.navigate("UploadProfileImgStack")}
+                        // onPress={handleSubmit(onSubmit)}
                         title="Confirmar"
                         filled
                         style={{

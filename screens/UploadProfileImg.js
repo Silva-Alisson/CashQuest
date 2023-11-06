@@ -42,12 +42,12 @@ export default function UploadProfileImg({ navigation }) {
       >
         <Text style={styles.title}>Adicionar foto de perfil</Text>
       </View>
-      <View style={{flex: 1, flexDirection:'column', alignContent: 'center', justifyContent:'space-between', gap:100, marginHorizontal: 10, marginBottom:16, marginTop:150}}>
-        <View style={{ margin: 65}}>
+      <View style={{flex: 1, flexDirection:'column', alignContent: 'center', justifyContent:'space-between', gap:100, marginHorizontal: 10, marginBottom:16, marginTop:"70%"}}>
+        <View style={{ alignItems:'center'}}>
             <TouchableOpacity onPress={pickImage}>
             <View style={styles.photoView}>
                 {!image ? (
-                <MaterialCommunityIcons name="account" size={200} color="#fff" />
+                <MaterialCommunityIcons name="account" size={160} color="#fff" />
                 ) : (
                 image && (
                     <Image
@@ -106,16 +106,16 @@ const styles = StyleSheet.create({
     backgroundColor: "white"
   },
   photoView: {
-    width: 287,
-    height: 287,
+    width: 190,
+    height: 190,
     borderRadius: 200,
     backgroundColor: COLORS.darkBlue,
     justifyContent: "center",
     alignItems: "center"
   },
   photo: {
-    width: 287,
-    height: 287,
+    width: 180,
+    height: 180,
     borderRadius: 200
   },
   text: {

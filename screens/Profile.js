@@ -155,7 +155,7 @@ export const Profile = ({ navigation }) => {
                                 style={Styles2.textButton}
 
                             >
-                                Sair
+                                Configurações
                             </Text>
                             <MaterialIcons name="chevron-right" size={20} style={Styles2.textButton} />
                         
@@ -209,7 +209,7 @@ const Styles2 = StyleSheet.create({
     },
     textTittle: {
         color: COLORS.primary,
-        paddingTop: 30,
+        paddingTop: 10,
         fontSize: 24,
     },
     viewMarginH:{
@@ -219,7 +219,7 @@ const Styles2 = StyleSheet.create({
     },
     formaIcon:{
         width: '45%',
-        height: '60%',
+        height: '40%',
         justifyContent: "center",
         textAlign: "center",
         backgroundColor: COLORS.primary,
