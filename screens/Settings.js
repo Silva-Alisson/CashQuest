@@ -6,7 +6,7 @@ import { useAuth } from "../context/auth";
 
 const settingsText = [ 
     { key: "Editar perfil",
-    description: "Altere seu nome, foto e outras informações", navigate: "() => navigation.navigate('EditPetStack')"}, 
+    description: "Altere seu nome, foto e outras informações", navigate: "EditPetStack"}, 
     { key: "Alterar informações do pet",
     description: "Altere o nome do seu pet", navigate: "" }, 
     { key: "Excluir conta permanentemente",

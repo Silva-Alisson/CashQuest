@@ -18,10 +18,10 @@ export default function EditPet({ navigation }) {
         </View>
         <View style={{  alignItems: 'center', marginHorizontal: 10 }}>
             <Image
-                source={require("../assets/turtle_nivel_3.png")}
+                source={require("../assets/turtle_auto_x2_CUT.png")}
                 style={{
                     width: '58%',
-                    height:350,
+                    height:355,
                    
                 }}
             />
