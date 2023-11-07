@@ -7,7 +7,8 @@ export const COLORS = {
     primary: "#5DA660",
     secondary: "#BAE6BC",
     third: "#206627",
-    grey: "#585865",
+    grey: "#D9D9D9",
+    greyDark: "#A6A6A6",
     orange: "#D87661",
     darkBlue: "#1E2E33"
 }

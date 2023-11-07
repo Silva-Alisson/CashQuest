@@ -5,21 +5,21 @@ import { COLORS,  SIZES, icons, images} from '../constants';
 import * as Progress from 'react-native-progress';
 import getWallet from "../services/wallet-service/wallet-service";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import {useAuth} from '../context/auth';
 
 
 
 const Home = ({ navigation }) => {
     const [dados, setDados] = useState([]);
-
-    
+    const {authData} = useAuth();
 
     useEffect(() => {
         async function fetchData() {
-            const response = await getWallet();
+            console.log(authData);
+            const response = await getWallet(authData.token, authData.userId); 
             const arrayResponse = Object.keys(response).map(chave => response[chave]);
             setDados(arrayResponse);
         }
-
 
         fetchData();
     }, []);
@@ -36,16 +36,13 @@ const Home = ({ navigation }) => {
 
 
             <View style={{ flex: 1}}>
-                <View style={{ alignItems: "center", backgroundColor: COLORS.primary, width:'100%', height:'50%'}}>
+                <View style={{ alignItems: "center", backgroundColor: COLORS.primary, width:'100%', height:'40%', borderBottomEndRadius:40, borderBottomStartRadius:40, marginBottom: 10}}>
                     <Image
-                        source={require("../assets/pet_teste.png")}
+                        source={require("../assets/turtle_auto_x2_CUT.png")}
                         resizeMode="contain"
                         style={{                        
-                            height: '30%',
+                            height: '40%',
                             width: '30%',
-                            borderRadius: 999,
-                            borderColor: COLORS.white,
-                            borderWidth: 2,
                             margin: 25,
                     }} />
                     <Text
@@ -53,10 +50,22 @@ const Home = ({ navigation }) => {
                             color: COLORS.white,
                             fontSize: 20
                             }}>Arquielorinho</Text>
+
+                    <View style={{ alignItems: "center" }}>
+                            <Progress.Bar 
+                            progress={0.3}
+                            width={300}
+                            height={20}
+                            color={COLORS.third}
+                            backgroundColor={COLORS.white}
+                            borderRadius={15}
+                            borderWidth={0}
+                            style={{ margin: 10 }}
+                            />
+                    </View>
                     <View
                         style={{
                             flexDirection: "row",
-                            backgroundColor: COLORS.primary,
                             borderRadius: 16,
                             width: '90%',
                             justifyContent: 'center',
@@ -65,6 +74,7 @@ const Home = ({ navigation }) => {
                         <View style={{
                             flexDirection: "column",
                             alignItems: "center",
+                            marginHorizontal:20
                         }} >
                             <Text style={{
                                 color: COLORS.white,
@@ -79,39 +89,28 @@ const Home = ({ navigation }) => {
                         <View style={{
                             flexDirection: "column",
                             alignItems: "center",
+                            marginHorizontal:20
                         }}>
                             <Text
                                 style={{
                                     color: COLORS.white,
-                                }}>R$ {dados[3]}</Text>
+                                }}>R$ {dados[2]}</Text>
                                 <Text
                                     style={{
                                         color: COLORS.white,
                                 }}>Reservas</Text>
                         </View>
                     </View>
-                    <View style={{ alignItems: "center" }}>
-                        <Progress.Bar
-                        progress={0.3}
-                        width={350}
-                        height={20}
-                        color={COLORS.orange}
-                        backgroundColor={COLORS.grey}
-                        borderRadius={15}
-                        borderWidth={0}
-                        style={{ marginTop: 20 }}
-                        />
-                    </View>
                 </View>
                 
-                <View style={{flexDirection: "row",alignItems: 'center', justifyContent:"center" , alignItems: 'center', marginVertical: 5}}>
-                    <View style={{flexDirection: "row",alignItems: 'center', justifyContent:"center" , alignItems: 'center',borderRadius: 10,borderColor: COLORS.black, borderWidth: 1, padding: 5}}>
+                <View style={{flexDirection: "row",alignItems: 'center', justifyContent:"center" , alignItems: 'center', marginVertical: 5, }}>
+                    <View style={{flexDirection: "row",alignItems: 'center', justifyContent:"center" , alignItems: 'center', borderRadius: 16, borderColor: COLORS.grey, borderWidth: 1, }}>
                         <TouchableOpacity>
                             <MaterialCommunityIcons name={"chevron-left"} size={42} color='#000' />
                         </TouchableOpacity>
-                        <View style={{flexDirection: "column", paddingHorizontal:20, paddingVertical:5, alignItems: 'center', justifyContent:"center"}}>
-                            <Text style={{color: COLORS.black,fontSize: 30}}>Outubro</Text>
-                            <Text style={{color: COLORS.black,fontSize: 16}}>Suas movimentações</Text>
+                        <View style={{flexDirection: "column", paddingHorizontal:"14%", alignItems: 'center', justifyContent:"center"}}>
+                            <Text style={{color: COLORS.black,fontSize: 36}}>Outubro</Text>
+                            <Text style={{color: COLORS.black,fontSize: 15}}>Suas movimentações</Text>
                         </View>
                         <TouchableOpacity>
                             <MaterialCommunityIcons name={"chevron-right"} size={42} color='#000' />
