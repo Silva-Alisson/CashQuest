@@ -67,7 +67,7 @@ export default function UploadProfileImg({ navigation }) {
         <Text style={styles.title}>Adicionar foto de perfil</Text>
       </View>
       <View style={{flex: 1, flexDirection:'column', alignContent: 'center', justifyContent:'space-between', gap:100, marginHorizontal: 10, marginBottom:16, marginTop:150}}>
-        <View style={{ margin:45}}>
+        <View style={{ alignItems:'center'}}>
             <TouchableOpacity onPress={pickImage}>
             <View style={styles.photoView}>
                 {!image ? (
