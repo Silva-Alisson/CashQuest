@@ -7,16 +7,16 @@ export const createUserPet = async (name) => {
     const user = await AsyncStorage.getItem('@UserData');
     const userData = JSON.parse(user);
 
-    var myHeaders = new Headers();
+    const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify({
+    const raw = JSON.stringify({
       "name": name,
       "_userId": userData.id,
       "createdAt": date
     });
 
-    var requestOptions = {
+    const requestOptions = {
       method: 'POST',
       headers: myHeaders,
       body: raw,

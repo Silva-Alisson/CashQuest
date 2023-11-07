@@ -13,6 +13,16 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         paddingLeft: 22,
     },
+    button: {
+        paddingBottom: 16,
+        paddingVertical: 10,
+        borderColor: COLORS.primary,
+        backgroundColor: COLORS.primary,
+        borderWidth: 2,
+        borderRadius: 12,
+        alignItems: 'center',
+        justifyContent: 'center'
+      },
 })
 
 export default styles
