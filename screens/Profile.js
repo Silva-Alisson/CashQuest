@@ -5,20 +5,22 @@ import {
     TouchableOpacity,
     StyleSheet
 } from "react-native";
-import React, { useEffect, useState, useForm } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { COLORS,  SIZES, icons, images } from '../constants'
+import { COLORS,  SIZES } from '../constants'
 import { MaterialIcons } from "@expo/vector-icons";
 import getWallet from "../services/wallet-service/wallet-service";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useAuth} from '../context/auth';
 
 export const Profile = ({ navigation }) => {
 
     const [dados, setDados] = useState([]);
+    const {authData} = useAuth();
 
     useEffect(() => {
         async function fetchData() {
-            const response = await getWallet(); 
+            console.log(authData);
+            const response = await getWallet(authData.token, authData.userId); 
             const arrayResponse = Object.keys(response).map(chave => response[chave]);
             setDados(arrayResponse);
         }
@@ -84,7 +86,7 @@ export const Profile = ({ navigation }) => {
                         <Text
                             style={Styles2.textWallet}
                         >
-                           R$ {dados[3]}
+                           R$ {dados[2]}
                         </Text>
                         <Text
                             style={Styles2.textWallet}
@@ -99,7 +101,7 @@ export const Profile = ({ navigation }) => {
                         <Text
                             style={Styles2.textWallet}
                         >
-                           R$ {dados[2]}
+                           R$ {dados[1]}
                         </Text>
                         <Text
                             style={Styles2.textWallet}

@@ -1,28 +1,35 @@
 import baseUrl from "../../helpers/base-url-api";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const getWallet = async () => {
+const getWallet = async (token, userId) => {
+  console.log({ token: token });
+  console.log({ id: userId });
   const myHeaders = new Headers();
-  const userId = await AsyncStorage.getItem('@asyncStorage:userId');
-  console.log({idusuario: userId});
-  const token = await AsyncStorage.getItem('@asyncStorage:Token');
-  console.log({tokenusurario: token});
   myHeaders.append("Authorization", "Bearer " + token);
 
   const requestOptions = {
-    method: 'GET',
+    method: "GET",
     headers: myHeaders,
-    redirect: 'follow'
+    redirect: "follow"
   };
 
-  let data = [];
+  try {
+    const response = await fetch(
+      baseUrl + "/wallet/get-wallet/" + userId,
+      requestOptions
+    );
 
-  await fetch(baseUrl + "wallet/get-wallet/" + userId, requestOptions)
-  .then(response => response.json())
-  .then(result => data = result)
-  .catch(error => console.log('error', error)); 
-
-  return data;
-}
+    if (response.ok) {
+      const result = await response.json();
+      return result;
+    } else {
+      console.error("Erro na resposta da API. Status:", response.status);
+      console.log(await response.text());
+      return null;
+    }
+  } catch (error) {
+    console.error("Erro na requisição:", error);
+    return null;
+  }
+};
 
 export default getWallet;
