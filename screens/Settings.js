@@ -6,12 +6,11 @@ import { useAuth } from "../context/auth";
 
 const settingsText = [ 
     { key: "Editar perfil",
-    description: "Altere seu nome, foto, nome do pet e outras informações", navigate: ""}, 
+    description: "Altere seu nome, foto e outras informações", navigate: "EditPetStack"}, 
     { key: "Alterar informações do pet",
     description: "Altere o nome do seu pet", navigate: "" }, 
     { key: "Excluir conta permanentemente",
-    description: "Excluir sua conta permanentemente", navigate: "" }, 
-    { key: "Sair da sua conta", description: "Sair da sua conta temporariamente", navigate: "signOut" }
+    description: "Excluir sua conta permanentemente", navigate: "" }
 ];
 
 export default function Settings({ navigation }) { 
@@ -34,21 +33,35 @@ export default function Settings({ navigation }) {
             </TouchableOpacity>
             <Text style={{ marginLeft: 10 }}>Configurações</Text>
         </View>
+        <View>
         
-        <FlatList data={settingsText} 
-            renderItem={({ item }) => (
-                <TouchableOpacity  style={styles.list} onPress={handleSingOut}>
-                    <View style={styles.item}>
-                        <View>
-                            <Text style={styles.text}>{item.key}</Text> 
-                            <Text style={styles.description}>{item.description}</Text>
-                        </View>
-                        
-                        <MaterialCommunityIcons name="chevron-right" size={40} color="black" /> 
-                    </View> 
+            <FlatList data={settingsText} 
+                renderItem={({ item }) => (
+                    <TouchableOpacity  style={styles.list} onPress={()=> navigation.navigate(item.navigate)}>
+                        <View style={styles.item}>
+                            <View>
+                                <Text style={styles.text}>{item.key}</Text> 
+                                <Text style={styles.description}>{item.description}</Text>
+                            </View>
+                            
+                            <MaterialCommunityIcons name="chevron-right" size={40} color="black" /> 
+                        </View> 
+                    </TouchableOpacity>
+                )} 
+            /> 
+        </View>    
+        <View>
+            <TouchableOpacity  style={styles.list} onPress={signOut}>
+                        <View style={styles.item}>
+                            <View>
+                                <Text style={styles.text}>Sair da sua conta</Text> 
+                                <Text style={styles.description}>Excluir sua conta permanentemente</Text>
+                            </View>
+                            
+                            <MaterialCommunityIcons name="chevron-right" size={40} color="black" /> 
+                        </View> 
                 </TouchableOpacity>
-            )} 
-        /> 
+        </View>        
         </SafeAreaView> 
     );
 }
@@ -56,7 +69,7 @@ export default function Settings({ navigation }) {
 const styles = StyleSheet.create({ 
     container: { 
         flex: 1, backgroundColor: "white", 
-        paddingTop: 50, 
+        paddingTop: 10, 
     }, 
     title: { 
         textAlign: "center", 

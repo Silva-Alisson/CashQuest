@@ -4,6 +4,7 @@ import Achievements from "../screens/Achievements";
 import TabNavigator from "./TabNavigator"; // Importe o TabNavigator
 import Settings from "../screens/Settings";
 import Categories from "../screens/Categories";
+import EditPet from "../screens/EditPet";
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +35,13 @@ const OtherRoutes = () => {
       <Stack.Screen
         name="CategoriesStack"
         component={Categories}
+        options={{
+          headerShown: false
+        }}
+      />
+      <Stack.Screen
+        name="EditPetStack"
+        component={EditPet}
         options={{
           headerShown: false
         }}

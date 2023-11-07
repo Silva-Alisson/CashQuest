@@ -4,10 +4,12 @@ import {
   StyleSheet,
   SafeAreaView,
   View,
-  Image
+  Image,
+  ScrollView
 } from "react-native";
 import React from "react";
 import { COLORS, SIZES, icons, images } from "../constants";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export const Achievements = ({ navigation }) => (
   <SafeAreaView
@@ -16,24 +18,40 @@ export const Achievements = ({ navigation }) => (
       backgroundColor: COLORS.white
     }}
   >
-    <View>
-      <Text style={StylesAchievements.TextStyleTitle}>Conquistas</Text>
-    </View>
-    <View>
+    <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: 10 }}>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+          <MaterialCommunityIcons name="arrow-left" size={40} color="black" />
+      </TouchableOpacity>
+      <Text style={{ marginLeft: 10 }}>Conquistas</Text>
+     </View>
+    <View style={{ marginHorizontal:10, marginVertical: 10 }}>
       <View>
-        <Text style={StylesAchievements.TextStyleTitle}>
-          Últimas Conquistas
-        </Text>
+        <View>
+          <Text style={StylesAchievements.TextStyleTitle}>
+            Últimas Conquistas
+          </Text>
+        </View>
+        <View style={{ height: 80.614, height: 156, justifyContent: "center", alignItens: "center" }}>
+          <Image
+            source={require("../assets/Conquista.png")}
+            resizeMode="contain"
+          />
+          <Text style={StylesAchievements.TextStyleSub}>
+            Aficionado por Finanças I
+          </Text>
+          <Image
+            source={require("../assets/Conquista.png")}
+            resizeMode="contain"
+          />
+          <Text style={StylesAchievements.TextStyleSub}>
+            Aficionado por Finanças I
+          </Text>
+        </View>
       </View>
-      <View>
-        <Image
-          source={require("../assets/Conquista.png")}
-          resizeMode="contain"
-        />
-        <Text style={StylesAchievements.TextStyleSub}>
-          Aficionado por Finanças I
-        </Text>
-      </View>
+      <ScrollView
+          scrollEventThrottle={5}
+      >
+      </ScrollView>
     </View>
   </SafeAreaView>
 );

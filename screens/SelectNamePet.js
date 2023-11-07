@@ -109,7 +109,7 @@ export default function SelectNamePet({ navigation }) {
                     width: 120, // Corrigido: 'with' para 'width'
                     height: 60,
                     backgroundColor: '#fff',
-                    color: COLORS.primary
+                    color: COLORS.primary,
                 }}
                 />
             </View>

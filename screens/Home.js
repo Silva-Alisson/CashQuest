@@ -28,15 +28,13 @@ const Home = ({ navigation }) => {
             }}>
 
             <View style={{ flex: 1, alignItems: "center"}}>
-                <View style={{ alignItems: "center", backgroundColor: COLORS.primary, width:'100%', height:'50%'}}>
+                <View style={{ alignItems: "center", backgroundColor: COLORS.primary, width:'100%', height:'40%', borderBottomEndRadius:40, borderBottomStartRadius:40}}>
                     <Image
-                        source={require("../assets/pet_teste.png")}
+                        source={require("../assets/turtle_auto_x2_CUT.png")}
                         resizeMode="contain"
                         style={{                        
-                            height: '30%',
+                            height: '40%',
                             width: '30%',
-                            borderRadius: 999,
-                            borderColor: COLORS.white,
                             borderWidth: 2,
                             margin: 25,
                     }} />
@@ -45,18 +43,32 @@ const Home = ({ navigation }) => {
                             color: COLORS.white,
                             fontSize: 20
                             }}>Arquielorinho</Text>
+
+                    <View style={{ alignItems: "center" }}>
+                            <Progress.Bar 
+                            progress={0.3}
+                            width={300}
+                            height={20}
+                            color={COLORS.third}
+                            backgroundColor={COLORS.white}
+                            borderRadius={15}
+                            borderWidth={0}
+                            style={{ margin: 10 }}
+                            />
+                    </View>
                     <View
                         style={{
                             flexDirection: "row",
-                            backgroundColor: COLORS.primary,
                             borderRadius: 16,
                             width: '90%',
                             justifyContent: 'center',
+                            
                             
                     }}>
                         <View style={{
                             flexDirection: "column",
                             alignItems: "center",
+                            marginHorizontal:20
                         }} >
                             <Text style={{
                                 color: COLORS.white,
@@ -70,6 +82,7 @@ const Home = ({ navigation }) => {
                         <View style={{
                             flexDirection: "column",
                             alignItems: "center",
+                            marginHorizontal:20
                         }}>
                             <Text
                                 style={{
@@ -81,18 +94,7 @@ const Home = ({ navigation }) => {
                                 }}>Reservas</Text>
                         </View>
                     </View>
-                    <View style={{ alignItems: "center" }}>
-                            <Progress.Bar 
-                            progress={0.3}
-                            width={350}
-                            height={20}
-                            color={COLORS.orange}
-                            backgroundColor={COLORS.grey}
-                            borderRadius={15}
-                            borderWidth={0}
-                            style={{ marginTop: 20 }}
-                            />
-                        </View>
+                    
                 </View>
             </View>
         </SafeAreaView>

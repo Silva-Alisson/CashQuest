@@ -71,7 +71,7 @@ export default function UploadProfileImg({ navigation }) {
             <TouchableOpacity onPress={pickImage}>
             <View style={styles.photoView}>
                 {!image ? (
-                <MaterialCommunityIcons name="account" size={200} color="#fff" />
+                <MaterialCommunityIcons name="account" size={160} color="#fff" />
                 ) : (
                 image && (
                     <Image
@@ -156,16 +156,16 @@ const styles = StyleSheet.create({
     backgroundColor: "white"
   },
   photoView: {
-    width: 287,
-    height: 287,
+    width: 190,
+    height: 190,
     borderRadius: 200,
     backgroundColor: COLORS.darkBlue,
     justifyContent: "center",
     alignItems: "center"
   },
   photo: {
-    width: 287,
-    height: 287,
+    width: 180,
+    height: 180,
     borderRadius: 200
   },
   text: {
