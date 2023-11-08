@@ -8,7 +8,7 @@ export const COLORS = {
     secondary: "#BAE6BC",
     third: "#206627",
     grey: "#D9D9D9",
-    greyDark: "#A6A6A6",
+    greyDark: "#5D5D5F",
     orange: "#D87661",
     darkBlue: "#1E2E33"
 }

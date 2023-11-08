@@ -91,13 +91,13 @@ export const Achievements = ({ navigation }) => (
 
 const StylesAchievements = StyleSheet.create({
   TextStyleTitle: {
-    color: COLORS.grey,
+    color: COLORS.greyDark,
     fontSize: 22,
     fontStyle: "normal",
     fontWeight: 400
   },
   TextStyleSub: {
-    color: COLORS.grey,
+    color: COLORS.greyDark,
     textAlign: "center",
     fontSize: 12,
     fontStyle: "normal",
