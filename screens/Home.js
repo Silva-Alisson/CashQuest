@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS,  SIZES, icons, images} from '../constants';
 import * as Progress from 'react-native-progress';
 import getWallet from "../services/wallet-service/wallet-service";
+import { getPet } from "../services/pet-service/get-pet";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {useAuth} from '../context/auth';
 
@@ -23,6 +24,20 @@ const Home = ({ navigation }) => {
 
         fetchData();
     }, []);
+
+    const [dadosPet, setDadosPet] = useState([]);
+     console.log(dadosPet)
+
+    useEffect(() => {
+        async function fetchData() {
+            console.log(authData);
+            const response = await getPet(authData.token, authData.userId); 
+            const arrayResponse = Object.keys(response).map(chave => response[chave]);
+            setDadosPet(arrayResponse);
+        }
+
+        fetchData();
+    }, []);
    
     // const progressValue = dados.length > 0 ? dados[0] / MAX_VALUE : 0;
 
@@ -38,7 +53,7 @@ const Home = ({ navigation }) => {
             <View style={{ flex: 1}}>
                 <View style={{ alignItems: "center", backgroundColor: COLORS.primary, width:'100%', height:'40%', borderBottomEndRadius:40, borderBottomStartRadius:40, marginBottom: 10}}>
                     <Image
-                        source={require("../assets/turtle_auto_x2_CUT.png")}
+                        source={{uri: dadosPet[0]}}
                         resizeMode="contain"
                         style={{                        
                             height: '40%',
@@ -49,7 +64,7 @@ const Home = ({ navigation }) => {
                         style={{
                             color: COLORS.white,
                             fontSize: 20
-                            }}>Arquielorinho</Text>
+                            }}>{dadosPet[2]}</Text>
 
                     <View style={{ alignItems: "center" }}>
                             <Progress.Bar 

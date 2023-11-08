@@ -1,11 +1,29 @@
-import React from "react"; 
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS } from "../constants";
+import { getPet } from "../services/pet-service/get-pet";
+import {useAuth} from '../context/auth';
 
 
 export default function EditPet({ navigation }) { 
+
+    const [dadosPet, setDadosPet] = useState([]);
+    const {authData} = useAuth();
+     console.log(dadosPet)
+
+    useEffect(() => {
+        async function fetchData() {
+            console.log(authData);
+            const response = await getPet(authData.token, authData.userId); 
+            const arrayResponse = Object.keys(response).map(chave => response[chave]);
+            setDadosPet(arrayResponse);
+        }
+
+        fetchData();
+    }, []);
+
     return ( 
         <SafeAreaView
             style={styles.container}
@@ -18,10 +36,11 @@ export default function EditPet({ navigation }) {
         </View>
         <View style={{  alignItems: 'center', marginHorizontal: 10 }}>
             <Image
-                source={require("../assets/turtle_auto_x2_CUT.png")}
+                source={{uri: dadosPet[0]}}
                 style={{
                     width: '58%',
                     height:355,
+                    borderRadius:999
                    
                 }}
             />
@@ -45,6 +64,7 @@ export default function EditPet({ navigation }) {
                         label={'nome'}
                         onChangeText={text => setValue('nome', text)}
                         placeholder='Insira o novo nome'
+                        value={dadosPet[2]}
                         placeholderTextColor={COLORS.grey}
                         keyboardType='name-phone-pad'
                         style={{
