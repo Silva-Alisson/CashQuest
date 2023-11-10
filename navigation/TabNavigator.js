@@ -50,27 +50,6 @@ const BottomTabNavigation = () => {
             tabBarStyle: {display: 'none'},
             tabBarIcon: ({ focused })=>{
               return (
-                // <View
-                //  style={{
-                //   alignItems: "center",
-                //   justifyContent: "center",
-                //   backgroundColor: COLORS.primary,
-                //   width: Platform.OS == "ios" ? 50 : 60,
-                //   height: Platform.OS == "ios" ? 50 : 60,
-                //   top: Platform.OS == "ios" ? -10 : -20,
-                //   borderRadius: Platform.OS == "ios" ? 25 : 30,
-                //   shadowColor: "#000",
-                // shadowOffset: {
-                //   width: 0,
-                //   height: -3,
-                // },
-                // shadowOpacity: 0.27,
-                // shadowRadius: 4.65,
-                // elevation: 6,
-                //  }}
-                // >
-                //   <FontAwesome name="plus" size={24} color="#fff" />
-                // </View>
                 <View style={{alignItems: "center", justifyContent: "center"}}> 
                   <FontAwesome name="plus" size={24} color={focused ? COLORS.primary : COLORS.secondary} />
                 </View>

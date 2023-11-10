@@ -16,6 +16,7 @@ export default function AuthStack() {
         component={Welcome}
         options={{
           headerShown: false,
+          clearOnBlur: true,
         }}
       />
       <Stack.Screen
@@ -23,6 +24,7 @@ export default function AuthStack() {
         component={LoginStack}
         options={{
           headerShown: false,
+          clearOnBlur: true,
         }}
       />
       <Stack.Screen
@@ -30,6 +32,7 @@ export default function AuthStack() {
         component={SignupStack}
         options={{
           headerShown: false,
+          clearOnBlur: true,
         }}
       />
       <Stack.Screen

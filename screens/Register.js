@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  StyleSheet,
   View,
   Text,
   TextInput,
@@ -13,22 +12,14 @@ import Button from "../components/Button";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import styles from "../components/styles";
 import Checkbox from "expo-checkbox";
-import { format } from "date-fns";
-import DatePicker from "react-native-datepicker";
+import { format, startOfDay, addMinutes } from "date-fns";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { new_resgister } from "../services/register-service/new-register";
+import {useAuth} from '../context/auth';
 
 const Register = ({ navigation, route }) => {
   const [selectedCategory, setSelectedCategory] = useState("Diversos");
   const [isLoading, setIsLoading] = useState(false);
-
-  const onSubmit = async () => {
-    setIsLoading(true);
-    if (result) {
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
 
   useEffect(() => {
     if (route.params && route.params.selectedCategory) {
@@ -53,7 +44,7 @@ const Register = ({ navigation, route }) => {
     };
   };
 
-  const [value, setValue] = useState("0.00");
+  const [value, setValues] = useState();
   const [date, setDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
   const formattedDate = format(date, "dd/MM/yy");
@@ -63,12 +54,13 @@ const Register = ({ navigation, route }) => {
   };
 
   const hideDatePicker = () => {
-    setShowPicker(false);
+    setShowPicker(false); 
   };
 
   const handleDateChange = (event, selectedDate) => {
     if (selectedDate) {
-      setDate(selectedDate);
+      const adjustedDate = startOfDay(addMinutes(selectedDate, selectedDate.getTimezoneOffset()));
+      setDate(adjustedDate);
       hideDatePicker();
     } else {
       hideDatePicker();
@@ -77,7 +69,40 @@ const Register = ({ navigation, route }) => {
 
   const [isCheckedFix, setIsCheckedFix] = useState(false);
   const [isCheckedTransfer, setIsCheckedTransfer] = useState(false);
+  
+ //forms
+  const {authData} = useAuth();
 
+  const [description, setValueDescription] = useState();
+  const [comments, setValueComments] = useState();
+  const [installments, setValuesInstallments] = useState();
+
+  const onSubmitForms = async () => {
+    console.log(date);
+    const params = {
+      type: selectedOption,
+      token: authData.token,
+      userId: authData.userId,
+      category: selectedCategory,
+      description: description ,
+      value: value,
+      isFixed: isCheckedFix,
+      comments: comments || "",
+      createAt: date,
+      installments: installments || 0,
+      isTransferred: isCheckedTransfer
+    }
+    setIsLoading(true);
+    const result = await new_resgister(params);
+    if (result) {
+      setIsLoading(false);
+      navigation.goBack({ force: true });
+    } else {
+      setIsLoading(false);
+    }
+  };
+
+  //forms end
   return (
     <SafeAreaView
       style={{
@@ -127,13 +152,8 @@ const Register = ({ navigation, route }) => {
             <TextInput
               style={{ fontSize: 40 }}
               value={value}
-              onChangeText={(text) => setValue(text)}
-              onFocus={() => setValue("")}
-              onBlur={() => {
-                if (value === "") {
-                  setValue("0.00");
-                }
-              }}
+              onChangeText={(text) => setValues(text)}
+              placeholder="0.00"
               keyboardType="numeric"
             />
           </View>
@@ -181,7 +201,6 @@ const Register = ({ navigation, route }) => {
           >
             <TextInput
               placeholder={selectedCategory}
-              placeholderTextColor={COLORS.grey}
               style={{
                 width: "100%"
               }}
@@ -201,6 +220,8 @@ const Register = ({ navigation, route }) => {
 
           <View style={styles.input}>
             <TextInput
+              label={"descricao"}
+              onChangeText={(text) => setValueDescription(text)}
               placeholder="descrição"
               placeholderTextColor={COLORS.grey}
               style={{
@@ -230,13 +251,12 @@ const Register = ({ navigation, route }) => {
           </TouchableOpacity>
           {showPicker && (
             <DateTimePicker
-              style={styles.input}
               value={date}
               mode="date"
               display="spinner"
               is24Hour={true}
-              minimumDate={new Date("1900-01-01")}
-              maximumDate={new Date("2100-01-01")}
+              minimumDate={new Date("1900-01-00")}
+              maximumDate={new Date("2100-01-00")}
               onChange={handleDateChange}
             />
           )}
@@ -253,6 +273,8 @@ const Register = ({ navigation, route }) => {
 
           <View style={styles.input}>
             <TextInput
+              label={"comentario"}
+              onChangeText={(text) => setValueComments(text)}
               placeholder="comentário..."
               placeholderTextColor={COLORS.grey}
               style={{
@@ -297,6 +319,8 @@ const Register = ({ navigation, route }) => {
 
               <View style={styles.input}>
                 <TextInput
+                  label={"quantidade"}
+                  onChangeText={(text) => setValuesInstallments(text)}
                   placeholder="0"
                   placeholderTextColor={COLORS.grey}
                   style={{
@@ -415,7 +439,7 @@ const Register = ({ navigation, route }) => {
                 marginTop: 16
               }}
               disabled={isLoading}
-              onPress={onSubmit}
+              onPress={onSubmitForms}
             >
               {isLoading ? (
                 <ActivityIndicator color="#BAE6BC" />

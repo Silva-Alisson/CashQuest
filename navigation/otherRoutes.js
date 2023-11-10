@@ -23,35 +23,40 @@ const OtherRoutes = () => {
                 name='AchievementsStack'
                 component={Achievements}
                 options={{
-                    headerShown: false
+                    headerShown: false,
+                    clearOnBlur: true,
                 }}
             />
             <Stack.Screen
                 name='DashboardStack'
                 component={DashboardScreen}
                 options={{
-                    headerShown: false
+                    headerShown: false,
+                    clearOnBlur: true,
                 }}
             />
             <Stack.Screen
                 name='SettingsStack'
                 component={Settings}
                 options={{
-                    headerShown: false
+                    headerShown: false,
+                    clearOnBlur: true,
                 }}
             />
             <Stack.Screen
                 name='CategoriesStack'
                 component={Categories}
                 options={{
-                    headerShown: false
+                    headerShown: false,
+                    clearOnBlur: true,
                 }}
             />
             <Stack.Screen
                 name='EditPetStack'
                 component={EditPet}
                 options={{
-                    headerShown: false
+                    headerShown: false,
+                    clearOnBlur: true,
                 }}
             />
             {/* Adicione outras rotas relacionadas à tela "Profile", se necessário */}
