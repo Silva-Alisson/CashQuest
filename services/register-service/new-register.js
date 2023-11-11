@@ -2,6 +2,8 @@ import baseUrl from "../../helpers/base-url-api";
 
 export const new_resgister = async (params) => {
 try {
+    console.log({params: params.value});
+
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Authorization", "Bearer " + params.token);
@@ -38,10 +40,12 @@ try {
             return false;
         }
     } else if(params.type == "poupanca"){
-        const response = await fetch(baseUrl + "savings/create", requestOptions);
+        console.log({raw});
+        const response = await fetch(baseUrl + "/savings/create", requestOptions);
         if (response.ok) {
             return true;
         } else {
+            console.log(response);
             console.log('Erro na solicitação');
             return false;
         }
@@ -64,8 +68,9 @@ const buildRawEntrada = (params) => {
         "comments": params.comments,
         "createAt": params.createAt,
         "installments": params.installments,
-        "total": Number(params.value),
+        "total": parseFloat(params.value),
     });
+    console.log(raw);
     return raw;
 }
 
@@ -80,8 +85,9 @@ const buildRaw = (params) => {
     "comments": params.comments,
     "createAt": params.createAt,
     "installments": params.installments,
-    "total": Number(params.value),
+    "total": parseFloat(params.value),
     "isTransferred": params.isTransferred
     });
+    console.log(raw);
     return raw;
 }

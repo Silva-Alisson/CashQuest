@@ -86,7 +86,7 @@ const Register = ({ navigation, route }) => {
       userId: authData.userId,
       category: selectedCategory,
       description: description,
-      value: Number(value),
+      value: parseFloat(value),
       isFixed: isCheckedFix,
       comments: comments || "",
       createAt: date,
@@ -97,19 +97,15 @@ const Register = ({ navigation, route }) => {
     const result = await new_resgister(params);
     if (result) {
       setIsLoading(false);
-      setValues();
-      setIsCheckedFix(false);
-      setIsCheckedTransfer(false);
-      setValueDescription();
-      setValueComments();
-      setValuesInstallments();
-      setSelectedOption("Diversos");
-      setDate(new Date());
       navigation.goBack();
     } else {
       setIsLoading(false);
     }
   };
+
+  const handleGoBack = () =>{
+  navigation.goBack();
+  }
 
   //forms end
   return (
@@ -140,7 +136,7 @@ const Register = ({ navigation, route }) => {
               marginHorizontal: 10
             }}
           >
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity onPress={handleGoBack}>
               <MaterialCommunityIcons
                 name="arrow-left"
                 size={40}
@@ -187,8 +183,8 @@ const Register = ({ navigation, route }) => {
               <Text>Entrada</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={getButtonStyle("poupança")}
-              onPress={() => setSelectedOption("poupança")}
+              style={getButtonStyle("poupanca")}
+              onPress={() => setSelectedOption("poupanca")}
             >
               <Text>Poupança</Text>
             </TouchableOpacity>
@@ -339,7 +335,7 @@ const Register = ({ navigation, route }) => {
               </View>
             </View>
           ) : null}
-          {selectedOption === "poupança" ? (
+          {selectedOption === "poupanca" ? (
             <View
               style={{
                 marginTop: 16,
@@ -405,7 +401,8 @@ const Register = ({ navigation, route }) => {
               >
                 Você vai ganhar 60 de xp!
               </Text>
-            ) : selectedOption === "entrada" ? (
+            ) : null}
+            { selectedOption === "entrada" ? (
               <Text
                 style={{
                   fontSize: 16,
@@ -414,7 +411,8 @@ const Register = ({ navigation, route }) => {
               >
                 Você vai ganhar 30 de xp!
               </Text>
-            ) : selectedOption === "poupança" ? (
+            ): null}
+            {selectedOption === "poupanca" ? (
               <Text
                 style={{
                   fontSize: 16,
@@ -467,6 +465,7 @@ const Register = ({ navigation, route }) => {
                 backgroundColor: "#fff",
                 color: COLORS.primary
               }}
+              onPress={handleGoBack}
             />
           </View>
         </View>
