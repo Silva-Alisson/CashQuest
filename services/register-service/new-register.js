@@ -66,7 +66,7 @@ const buildRawEntrada = (params) => {
         "comments": params.comments,
         "createAt": params.createAt,
         "installments": params.installments,
-        "total": params.value,
+        "total": Number(params.value),
     });
     return raw;
 }
@@ -82,7 +82,7 @@ const buildRaw = (params) => {
     "comments": params.comments,
     "createAt": params.createAt,
     "installments": params.installments,
-    "total": params.value,
+    "total": Number(params.value),
     "isTransferred": params.isTransferred
     });
     return raw;

@@ -12,8 +12,8 @@ export const Profile = ({navigation}) => {
 
     useEffect(() => {
         async function fetchData() {
-            console.log(authData);
             const response = await getWallet(authData.token, authData.userId);
+            console.log(response);
             const arrayResponse = Object.keys(response).map(
                 (chave) => response[chave]
             );

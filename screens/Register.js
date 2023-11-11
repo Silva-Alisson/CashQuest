@@ -15,7 +15,7 @@ import Checkbox from "expo-checkbox";
 import { format, startOfDay, addMinutes } from "date-fns";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { new_resgister } from "../services/register-service/new-register";
-import {useAuth} from '../context/auth';
+import { useAuth } from "../context/auth";
 
 const Register = ({ navigation, route }) => {
   const [selectedCategory, setSelectedCategory] = useState("Diversos");
@@ -54,12 +54,15 @@ const Register = ({ navigation, route }) => {
   };
 
   const hideDatePicker = () => {
-    setShowPicker(false); 
+    setShowPicker(false);
   };
 
   const handleDateChange = (event, selectedDate) => {
     if (selectedDate) {
-      const adjustedDate = startOfDay(addMinutes(selectedDate, selectedDate.getTimezoneOffset()));
+      const adjustedDate = startOfDay(
+        addMinutes(selectedDate, selectedDate.getTimezoneOffset())
+      );
+      console.log(date);
       setDate(adjustedDate);
       hideDatePicker();
     } else {
@@ -69,9 +72,9 @@ const Register = ({ navigation, route }) => {
 
   const [isCheckedFix, setIsCheckedFix] = useState(false);
   const [isCheckedTransfer, setIsCheckedTransfer] = useState(false);
-  
- //forms
-  const {authData} = useAuth();
+
+  //forms
+  const { authData } = useAuth();
 
   const [description, setValueDescription] = useState();
   const [comments, setValueComments] = useState();
@@ -84,14 +87,14 @@ const Register = ({ navigation, route }) => {
       token: authData.token,
       userId: authData.userId,
       category: selectedCategory,
-      description: description ,
-      value: value,
+      description: description,
+      value: Number(value),
       isFixed: isCheckedFix,
       comments: comments || "",
       createAt: date,
-      installments: installments || 0,
+      installments: Number(installments) || 0,
       isTransferred: isCheckedTransfer
-    }
+    };
     setIsLoading(true);
     const result = await new_resgister(params);
     if (result) {
