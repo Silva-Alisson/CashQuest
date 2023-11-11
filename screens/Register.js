@@ -12,22 +12,60 @@ import Button from "../components/Button";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import styles from "../components/styles";
 import Checkbox from "expo-checkbox";
-import { format, startOfDay, addMinutes } from "date-fns";
+import { format, startOfDay, addMinutes, fromUnixTime } from "date-fns";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { new_resgister } from "../services/register-service/new-register";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { useAuth } from "../context/auth";
 
+const schema = yup.object().shape({
+  value: yup.number().required(),
+  description: yup.string().required("Insira uma descrição")
+});
+
 const Register = ({ navigation, route }) => {
-  const [selectedCategory, setSelectedCategory] = useState("Diversos");
   const [isLoading, setIsLoading] = useState(false);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    defaultValues: {
+      description: "",
+      value: ""
+    },
+    resolver: yupResolver(schema)
+  });
+
+  const initialSelectedCategory = "Diversos";
+  const initialSelectedOption = "despesa";
+  const initialValue = "";
+  const initialDate = new Date();
+  const initialIsCheckedFix = false;
+  const initialIsCheckedTransfer = false;
+  const initialDescription = "";
+  const initialComments = "";
+  const initialInstallments = "";
+
+  const [selectedCategory, setSelectedCategory] = useState(
+    initialSelectedCategory
+  );
+  const [selectedOption, setSelectedOption] = useState(initialSelectedOption);
+  const [date, setDate] = useState(initialDate);
+  const [isCheckedFix, setIsCheckedFix] = useState(initialIsCheckedFix);
+  const [isCheckedTransfer, setIsCheckedTransfer] = useState(
+    initialIsCheckedTransfer
+  );
+  const [comments, setComments] = useState(initialComments);
+  const [installments, setInstallments] = useState(initialInstallments);
 
   useEffect(() => {
     if (route.params && route.params.selectedCategory) {
       setSelectedCategory(route.params.selectedCategory);
     }
   }, [route.params]);
-
-  const [selectedOption, setSelectedOption] = useState("despesa");
 
   const getButtonStyle = (option) => {
     return {
@@ -44,8 +82,6 @@ const Register = ({ navigation, route }) => {
     };
   };
 
-  const [value, setValues] = useState();
-  const [date, setDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
   const formattedDate = format(date, "dd/MM/yy");
 
@@ -69,43 +105,49 @@ const Register = ({ navigation, route }) => {
     }
   };
 
-  const [isCheckedFix, setIsCheckedFix] = useState(false);
-  const [isCheckedTransfer, setIsCheckedTransfer] = useState(false);
-
   //forms
   const { authData } = useAuth();
 
-  const [description, setValueDescription] = useState();
-  const [comments, setValueComments] = useState();
-  const [installments, setValuesInstallments] = useState();
-
-  const onSubmitForms = async () => {
+  const onSubmitForms = async (data) => {
     const params = {
       type: selectedOption,
       token: authData.token,
       userId: authData.userId,
       category: selectedCategory,
-      description: description,
-      value: parseFloat(value),
+      description: data.description,
+      value: parseFloat(data.value),
       isFixed: isCheckedFix,
       comments: comments || "",
       createAt: date,
-      installments: Number(installments) || 0,
+      installments: parseInt(installments) || 0,
       isTransferred: isCheckedTransfer
     };
     setIsLoading(true);
     const result = await new_resgister(params);
     if (result) {
       setIsLoading(false);
+      clear();
       navigation.goBack();
     } else {
       setIsLoading(false);
     }
   };
 
-  const handleGoBack = () =>{
-  navigation.goBack();
-  }
+  const clear = () => {
+    setSelectedCategory(initialSelectedCategory);
+    setSelectedOption(initialSelectedOption);
+    setDate(initialDate);
+    setShowPicker(false);
+    setIsCheckedFix(initialIsCheckedFix);
+    setIsCheckedTransfer(initialIsCheckedTransfer);
+    setComments(initialComments);
+    setInstallments(initialInstallments);
+  };
+
+  const handleGoBack = () => {
+    clear();
+    navigation.goBack();
+  };
 
   //forms end
   return (
@@ -118,7 +160,7 @@ const Register = ({ navigation, route }) => {
       <View style={{ flex: 1 }}>
         <View
           style={{
-            backgroundColor: COLORS.white,
+            backgroundColor: errors.value ? "#ff6961" : COLORS.white,
             width: "100%",
             borderBottomStartRadius: 42,
             borderBottomEndRadius: 42,
@@ -154,12 +196,20 @@ const Register = ({ navigation, route }) => {
             }}
           >
             <Text style={{ fontSize: 20 }}>R$ </Text>
-            <TextInput
-              style={{ fontSize: 40 }}
-              value={value}
-              onChangeText={(text) => setValues(text)}
-              placeholder="0.00"
-              keyboardType="numeric"
+
+            <Controller
+              control={control}
+              name="value"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  style={{ fontSize: 40 }}
+                  value={value}
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  placeholder="0.00"
+                  keyboardType="numeric"
+                />
+              )}
             />
           </View>
           <View
@@ -224,16 +274,29 @@ const Register = ({ navigation, route }) => {
           </Text>
 
           <View style={styles.input}>
-            <TextInput
-              label={"descricao"}
-              onChangeText={(text) => setValueDescription(text)}
-              placeholder="descrição"
-              placeholderTextColor={COLORS.grey}
-              style={{
-                width: "100%"
-              }}
+            <Controller
+              control={control}
+              name="description"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  label={"descricao"}
+                  value={value}
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  placeholder="descrição"
+                  placeholderTextColor={COLORS.grey}
+                  style={{
+                    width: "100%"
+                  }}
+                />
+              )}
             />
           </View>
+          {errors.description && (
+            <Text style={{ color: "#ff6961", paddingTop: 8 }}>
+              {errors.description?.message}
+            </Text>
+          )}
           <Text
             style={{
               fontSize: 16,
@@ -279,7 +342,8 @@ const Register = ({ navigation, route }) => {
           <View style={styles.input}>
             <TextInput
               label={"comentario"}
-              onChangeText={(text) => setValueComments(text)}
+              value={comments}
+              onChangeText={(text) => setComments(text)}
               placeholder="comentário..."
               placeholderTextColor={COLORS.grey}
               style={{
@@ -325,12 +389,14 @@ const Register = ({ navigation, route }) => {
               <View style={styles.input}>
                 <TextInput
                   label={"quantidade"}
-                  onChangeText={(text) => setValuesInstallments(text)}
+                  value={installments}
+                  onChangeText={(text) => setInstallments(text)}
                   placeholder="0"
                   placeholderTextColor={COLORS.grey}
                   style={{
                     width: "100%"
                   }}
+                  keyboardType="numeric"
                 />
               </View>
             </View>
@@ -402,7 +468,7 @@ const Register = ({ navigation, route }) => {
                 Você vai ganhar 60 de xp!
               </Text>
             ) : null}
-            { selectedOption === "entrada" ? (
+            {selectedOption === "entrada" ? (
               <Text
                 style={{
                   fontSize: 16,
@@ -411,7 +477,7 @@ const Register = ({ navigation, route }) => {
               >
                 Você vai ganhar 30 de xp!
               </Text>
-            ): null}
+            ) : null}
             {selectedOption === "poupanca" ? (
               <Text
                 style={{
@@ -446,7 +512,7 @@ const Register = ({ navigation, route }) => {
                 marginTop: 16
               }}
               disabled={isLoading}
-              onPress={onSubmitForms}
+              onPress={handleSubmit(onSubmitForms)}
             >
               {isLoading ? (
                 <ActivityIndicator color="#BAE6BC" />

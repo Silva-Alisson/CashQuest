@@ -58,36 +58,42 @@ try {
 }
 
 const buildRawEntrada = (params) => {
-    const raw = JSON.stringify({
-        "_userId": params.userId,
-        "category": params.category,
-        "description": params.description,
-        "value": params.value,
-        "attachment": "",
-        "isFixed": params.isFixed,
-        "comments": params.comments,
-        "createAt": params.createAt,
-        "installments": params.installments,
-        "total": parseFloat(params.value),
-    });
-    console.log(raw);
-    return raw;
+    if(params.value != null){
+        const raw = JSON.stringify({
+            "_userId": params.userId,
+            "category": params.category,
+            "description": params.description,
+            "value": params.value,
+            "attachment": "",
+            "isFixed": params.isFixed,
+            "comments": params.comments,
+            "createAt": params.createAt,
+            "installments": params.installments,
+            "total": parseFloat(params.value),
+        });
+        console.log(raw);
+        return raw;
+    }
 }
 
 const buildRaw = (params) => {
-    const raw = JSON.stringify({
-    "_userId": params.userId,
-    "category": params.category,
-    "description": params.description,
-    "value":  params.value,
-    "attachment": "",
-    "isFixed": params.isFixed,
-    "comments": params.comments,
-    "createAt": params.createAt,
-    "installments": params.installments,
-    "total": parseFloat(params.value),
-    "isTransferred": params.isTransferred
-    });
-    console.log(raw);
-    return raw;
+
+    if(params.value != null){
+        const raw = JSON.stringify({
+            "_userId": params.userId,
+            "category": params.category,
+            "description": params.description,
+            "value":  params.value,
+            "attachment": "",
+            "isFixed": params.isFixed,
+            "comments": params.comments,
+            "createAt": params.createAt,
+            "installments": params.installments,
+            "total": parseFloat(params.value),
+            "isTransferred": params.isTransferred
+            });
+            console.log(raw);
+            return raw;
+    }
+    
 }
