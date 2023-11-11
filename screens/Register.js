@@ -62,7 +62,6 @@ const Register = ({ navigation, route }) => {
       const adjustedDate = startOfDay(
         addMinutes(selectedDate, selectedDate.getTimezoneOffset())
       );
-      console.log(date);
       setDate(adjustedDate);
       hideDatePicker();
     } else {
@@ -81,7 +80,6 @@ const Register = ({ navigation, route }) => {
   const [installments, setValuesInstallments] = useState();
 
   const onSubmitForms = async () => {
-    console.log(date);
     const params = {
       type: selectedOption,
       token: authData.token,
@@ -99,7 +97,15 @@ const Register = ({ navigation, route }) => {
     const result = await new_resgister(params);
     if (result) {
       setIsLoading(false);
-      navigation.goBack({ force: true });
+      setValues();
+      setIsCheckedFix(false);
+      setIsCheckedTransfer(false);
+      setValueDescription();
+      setValueComments();
+      setValuesInstallments();
+      setSelectedOption("Diversos");
+      setDate(new Date());
+      navigation.goBack();
     } else {
       setIsLoading(false);
     }

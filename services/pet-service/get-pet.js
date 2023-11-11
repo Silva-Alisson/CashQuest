@@ -3,7 +3,7 @@ import baseUrl from "../../helpers/base-url-api";
 export const getPet = async (token, userId) => {
     try {
         const myHeaders = new Headers();
-            myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTljMWQ0YTc3YWI4NjA2M2I1ODE4YyIsImlhdCI6MTY5NjE4Njg2N30.RoQd5DcYYpmTJ-KwWr-hELWY2SNTypPRtGGFYxpT1Qc");
+            myHeaders.append("Authorization", "Bearer "+ token);
 
         const requestOptions = {
             method: 'GET',
@@ -11,7 +11,7 @@ export const getPet = async (token, userId) => {
             redirect: 'follow'
             };
 
-            const response = await fetch(baseUrl + "/user-pet/get/652843768408fe8d1aa707ea", requestOptions);
+            const response = await fetch(baseUrl + "/user-pet/get/" + userId, requestOptions);
 
             if (response.ok) {
                 const result = await response.json();

@@ -5,7 +5,6 @@ try {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Authorization", "Bearer " + params.token);
-    console.log({params})
     let raw = [];
 
     if(params.type == "entrada"){
@@ -21,7 +20,6 @@ try {
     body: raw,
     redirect: 'follow'
     };
-    console.log({raw: params.createAt});
 
     if(params.type == "despesa"){
         const response = await fetch(baseUrl + "/spendings/create", requestOptions);

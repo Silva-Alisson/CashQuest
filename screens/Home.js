@@ -7,38 +7,37 @@ import getWallet from "../services/wallet-service/wallet-service";
 import { getPet } from "../services/pet-service/get-pet";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {useAuth} from '../context/auth';
+import { useIsFocused } from "@react-navigation/native";
 
 
 
 const Home = ({ navigation }) => {
     const [dados, setDados] = useState([]);
     const {authData} = useAuth();
-
-    useEffect(() => {
-        async function fetchData() {
-            console.log(authData);
-            const response = await getWallet(authData.token, authData.userId); 
-            const arrayResponse = Object.keys(response).map(chave => response[chave]);
-            setDados(arrayResponse);
-        }
-
-        fetchData();
-    }, []);
-
     const [dadosPet, setDadosPet] = useState([]);
-     console.log(dadosPet)
 
-    useEffect(() => {
-        async function fetchData() {
-            console.log(authData);
-            const response = await getPet(authData.token, authData.userId); 
-            const arrayResponse = Object.keys(response).map(chave => response[chave]);
-            setDadosPet(arrayResponse);
+    const isFocused = useIsFocused();
+    useEffect(()=>{
+        if (isFocused){
+            async function fetchDataPet() {
+                const response = await getPet(authData.token, authData.userId); 
+                const arrayResponse = Object.keys(response).map(chave => response[chave]);
+                setDadosPet(arrayResponse);
+            }
+    
+            fetchDataPet();
+
+            async function fetchDataWallet() {
+                const response = await getWallet(authData.token, authData.userId); 
+                const arrayResponse = Object.keys(response).map(chave => response[chave]);
+                setDados(arrayResponse);
+            }
+    
+            fetchDataWallet();
         }
-
-        fetchData();
-    }, []);
-   
+        
+      },[isFocused]);
+      
     // const progressValue = dados.length > 0 ? dados[0] / MAX_VALUE : 0;
 
 
