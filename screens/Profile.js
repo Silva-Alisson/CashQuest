@@ -5,23 +5,26 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {COLORS, SIZES} from '../constants';
 import {useAuth} from '../context/auth';
 import getWallet from '../services/wallet-service/wallet-service';
+import { useIsFocused } from "@react-navigation/native";
 
 export const Profile = ({navigation}) => {
     const [dados, setDados] = useState([]);
     const {authData} = useAuth();
+    const isFocused = useIsFocused();
 
     useEffect(() => {
-        async function fetchData() {
-            const response = await getWallet(authData.token, authData.userId);
-            console.log(response);
-            const arrayResponse = Object.keys(response).map(
-                (chave) => response[chave]
-            );
-            setDados(arrayResponse);
+        if (isFocused){
+            async function fetchData() {
+                const response = await getWallet(authData.token, authData.userId);
+                console.log(response);
+                const arrayResponse = Object.keys(response).map(
+                    (chave) => response[chave]
+                );
+                setDados(arrayResponse);
+            }
+            fetchData();
         }
-
-        fetchData();
-    }, []);
+    }, [isFocused]);
 
     return (
         <SafeAreaView style={Styles2.container2}>
@@ -39,14 +42,6 @@ export const Profile = ({navigation}) => {
                         marginVertical: 6,
                         alignItems: 'center'
                     }}>
-                    {/* <MaterialIcons name="person" size={24} color="black" /> */}
-                    {/* <Text
-                        style={{
-                            marginLeft: 4,
-                        }}
-                    >
-                        Treinador iniciante
-                    </Text> */}
                 </View>
 
                 <View style={Styles2.walletContainer}>
