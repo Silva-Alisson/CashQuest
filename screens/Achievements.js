@@ -34,7 +34,7 @@ export const Achievements = ({ navigation }) => (
               Últimas Conquistas
             </Text>
           </View>
-          <View style={{ height: 80.614, height: 156, alignItems: "center" }}>
+          <View style={{ height: 156, alignItems: "center" }}>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
               <View style={styles.itemContainer}>
                 <Image source={require("../assets/Conquista.png")} resizeMode="contain" />
@@ -56,34 +56,49 @@ export const Achievements = ({ navigation }) => (
           </View>
         </View>
       </View>{/* View das conquistas com o ScrollView na horizontal */}
-      <View style={{ marginHorizontal:10, marginVertical: 10, }}>
+      
+      <View style={{ padding: 10, alignItems: "center" }}>
         <View>
           <View style={{ marginTop: 16,marginBottom: 16 }}>
             <Text style={StylesAchievements.TextStyleTitle}>
-              Últimas Conquistas
+              Todas as conquistas obtidas
             </Text>
           </View>
-          <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={{ height: 450, }}>
+            <ScrollView showsVerticalScrollIndicator={false}>
             <View style={Vstyles.itemContainer}>
               <Image source={require("../assets/Conquista.png")} resizeMode="contain" />
-              <Text style={[StylesAchievements.TextStyleSub, Vstyles.text]}>Aficionado por Finanças I</Text>
+              <View style={{ alignItens: 'flex-start', justifyContent: 'flex-start'}}>
+                  <Text style={[StylesAchievements.TextStyleTitle, Vstyles.text]}>Aficionado por Finanças I</Text>
+                  <Text style={[StylesAchievements.TextStyleSub, Vstyles.text]}>Cadastrar mais de 10 despesas</Text>
+              </View>
             </View>
             <View style={Vstyles.itemContainer}>
               <Image source={require("../assets/Conquista.png")} resizeMode="contain" />
-              <Text style={[StylesAchievements.TextStyleSub, Vstyles.text]}>Poupador Iniciante</Text>
+                <View style={{ alignItens: 'flex-start', justifyContent: 'flex-start'}}>
+                  <Text style={[StylesAchievements.TextStyleTitle, Vstyles.text]}>Poupador Iniciante</Text>
+                  <Text style={[StylesAchievements.TextStyleSub, Vstyles.text]}>Concluir 3 objetivos</Text>
+                </View>
             </View>
             <View style={Vstyles.itemContainer}>
               <Image source={require("../assets/Conquista.png")} resizeMode="contain" />
-              <Text style={[StylesAchievements.TextStyleSub, Vstyles.text]}>Poupador</Text>
+              <View style={{ alignItens: 'flex-start', justifyContent: 'flex-start'}}>
+                  <Text style={[StylesAchievements.TextStyleTitle, Vstyles.text]}>Poupador</Text>
+                  <Text style={[StylesAchievements.TextStyleSub, Vstyles.text]}>Concluir 5 objetivos</Text>
+              </View>
             </View>
             <View style={Vstyles.itemContainer}>
               <Image source={require("../assets/Conquista.png")} resizeMode="contain" />
-              <Text style={[StylesAchievements.TextStyleSub, Vstyles.text]}>Poupador Nato</Text>
+              <View style={{ alignItens: 'flex-start', justifyContent: 'flex-start'}}>
+                  <Text style={[StylesAchievements.TextStyleTitle, Vstyles.text]}>Poupador Nato</Text>
+                  <Text style={[StylesAchievements.TextStyleSub, Vstyles.text]}>Concluir 10 objetivos</Text>
+              </View>
             </View>
             {/* Adicione mais itens conforme necessário */}
           </ScrollView>
+          </View>  
         </View>
-      </View>
+      </View>{/* View das conquistas com o ScrollView na vertical */}
 
     </View>
   </SafeAreaView>
@@ -108,6 +123,8 @@ const StylesAchievements = StyleSheet.create({
 const styles = StyleSheet.create({
   itemContainer: {
     alignItems: 'center',
+    justifyContent: 'center',
+    alignContent: 'center',
     marginRight: 32, // Espaçamento de 32px
   },
   text: {
@@ -119,12 +136,11 @@ const styles = StyleSheet.create({
 const Vstyles = StyleSheet.create({
   itemContainer: {
     flexDirection: 'row', // Itens na mesma linha
-    alignItems: 'flex-start', // Alinhamento à esquerda
-    marginBottom: 32, // Espaçamento de 32px
+    alignItems: 'center', // Alinhamento à esquerda
+    marginBottom: 16, // Espaçamento de 32px
   },
   text: {
-    width: 366, // Largura máxima do texto
-    marginLeft: 15.77, // Espaçamento entre a imagem e o texto
+    marginLeft: 8,
   },
 });
 
