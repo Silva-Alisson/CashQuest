@@ -12,14 +12,15 @@ export const getPet = async (token, userId) => {
             };
 
             const response = await fetch(baseUrl + "/user-pet/get/" + userId, requestOptions);
-
             if (response.ok) {
                 const result = await response.json();
+                console.log(result[0])
                 const dataPet = {
                     photo: result[0].pet.photo,
                     xp: result[0].xps,
                     name: result[0].name
                 }
+                console.log(dataPet[1])
 
                 // console.log(result[0].pet.photo)
                 return dataPet;

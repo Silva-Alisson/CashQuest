@@ -7,32 +7,54 @@ import {
   TouchableOpacity,
   ActivityIndicator
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS } from "../constants";
 import { Ionicons } from "@expo/vector-icons";
-import Button from "../components/Button";
-import { useForm } from "react-hook-form";
 import { register_user } from "../services/register-user-service";
 import styles from "../components/styles";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  nome: yup.string().required(),
+  sobrenome: yup.string().required(),
+  email: yup.string().email().required(),
+  password: yup
+    .string()
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      "A senha deve ter no mínimo 8 caracteres, uma letra maiúscula, uma letra minúscula, um número e um caractere especial"
+    )
+    .required()
+});
 const Signup = ({ navigation }) => {
   //forms start
-  const { register, setValue, handleSubmit } = useForm();
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    register("nome");
-    register("sobrenome");
-    register("email");
-    register("senha");
-  }, [register]);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset
+  } = useForm({
+    defaultValues: {
+      nome: "",
+      sobrenome: "",
+      email: "",
+      password: ""
+    },
+    resolver: yupResolver(schema)
+  });
 
   const onSubmit = async (data) => {
     setIsLoading(true);
     const result = await register_user(data);
     if (result) {
       setIsLoading(false);
+      reset();
       navigation.navigate("UploadProfileImgStack");
     } else {
       setIsLoading(false);
@@ -42,7 +64,6 @@ const Signup = ({ navigation }) => {
   //forms end
 
   const [isPasswordShown, setIsPasswordShown] = useState(true);
-  const [isChecked, setIsChecked] = useState(false);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
       <KeyboardAwareScrollView
@@ -96,16 +117,29 @@ const Signup = ({ navigation }) => {
               Nome
             </Text>
 
-            <View style={styles.input}>
-              <TextInput
-                label={"nome"}
-                onChangeText={(text) => setValue("nome", text)}
-                placeholder="Insira seu nome"
-                placeholderTextColor={COLORS.grey}
-                keyboardType="name-phone-pad"
-                style={{
-                  width: "100%"
-                }}
+            <View
+              style={[
+                styles.input,
+                { borderColor: errors.nome ? "#ff6961" : null }
+              ]}
+            >
+              <Controller
+                control={control}
+                name="nome"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    label={"nome"}
+                    onBlur={onBlur}
+                    value={value}
+                    onChangeText={onChange}
+                    placeholder="Insira seu nome"
+                    placeholderTextColor={COLORS.grey}
+                    keyboardType="name-phone-pad"
+                    style={{
+                      width: "100%"
+                    }}
+                  />
+                )}
               />
             </View>
           </View>
@@ -121,16 +155,29 @@ const Signup = ({ navigation }) => {
               Sobrenome
             </Text>
 
-            <View style={styles.input}>
-              <TextInput
-                label={"sobrenome"}
-                onChangeText={(text) => setValue("sobrenome", text)}
-                placeholder="Insira seu sobrenome"
-                placeholderTextColor={COLORS.grey}
-                keyboardType="name-phone-pad"
-                style={{
-                  width: "100%"
-                }}
+            <View
+              style={[
+                styles.input,
+                { borderColor: errors.sobrenome ? "#ff6961" : null }
+              ]}
+            >
+              <Controller
+                control={control}
+                name="sobrenome"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    label={"sobrenome"}
+                    onBlur={onBlur}
+                    valur={value}
+                    onChangeText={onChange}
+                    placeholder="Insira seu sobrenome"
+                    placeholderTextColor={COLORS.grey}
+                    keyboardType="name-phone-pad"
+                    style={{
+                      width: "100%"
+                    }}
+                  />
+                )}
               />
             </View>
           </View>
@@ -146,18 +193,36 @@ const Signup = ({ navigation }) => {
               E-mail
             </Text>
 
-            <View style={styles.input}>
-              <TextInput
-                label={"Email"}
-                onChangeText={(text) => setValue("email", text)}
-                placeholder="Insira seu e-mail"
-                placeholderTextColor={COLORS.grey}
-                keyboardType="email-address"
-                style={{
-                  width: "100%"
-                }}
+            <View
+              style={[
+                styles.input,
+                { borderColor: errors.sobrenome ? "#ff6961" : null }
+              ]}
+            >
+              <Controller
+                control={control}
+                name="email"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    label={"Email"}
+                    onBlur={onBlur}
+                    value={value}
+                    onChangeText={onChange}
+                    placeholder="Insira seu e-mail"
+                    placeholderTextColor={COLORS.grey}
+                    keyboardType="email-address"
+                    style={{
+                      width: "100%"
+                    }}
+                  />
+                )}
               />
             </View>
+            {errors.email && (
+              <Text style={{ color: "#ff6961", paddingTop: 8 }}>
+                {errors.email?.message}
+              </Text>
+            )}
           </View>
 
           <View style={{ marginBottom: 10 }}>
@@ -172,15 +237,23 @@ const Signup = ({ navigation }) => {
             </Text>
 
             <View style={styles.input}>
-              <TextInput
-                label={"senha"}
-                onChangeText={(text) => setValue("senha", text)}
-                placeholder="Insira sua senha"
-                placeholderTextColor={COLORS.grey}
-                secureTextEntry={isPasswordShown}
-                style={{
-                  width: "100%"
-                }}
+              <Controller
+                control={control}
+                name="password"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    label={"senha"}
+                    onBlur={onBlur}
+                    value={value}
+                    onChangeText={onChange}
+                    placeholder="Insira sua senha"
+                    placeholderTextColor={COLORS.grey}
+                    secureTextEntry={isPasswordShown}
+                    style={{
+                      width: "100%"
+                    }}
+                  />
+                )}
               />
 
               <TouchableOpacity
@@ -197,22 +270,30 @@ const Signup = ({ navigation }) => {
                 )}
               </TouchableOpacity>
             </View>
+            {errors.password && (
+              <Text style={{ color: "#ff6961", paddingTop: 8 }}>
+                {errors.password?.message}
+              </Text>
+            )}
           </View>
 
           <TouchableOpacity
-            style={{paddingBottom: 16,
+            style={{
+              paddingBottom: 16,
               paddingVertical: 10,
               borderColor: COLORS.primary,
               backgroundColor: COLORS.primary,
               borderWidth: 2,
               borderRadius: 12,
-              alignItems: 'center',
-              justifyContent: 'center', marginTop:16}}
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: 16
+            }}
             disabled={isLoading}
             onPress={handleSubmit(onSubmit)}
           >
             {isLoading ? (
-              <ActivityIndicator color="#BAE6BC"/>
+              <ActivityIndicator color="#BAE6BC" />
             ) : (
               <Text style={styles.buttonText}>Confirmar</Text>
             )}
@@ -228,7 +309,8 @@ const Signup = ({ navigation }) => {
             <Text style={{ fontSize: 16, color: COLORS.black }}>
               Você já tem conta conosco ?
             </Text>
-            <Pressable onPress={() => navigation.navigate("LoginStack")}>
+            <Pressable onPress={() => {navigation.navigate("LoginStack");
+          reset()}}>
               <Text
                 style={{
                   fontSize: 16,

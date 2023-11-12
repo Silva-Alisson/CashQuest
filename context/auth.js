@@ -60,6 +60,7 @@ export const AuthProvider = ({ children }) => {
         const newAuthData = { token, userId };
         setAuthData(newAuthData);
         await AsyncStorage.setItem('@AuthData', JSON.stringify(newAuthData));
+        return true;
         } else {
         console.log(response);
         return false;

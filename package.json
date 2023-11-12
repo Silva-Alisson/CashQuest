@@ -39,6 +39,7 @@
     "react-native-datepicker": "^1.7.2",
     "react-native-dotenv": "^3.4.9",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
+    "react-native-masked-text": "^1.13.0",
     "react-native-modern-datepicker": "^1.0.0-beta.91",
     "react-native-paper": "^5.11.1",
     "react-native-progress": "^5.0.1",
