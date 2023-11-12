@@ -21,14 +21,14 @@ import * as yup from "yup";
 const schema = yup.object().shape({
   nome: yup.string().required(),
   sobrenome: yup.string().required(),
-  email: yup.string().email().required(),
+  email: yup.string().email("Insira um email válido").required("Insira um e-mail"),
   password: yup
     .string()
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
       "A senha deve ter no mínimo 8 caracteres, uma letra maiúscula, uma letra minúscula, um número e um caractere especial"
     )
-    .required()
+    .required("insira uma senha")
 });
 const Signup = ({ navigation }) => {
   //forms start
@@ -111,7 +111,8 @@ const Signup = ({ navigation }) => {
               style={{
                 fontSize: 16,
                 fontWeight: 400,
-                marginVertical: 8
+                marginVertical: 8,
+                color: errors.password ? "#ff6961" : null
               }}
             >
               Nome
@@ -149,7 +150,8 @@ const Signup = ({ navigation }) => {
               style={{
                 fontSize: 16,
                 fontWeight: 400,
-                marginVertical: 8
+                marginVertical: 8,
+                color: errors.password ? "#ff6961" : null
               }}
             >
               Sobrenome
@@ -187,7 +189,8 @@ const Signup = ({ navigation }) => {
               style={{
                 fontSize: 16,
                 fontWeight: 400,
-                marginVertical: 8
+                marginVertical: 8,
+                color: errors.password ? "#ff6961" : null
               }}
             >
               E-mail
@@ -230,7 +233,8 @@ const Signup = ({ navigation }) => {
               style={{
                 fontSize: 16,
                 fontWeight: 400,
-                marginVertical: 8
+                marginVertical: 8,
+                color: errors.password ? "#ff6961" : null
               }}
             >
               Senha
@@ -298,7 +302,7 @@ const Signup = ({ navigation }) => {
             {isLoading ? (
               <ActivityIndicator color="#BAE6BC" />
             ) : (
-              <Text style={styles.buttonText}>Confirmar</Text>
+              <Text style={{color: COLORS.white}}>Confirmar</Text>
             )}
           </TouchableOpacity>
 

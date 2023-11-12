@@ -22,7 +22,10 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         alignItems: 'center',
         justifyContent: 'center'
-      },
+    },
+    textButton: {
+        color: COLORS.white
+    }
 })
 
 export default styles

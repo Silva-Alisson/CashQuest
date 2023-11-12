@@ -17,14 +17,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 const schema = yup.object().shape({
-  email: yup.string().email().required(),
+  email: yup.string().email("Insira um email válido").required("Insira um e-mail"),
   password: yup
     .string()
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-      "A senha deve ter no mínimo 8 caracteres, uma letra maiúscula, uma letra minúscula, um número e um caractere especial"
-    )
-    .required()
+    .required("insira uma senha")
 });
 
 const Login = ({ navigation }) => {
@@ -103,7 +99,8 @@ const Login = ({ navigation }) => {
             style={{
               fontSize: 16,
               fontWeight: 400,
-              marginVertical: 8
+              marginVertical: 8,
+              color: errors.password ? "#ff6961" : null
             }}
           >
             E-mail
@@ -146,7 +143,8 @@ const Login = ({ navigation }) => {
             style={{
               fontSize: 16,
               fontWeight: 400,
-              marginVertical: 8
+              marginVertical: 8,
+              color: errors.password ? "#ff6961" : null
             }}
           >
             Senha
@@ -222,12 +220,11 @@ const Login = ({ navigation }) => {
           {isLoading ? (
             <ActivityIndicator color="#BAE6BC" />
           ) : (
-            <Text style={styles.buttonText}>Entrar</Text>
+            <Text style={{color: COLORS.white}}>Entrar</Text>
           )}
         </TouchableOpacity>
-      </View>
-
-      <View
+      
+        <View
         style={{
           flexDirection: "row",
           justifyContent: "center",
@@ -254,6 +251,7 @@ const Login = ({ navigation }) => {
             Registre-se
           </Text>
         </Pressable>
+      </View>
       </View>
     </SafeAreaView>
   );
