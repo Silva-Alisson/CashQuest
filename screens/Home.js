@@ -24,11 +24,8 @@ const Home = ({ navigation }) => {
           (chave) => response[chave]
         );
         setDadosPet(arrayResponse);
-        console.log(arrayResponse)
-        if (response) {
-            
-            const calcProgress = response[1] / 500;
-            console.log({calcProgress});
+        if(arrayResponse) {
+            const calcProgress = arrayResponse[1] / 500;
             setProgress(calcProgress);
         }
       }
@@ -88,7 +85,7 @@ const Home = ({ navigation }) => {
 
           <View style={{ alignItems: "center" }}>
             <Progress.Bar
-              progress={0.3}
+              progress={progress}
               width={300}
               height={20}
               color={COLORS.third}

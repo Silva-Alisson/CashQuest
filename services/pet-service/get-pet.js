@@ -20,7 +20,6 @@ export const getPet = async (token, userId) => {
                     xp: result[0].xps,
                     name: result[0].name
                 }
-                console.log(dataPet[1])
 
                 // console.log(result[0].pet.photo)
                 return dataPet;

@@ -37,7 +37,6 @@ export const AuthProvider = ({ children }) => {
   async function signIn(email, password) {
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
-    console.log("chamou")
 
     const raw = JSON.stringify({
     email: email,
