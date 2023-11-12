@@ -236,7 +236,10 @@ const Signup = ({ navigation }) => {
               Senha
             </Text>
 
-            <View style={styles.input}>
+            <View style={[
+              styles.input,
+              { borderColor: errors.password ? "#ff6961" : null }
+            ]}>
               <Controller
                 control={control}
                 name="password"

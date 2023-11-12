@@ -151,73 +151,81 @@ const Login = ({ navigation }) => {
           >
             Senha
           </Text>
-
-          <Controller
-            control={control}
-            name="password"
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                label={"senha"}
-                onBlur={onBlur}
-                value={value}
-                onChangeText={onChange}
-                placeholder="Insira sua senha"
-                placeholderTextColor={COLORS.grey}
-                secureTextEntry={isPasswordShown}
-                style={{
-                  width: "100%"
-                }}
-              />
-            )}
-          />
-
-          <TouchableOpacity
-            onPress={() => setIsPasswordShown(!isPasswordShown)}
-            style={{
-              position: "absolute",
-              right: 12
-            }}
+          <View
+            style={[
+              styles.input,
+              { borderColor: errors.password ? "#ff6961" : null }
+            ]}
           >
-            {isPasswordShown == true ? (
-              <Ionicons name="eye-off" size={24} color={COLORS.black} />
-            ) : (
-              <Ionicons name="eye" size={24} color={COLORS.black} />
-            )}
-          </TouchableOpacity>
+            <Controller
+              control={control}
+              name="password"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  label={"senha"}
+                  onBlur={onBlur}
+                  value={value}
+                  onChangeText={onChange}
+                  placeholder="Insira sua senha"
+                  placeholderTextColor={COLORS.grey}
+                  secureTextEntry={isPasswordShown}
+                  style={{
+                    width: "100%"
+                  }}
+                />
+              )}
+            />
+
+            <TouchableOpacity
+              onPress={() => setIsPasswordShown(!isPasswordShown)}
+              style={{
+                position: "absolute",
+                right: 12
+              }}
+            >
+              {isPasswordShown == true ? (
+                <Ionicons name="eye-off" size={24} color={COLORS.black} />
+              ) : (
+                <Ionicons name="eye" size={24} color={COLORS.black} />
+              )}
+            </TouchableOpacity>
+          </View>
         </View>
         {errors.password && (
           <Text style={{ color: "#ff6961", paddingTop: 8 }}>
             {errors.password?.message}
           </Text>
         )}
-      </View>
-      {errorLogin && (
-        <Text style={{ color: "#ff6961", paddingTop: 8, textAlign: "center" }}>
-          Credenciais incorretas. Por favor tente novamente!
-        </Text>
-      )}
-
-      <TouchableOpacity
-        style={{
-          paddingBottom: 16,
-          paddingVertical: 10,
-          borderColor: COLORS.primary,
-          backgroundColor: COLORS.primary,
-          borderWidth: 2,
-          borderRadius: 12,
-          alignItems: "center",
-          justifyContent: "center",
-          marginTop: 16
-        }}
-        disabled={isLoading}
-        onPress={handleSubmit(handleLogin)}
-      >
-        {isLoading ? (
-          <ActivityIndicator color="#BAE6BC" />
-        ) : (
-          <Text style={styles.buttonText}>Entrar</Text>
+        {errorLogin && (
+          <Text
+            style={{ color: "#ff6961", paddingTop: 8, textAlign: "center" }}
+          >
+            Credenciais incorretas. Por favor tente novamente!
+          </Text>
         )}
-      </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
+            paddingBottom: 16,
+            paddingVertical: 10,
+            borderColor: COLORS.primary,
+            backgroundColor: COLORS.primary,
+            borderWidth: 2,
+            borderRadius: 12,
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: 16
+          }}
+          disabled={isLoading}
+          onPress={handleSubmit(handleLogin)}
+        >
+          {isLoading ? (
+            <ActivityIndicator color="#BAE6BC" />
+          ) : (
+            <Text style={styles.buttonText}>Entrar</Text>
+          )}
+        </TouchableOpacity>
+      </View>
 
       <View
         style={{
