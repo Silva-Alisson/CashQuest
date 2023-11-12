@@ -5,7 +5,8 @@ import {
   View,
   Image,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  ActivityIndicator
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -18,23 +19,24 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SelectNamePet({ navigation }) {
   const {signIn} = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const [petname, setPetName] = useState("");
-  console.log(petname);
 
   const onSubmit = async () => {
     const result = await createUserPet(petname);
-    console.log(result);
+    setIsLoading(true);
     if(result) {
       try {
         const user = await AsyncStorage.getItem('@UserData');
         const userData = JSON.parse(user);
         signIn(userData.email, userData.senha);
         await AsyncStorage.removeItem('@UserData');
+        setIsLoading(false);
       } catch (error) {
-        console.error('Erro ao fazer login:', error);
+        setIsLoading(false);
       }
     } else {
-        console.log("Falha ao cadastrar, tente novamente.");
+      setIsLoading(false);
     }
   }
 
@@ -90,16 +92,28 @@ export default function SelectNamePet({ navigation }) {
                       
 
             <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 16, marginVertical: 16 }}>
-                <Button
-                onPress={onSubmit}
-                title="Confirmar"
-                filled
+            <TouchableOpacity
                 style={{
-                    padding: 16,
-                    width: 120, // Corrigido: 'with' para 'width'
-                    height: 60
+                  paddingBottom: 16,
+                  paddingVertical: 10,
+                  borderColor: COLORS.primary,
+                  backgroundColor: COLORS.primary,
+                  borderWidth: 2,
+                  borderRadius: 12,
+                  alignItems: "center",
+                  width: 120,
+                  justifyContent: "center",
+                  marginTop: 16
                 }}
-                />
+                disabled={isLoading}
+                onPress={onSubmit}
+              >
+                {isLoading ? (
+                  <ActivityIndicator color="#BAE6BC" />
+                ) : (
+                  <Text style={styles.buttonText}>Confirmar</Text>
+                )}
+              </TouchableOpacity>
 
                 <Button
                 title="Cancelar"
@@ -111,6 +125,7 @@ export default function SelectNamePet({ navigation }) {
                     backgroundColor: '#fff',
                     color: COLORS.primary,
                 }}
+                onPress={navigation.goBack()}
                 />
             </View>
         </View>

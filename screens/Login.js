@@ -198,7 +198,7 @@ const Login = ({ navigation }) => {
           <Text
             style={{ color: "#ff6961", paddingTop: 8, textAlign: "center" }}
           >
-            Credenciais incorretas. Por favor tente novamente!
+            Algo está errado. Por favor tente novamente!
           </Text>
         )}
 

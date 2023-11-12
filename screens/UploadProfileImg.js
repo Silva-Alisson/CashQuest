@@ -11,35 +11,57 @@ import * as ImagePicker from "expo-image-picker";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { COLORS } from "../constants";
-import { uploadFile } from "../services/firebase-service/storage";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { UploadUserPhotoService } from "../services/upload-user-photo-service/upload-user-photo-service";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "../database/firebaseConfig";
 
 export default function UploadProfileImg({ navigation }) {
   const [image, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
- 
-  const handleLoadData = async () => {
-    setIsLoading(true);
-    if (image) {
-      const user = await AsyncStorage.getItem('@UserData');
-      const userData = JSON.parse(user);
-      const url = uploadFile(image, userData.id)
-      if(url && url != null) {
-        const result = await UploadUserPhotoService(url);
-        if(result) {
+
+  const [uri, setUri] = useState();
+  const [progress, setProgress] = useState(0);
+  const [errorUpload, setErrorUpload] = useState(false);
+  async function uploadImage(uri) {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+
+    const storageRef = ref(storage, "userProfile/" + new Date().getTime());
+    const uploadTask = uploadBytesResumable(storageRef, blob);
+
+    
+    // listen for events
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setProgress(progress.toFixed());
+      },
+      (error) => {
+        setErrorUpload(true)
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+          const result = await UploadUserPhotoService(downloadURL);
+          if (result) {
             setIsLoading(false);
             navigation.navigate("NamePetStack");
-        } else {
-          setIsLoading(false);
-          console.log("Falha ao adicionar foto, tente novamente.");
-        }
+          } else {
+            setIsLoading(false);
+            setErrorUpload(true)
+          }
+        });
       }
-    }else {
-      setIsLoading(false);
-      console.log("Selecione uma imagem")
-    };
+    );
   }
+
+  const handleLoadData = async () => {
+    setIsLoading(true);
+    if (uri) {
+      await uploadImage(uri);
+    }
+  };
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -52,6 +74,7 @@ export default function UploadProfileImg({ navigation }) {
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
+      setUri(result.assets[0].uri);
     }
   };
 
@@ -66,42 +89,57 @@ export default function UploadProfileImg({ navigation }) {
       >
         <Text style={styles.title}>Adicionar foto de perfil</Text>
       </View>
-      <View style={{flex: 1, flexDirection:'column', alignContent: 'center', justifyContent:'space-between', gap:100, marginHorizontal: 10, marginBottom:16, marginTop:150}}>
-        <View style={{ alignItems:'center'}}>
-            <TouchableOpacity onPress={pickImage}>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "column",
+          alignContent: "center",
+          justifyContent: "space-between",
+          gap: 100,
+          marginHorizontal: 10,
+          marginBottom: 16,
+          marginTop: 150
+        }}
+      >
+        <View style={{ alignItems: "center" }}>
+          <TouchableOpacity onPress={pickImage}>
             <View style={styles.photoView}>
-                {!image ? (
-                <MaterialCommunityIcons name="account" size={160} color="#fff" />
-                ) : (
+              {!image ? (
+                <MaterialCommunityIcons
+                  name="account"
+                  size={160}
+                  color="#fff"
+                />
+              ) : (
                 image && (
-                    <Image
+                  <Image
                     source={{ uri: image }}
                     resizeMode={"cover"}
                     style={styles.photo}
-                    />
+                  />
                 )
-                )}
+              )}
             </View>
-            </TouchableOpacity>
+          </TouchableOpacity>
         </View>
-        
-        {/* <Button
-          style={[isLoading && styles.loadingButton]}
-            onPress={handleLoadData}
-            title="Confirmar"
-            filled
-            
-        /> */}
+
+        {errorUpload && (
+          <Text
+            style={{ color: "#ff6961", paddingTop: 8, textAlign: "center" }}
+          >
+            Falha ao fazer upload da sua foto de perfil, por favor tente novamente.
+          </Text>
+        )}
         <TouchableOpacity
-            style={styles.button}
-            disabled={isLoading}
-            onPress={handleLoadData}
+          style={styles.button}
+          disabled={isLoading}
+          onPress={handleLoadData}
         >
-            {isLoading ? (
-                <ActivityIndicator />
-            ) : (
-              <Text style={styles.buttonText}>Confirmar</Text>
-            )}
+          {isLoading ? (
+            <ActivityIndicator color="#BAE6BC"/>
+          ) : (
+            <Text style={styles.buttonText}>Fazer Upoload</Text>
+          )}
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -123,8 +161,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     borderWidth: 2,
     borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center"
   },
   input: {
     width: "80%",
@@ -135,7 +173,7 @@ const styles = StyleSheet.create({
     padding: 10
   },
   loadingButton: {
-    transform: [{ rotate: '45deg' }],
+    transform: [{ rotate: "45deg" }]
   },
   title: {
     textAlign: "center",

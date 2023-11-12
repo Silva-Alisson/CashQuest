@@ -31,6 +31,7 @@ const schema = yup.object().shape({
     .required("insira uma senha")
 });
 const Signup = ({ navigation }) => {
+  const [errorSignup, setErrorSignup] = useState(false);
   //forms start
   const [isLoading, setIsLoading] = useState(false);
 
@@ -58,7 +59,7 @@ const Signup = ({ navigation }) => {
       navigation.navigate("UploadProfileImgStack");
     } else {
       setIsLoading(false);
-      console.log("Falha ao cadastrar, tente novamente.");
+      setErrorSignup(true);
     }
   };
   //forms end
@@ -112,7 +113,7 @@ const Signup = ({ navigation }) => {
                 fontSize: 16,
                 fontWeight: 400,
                 marginVertical: 8,
-                color: errors.password ? "#ff6961" : null
+                color: errors.nome ? "#ff6961" : null
               }}
             >
               Nome
@@ -151,7 +152,7 @@ const Signup = ({ navigation }) => {
                 fontSize: 16,
                 fontWeight: 400,
                 marginVertical: 8,
-                color: errors.password ? "#ff6961" : null
+                color: errors.sobrenome ? "#ff6961" : null
               }}
             >
               Sobrenome
@@ -190,7 +191,7 @@ const Signup = ({ navigation }) => {
                 fontSize: 16,
                 fontWeight: 400,
                 marginVertical: 8,
-                color: errors.password ? "#ff6961" : null
+                color: errors.email ? "#ff6961" : null
               }}
             >
               E-mail
@@ -199,7 +200,7 @@ const Signup = ({ navigation }) => {
             <View
               style={[
                 styles.input,
-                { borderColor: errors.sobrenome ? "#ff6961" : null }
+                { borderColor: errors.email ? "#ff6961" : null }
               ]}
             >
               <Controller
@@ -283,7 +284,13 @@ const Signup = ({ navigation }) => {
               </Text>
             )}
           </View>
-
+          {errorSignup && (
+          <Text
+            style={{ color: "#ff6961", paddingTop: 8, textAlign: "center" }}
+          >
+            Falha ao criar seu cadastro, por favor tente novamente.
+          </Text>
+        )}
           <TouchableOpacity
             style={{
               paddingBottom: 16,

@@ -5,8 +5,7 @@ export const register_user = async (params) => {
   const nome = params.nome;
   const sobrenome = params.sobrenome;
   const email = params.email;
-  const senha = params.senha;
-  console.log({ params });
+  const senha = params.password;
 
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
