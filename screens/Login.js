@@ -5,7 +5,8 @@ import {
   Pressable,
   TextInput,
   TouchableOpacity,
-  SafeAreaView
+  SafeAreaView,
+  ActivityIndicator
 } from "react-native";
 import React, { useState } from "react";
 import { COLORS } from "../constants";

@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, Image, ScrollView, TouchableOpacity,FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS } from "../constants";
@@ -15,6 +15,7 @@ const Home = ({ navigation }) => {
   const [dadosPet, setDadosPet] = useState([]);
   const [progress, setProgress] = useState(0.0);
 
+  
   const isFocused = useIsFocused();
   useEffect(() => {
     if (isFocused) {
@@ -41,11 +42,61 @@ const Home = ({ navigation }) => {
       }
 
       fetchDataWallet();
-    }
+
+    };
+
+    
   }, [isFocused]);
 
-  
+  const data = [
+    {
+      id: '1',
+      day: 'Hoje',
+      total: '+ 52.00',
+      details: [
+        {
+          id: '11',
+          totalAmount: '+R$ 52.00',
+          category: 'Investimentos',
+          description: 'Ganhei no jogo do bicho',
+          iconName: 'close',
+        },
+      ],
+    },
+  ];
 
+  const DetailItem = ({ item }) => (
+    <View style={{ flexDirection: 'column', margin: 10 }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', alignItems: 'center' }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={{ width: 40, height: 40, borderRadius: 999, backgroundColor: '#BAE6BC', justifyContent: 'center', alignItems: 'center' }}>
+            <MaterialCommunityIcons name={item.iconName} size={30} color='#5DA660' />
+          </View>
+  
+          <View style={{ flexDirection: 'column', paddingLeft: 10 }}>
+            <Text style={{ fontSize: 16 }}>{item.category}</Text>
+            <Text style={{ fontSize: 12 }}>{item.description}</Text>
+          </View>
+        </View>
+        <Text style={{ color: '#5DA660', fontSize: 18 }}>{item.totalAmount}</Text>
+      </View>
+    </View>
+  );
+
+  const DayItem = ({ item }) => (
+    <View style={{ marginBottom: 10, justifyContent: 'center'}}>
+      <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: 'center', marginHorizontal: 10}}>
+        <Text style={{ fontSize: 20}}>{item.day}</Text>
+        <Text style={{ fontSize: 20, color: '#5DA660'}}>{item.total}</Text>
+      </View>
+      <FlatList
+        data={item.details}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <DetailItem item={item} />}
+      />
+    </View>
+  );
+  
   return (
     <SafeAreaView
       style={{
@@ -202,67 +253,15 @@ const Home = ({ navigation }) => {
           </View>
         </View>
 
-        <View>
-          <ScrollView>
-            <View style={{ flexDirection: "column", margin: 10 }}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  borderBottomWidth: 1,
-                  borderBottomColor: COLORS.black,
-                  marginBottom: 10,
-                  paddingBottom: 5
-                }}
-              >
-                <Text style={{ color: COLORS.black, fontSize: 18 }}>Hoje</Text>
-                <Text style={{ color: COLORS.primary, fontSize: 18 }}>
-                  +R$ 36.00
-                </Text>
-              </View>
-
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  alignItems: "center"
-                }}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <View
-                    style={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: 999,
-                      backgroundColor: "#BAE6BC",
-                      justifyContent: "center",
-                      alignItems: "center"
-                    }}
-                  >
-                    <MaterialCommunityIcons
-                      name={"close"}
-                      size={30}
-                      color="#5DA660"
-                    />
-                  </View>
-
-                  <View style={{ flexDirection: "column", paddingLeft: 10 }}>
-                    <Text style={{ fontSize: 16 }}>Investimentos</Text>
-                    <Text style={{ fontSize: 12 }}>
-                      Ganhei no jogo do bicho
-                    </Text>
-                  </View>
-                </View>
-                <Text style={{ color: COLORS.primary, fontSize: 18 }}>
-                  +R$ 52.00
-                </Text>
-              </View>
-            </View>
-          </ScrollView>
+        <View style={{ padding: 20 }}>
+          <FlatList
+            data={data}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <DayItem item={item} />}
+          />
         </View>
       </View>
+      
     </SafeAreaView>
   );
 };
