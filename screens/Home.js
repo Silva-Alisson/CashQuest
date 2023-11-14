@@ -61,13 +61,146 @@ const Home = ({ navigation }) => {
           description: 'Ganhei no jogo do bicho',
           iconName: 'close',
         },
+        {
+          id: '12',
+          totalAmount: '+R$ 52.00',
+          category: 'Investimentos',
+          description: 'Ganhei no jogo do bicho',
+          iconName: 'close',
+        },
+        {
+          id: '12',
+          totalAmount: '+R$ 52.00',
+          category: 'Investimentos',
+          description: 'Ganhei no jogo do bicho',
+          iconName: 'close',
+        },
+        {
+          id: '12',
+          totalAmount: '+R$ 52.00',
+          category: 'Investimentos',
+          description: 'Ganhei no jogo do bicho',
+          iconName: 'close',
+        },
+      ],
+    },
+    {
+      id: '2',
+      day: 'Hoje',
+      total: '+ 52.00',
+      details: [
+        {
+          id: '13',
+          totalAmount: '+R$ 52.00',
+          category: 'Investimentos',
+          description: 'Ganhei no jogo do bicho',
+          iconName: 'close',
+        },
+      ],
+    },
+    {
+      id: '2',
+      day: 'Hoje',
+      total: '+ 52.00',
+      details: [
+        {
+          id: '13',
+          totalAmount: '+R$ 52.00',
+          category: 'Investimentos',
+          description: 'Ganhei no jogo do bicho',
+          iconName: 'close',
+        },
+      ],
+    },
+    {
+      id: '2',
+      day: 'Hoje',
+      total: '+ 52.00',
+      details: [
+        {
+          id: '13',
+          totalAmount: '+R$ 52.00',
+          category: 'Investimentos',
+          description: 'Ganhei no jogo do bicho',
+          iconName: 'close',
+        },
+      ],
+    },
+    {
+      id: '2',
+      day: 'Hoje',
+      total: '+ 52.00',
+      details: [
+        {
+          id: '13',
+          totalAmount: '+R$ 52.00',
+          category: 'Investimentos',
+          description: 'Ganhei no jogo do bicho',
+          iconName: 'close',
+        },
+      ],
+    },
+    {
+      id: '2',
+      day: 'Hoje',
+      total: '+ 52.00',
+      details: [
+        {
+          id: '13',
+          totalAmount: '+R$ 52.00',
+          category: 'Investimentos',
+          description: 'Ganhei no jogo do bicho',
+          iconName: 'close',
+        },
+      ],
+    },
+    {
+      id: '2',
+      day: 'Hoje',
+      total: '+ 52.00',
+      details: [
+        {
+          id: '13',
+          totalAmount: '+R$ 52.00',
+          category: 'Investimentos',
+          description: 'Ganhei no jogo do bicho',
+          iconName: 'close',
+        },
+      ],
+    },
+    {
+      id: '2',
+      day: 'Hoje',
+      total: '+ 52.00',
+      details: [
+        {
+          id: '13',
+          totalAmount: '+R$ 52.00',
+          category: 'Investimentos',
+          description: 'Ganhei no jogo do bicho',
+          iconName: 'close',
+        },
+      ],
+    },
+    {
+      id: '2',
+      day: 'Hoje',
+      total: '+ 52.00',
+      details: [
+        {
+          id: '13',
+          totalAmount: '+R$ 52.00',
+          category: 'Investimentos',
+          description: 'Ganhei no jogo do bicho',
+          iconName: 'close',
+        },
       ],
     },
   ];
 
   const DetailItem = ({ item }) => (
-    <View style={{ flexDirection: 'column', margin: 10 }}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', alignItems: 'center' }}>
+    <View style={{ flexDirection: 'column', margin: 10,  }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', alignItems: 'center', borderTopWidth: 1, borderTopColor: COLORS.grey, paddingTop: 10, paddingHorizontal: 10  }}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <View style={{ width: 40, height: 40, borderRadius: 999, backgroundColor: '#BAE6BC', justifyContent: 'center', alignItems: 'center' }}>
             <MaterialCommunityIcons name={item.iconName} size={30} color='#5DA660' />
@@ -84,16 +217,30 @@ const Home = ({ navigation }) => {
   );
 
   const DayItem = ({ item }) => (
-    <View style={{ marginBottom: 10, justifyContent: 'center'}}>
-      <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: 'center', marginHorizontal: 10}}>
-        <Text style={{ fontSize: 20}}>{item.day}</Text>
-        <Text style={{ fontSize: 20, color: '#5DA660'}}>{item.total}</Text>
+    <View style={{ marginBottom: 10, justifyContent: 'center', paddingVertical: 10, backgroundColor:COLORS.white, ...Platform.select({
+      android: {
+        elevation: 5,
+        backgroundColor: '#fff', // Adiciona uma cor de fundo para corrigir o problema no Android
+      },
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+      },
+    }),
+    }}>
+      <View style={{ marginBottom: 10, justifyContent: 'center',   }}>
+        <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: 'center', marginHorizontal: 10,  }}>
+          <Text style={{ fontSize: 20, paddingHorizontal: 10}}>{item.day}</Text>
+          <Text style={{ fontSize: 20, paddingHorizontal: 10, color: '#5DA660'}}>{item.total}</Text>
+        </View>
+        <FlatList
+          data={item.details}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => <DetailItem item={item} />}
+        />
       </View>
-      <FlatList
-        data={item.details}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <DetailItem item={item} />}
-      />
     </View>
   );
   
@@ -203,63 +350,76 @@ const Home = ({ navigation }) => {
           </View>
         </View>
 
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            alignItems: "center",
-            marginVertical: 5
-          }}
-        >
+        
           <View
             style={{
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
               alignItems: "center",
-              borderRadius: 16,
-              borderColor: COLORS.grey,
-              borderWidth: 1
+              marginTop: 2
             }}
           >
-            <TouchableOpacity>
-              <MaterialCommunityIcons
-                name={"chevron-left"}
-                size={42}
-                color="#000"
-              />
-            </TouchableOpacity>
             <View
               style={{
-                flexDirection: "column",
-                paddingHorizontal: "14%",
+                flexDirection: "row",
                 alignItems: "center",
-                justifyContent: "center"
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: 16,
+                backgroundColor: COLORS.white,
+                
+                
+                ...Platform.select({
+                  android: {
+                    elevation: 4,
+                    backgroundColor: '#fff', // Adiciona uma cor de fundo para corrigir o problema no Android
+                  },
+                  ios: {
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 2 },
+                    shadowOpacity: 0.5,
+                    shadowRadius: 4,
+                  },
+                }),
               }}
             >
-              <Text style={{ color: COLORS.black, fontSize: 36 }}>Outubro</Text>
-              <Text style={{ color: COLORS.black, fontSize: 15 }}>
-                Suas movimentações
-              </Text>
+              <TouchableOpacity>
+                <MaterialCommunityIcons
+                  name={"chevron-left"}
+                  size={42}
+                  color="#000"
+                />
+              </TouchableOpacity>
+              <View
+                style={{
+                  flexDirection: "column",
+                  paddingHorizontal: "14%",
+                  alignItems: "center",
+                  justifyContent: "center"
+                }}
+              >
+                <Text style={{ color: COLORS.black, fontSize: 36 }}>Outubro</Text>
+                <Text style={{ color: COLORS.black, fontSize: 15 }}>Suas movimentações</Text>
+              </View>
+              <TouchableOpacity>
+                <MaterialCommunityIcons
+                  name={"chevron-right"}
+                  size={42}
+                  color="#000"
+                />
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity>
-              <MaterialCommunityIcons
-                name={"chevron-right"}
-                size={42}
-                color="#000"
-              />
-            </TouchableOpacity>
           </View>
-        </View>
 
-        <View style={{ padding: 20 }}>
-          <FlatList
-            data={data}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <DayItem item={item} />}
-          />
-        </View>
+          <View style={{ paddingBottom: 20, paddingTop: 5  }}>
+            <FlatList
+              data={data}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => <DayItem item={item} />}
+            />
+          </View>
+        
       </View>
       
     </SafeAreaView>
