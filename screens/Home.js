@@ -15,6 +15,38 @@ const Home = ({ navigation }) => {
   const [dadosPet, setDadosPet] = useState([]);
   const [progress, setProgress] = useState(0.0);
 
+  const months = [
+    { name: 'Janeiro', id: 1 },
+    { name: 'Fevereiro', id: 2 },
+    { name: 'Março', id: 3 },
+    { name: 'Abril', id: 4 },
+    { name: 'Maio', id: 5 },
+    { name: 'Junho', id: 6 },
+    { name: 'Julho', id: 7 },
+    { name: 'Agosto', id: 8 },
+    { name: 'Setembro', id: 9 },
+    { name: 'Outubro', id: 10 },
+    { name: 'Novembro', id: 11 },
+    { name: 'Dezembro', id: 12 },
+    // Adicione mais meses conforme necessário
+  ];
+  const date = new Date();
+  const mes = date.getMonth()
+  const [currentMonthIndex, setCurrentMonthIndex] = useState(mes);
+  
+
+  console.log(date, mes+1)
+
+  const navigateMonth = (direction) => {
+    if (direction === 'next' && currentMonthIndex < months.length - 1) {
+      setCurrentMonthIndex(currentMonthIndex + 1);
+    } else if (direction === 'prev' && currentMonthIndex > 0) {
+      setCurrentMonthIndex(currentMonthIndex - 1);
+    }
+  };
+
+  const currentMonth = months[currentMonthIndex];
+   console.log(currentMonthIndex)
   
   const isFocused = useIsFocused();
   useEffect(() => {
@@ -69,14 +101,14 @@ const Home = ({ navigation }) => {
           iconName: 'close',
         },
         {
-          id: '12',
+          id: '13',
           totalAmount: '+R$ 52.00',
           category: 'Investimentos',
           description: 'Ganhei no jogo do bicho',
           iconName: 'close',
         },
         {
-          id: '12',
+          id: '14',
           totalAmount: '+R$ 52.00',
           category: 'Investimentos',
           description: 'Ganhei no jogo do bicho',
@@ -90,7 +122,7 @@ const Home = ({ navigation }) => {
       total: '+ 52.00',
       details: [
         {
-          id: '13',
+          id: '15',
           totalAmount: '+R$ 52.00',
           category: 'Investimentos',
           description: 'Ganhei no jogo do bicho',
@@ -99,12 +131,12 @@ const Home = ({ navigation }) => {
       ],
     },
     {
-      id: '2',
+      id: '3',
       day: 'Hoje',
       total: '+ 52.00',
       details: [
         {
-          id: '13',
+          id: '16',
           totalAmount: '+R$ 52.00',
           category: 'Investimentos',
           description: 'Ganhei no jogo do bicho',
@@ -113,12 +145,12 @@ const Home = ({ navigation }) => {
       ],
     },
     {
-      id: '2',
+      id: '4',
       day: 'Hoje',
       total: '+ 52.00',
       details: [
         {
-          id: '13',
+          id: '17',
           totalAmount: '+R$ 52.00',
           category: 'Investimentos',
           description: 'Ganhei no jogo do bicho',
@@ -127,12 +159,12 @@ const Home = ({ navigation }) => {
       ],
     },
     {
-      id: '2',
+      id: '5',
       day: 'Hoje',
       total: '+ 52.00',
       details: [
         {
-          id: '13',
+          id: '18',
           totalAmount: '+R$ 52.00',
           category: 'Investimentos',
           description: 'Ganhei no jogo do bicho',
@@ -141,12 +173,12 @@ const Home = ({ navigation }) => {
       ],
     },
     {
-      id: '2',
+      id: '6',
       day: 'Hoje',
       total: '+ 52.00',
       details: [
         {
-          id: '13',
+          id: '19',
           totalAmount: '+R$ 52.00',
           category: 'Investimentos',
           description: 'Ganhei no jogo do bicho',
@@ -155,12 +187,12 @@ const Home = ({ navigation }) => {
       ],
     },
     {
-      id: '2',
+      id: '7',
       day: 'Hoje',
       total: '+ 52.00',
       details: [
         {
-          id: '13',
+          id: '20',
           totalAmount: '+R$ 52.00',
           category: 'Investimentos',
           description: 'Ganhei no jogo do bicho',
@@ -169,12 +201,12 @@ const Home = ({ navigation }) => {
       ],
     },
     {
-      id: '2',
+      id: '8',
       day: 'Hoje',
       total: '+ 52.00',
       details: [
         {
-          id: '13',
+          id: '21',
           totalAmount: '+R$ 52.00',
           category: 'Investimentos',
           description: 'Ganhei no jogo do bicho',
@@ -183,12 +215,12 @@ const Home = ({ navigation }) => {
       ],
     },
     {
-      id: '2',
+      id: '9',
       day: 'Hoje',
       total: '+ 52.00',
       details: [
         {
-          id: '13',
+          id: '22',
           totalAmount: '+R$ 52.00',
           category: 'Investimentos',
           description: 'Ganhei no jogo do bicho',
@@ -384,7 +416,7 @@ const Home = ({ navigation }) => {
                 }),
               }}
             >
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigateMonth('prev')}>
                 <MaterialCommunityIcons
                   name={"chevron-left"}
                   size={42}
@@ -399,10 +431,10 @@ const Home = ({ navigation }) => {
                   justifyContent: "center"
                 }}
               >
-                <Text style={{ color: COLORS.black, fontSize: 36 }}>Outubro</Text>
+                <Text style={{ color: COLORS.black, fontSize: 36 }}>{currentMonth.name}</Text>
                 <Text style={{ color: COLORS.black, fontSize: 15 }}>Suas movimentações</Text>
               </View>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigateMonth('next')}>
                 <MaterialCommunityIcons
                   name={"chevron-right"}
                   size={42}
