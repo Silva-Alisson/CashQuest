@@ -8,12 +8,13 @@ import { getPet } from "../services/pet-service/get-pet";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useAuth } from "../context/auth";
 import { useIsFocused } from "@react-navigation/native";
-
+import getReportsHome from "../services/reports-service/get-monthly-report-home";
 const Home = ({ navigation }) => {
   const [dados, setDados] = useState([]);
   const { authData } = useAuth();
   const [dadosPet, setDadosPet] = useState([]);
   const [progress, setProgress] = useState(0.0);
+  const [dadosReports, setDadosReports] = useState([]);
 
   const months = [
     { name: 'Janeiro', id: 1 },
@@ -75,7 +76,19 @@ const Home = ({ navigation }) => {
 
       fetchDataWallet();
 
-    };
+    
+
+    async function fetchDataReports() {
+      const response = await getReportsHome(authData.userId, date, authData.token );
+      const arrayResponse = Object.keys(response).map(
+        (chave) => response[chave]
+      );
+      setDadosReports(arrayResponse);
+    }
+
+    fetchDataReports();
+    console.log(dadosReports)
+  };
 
     
   }, [isFocused]);
