@@ -69,14 +69,14 @@ const Home = ({ navigation }) => {
           iconName: 'close',
         },
         {
-          id: '12',
+          id: '13',
           totalAmount: '+R$ 52.00',
           category: 'Investimentos',
           description: 'Ganhei no jogo do bicho',
           iconName: 'close',
         },
         {
-          id: '12',
+          id: '14',
           totalAmount: '+R$ 52.00',
           category: 'Investimentos',
           description: 'Ganhei no jogo do bicho',
@@ -97,106 +97,7 @@ const Home = ({ navigation }) => {
           iconName: 'close',
         },
       ],
-    },
-    {
-      id: '2',
-      day: 'Hoje',
-      total: '+ 52.00',
-      details: [
-        {
-          id: '13',
-          totalAmount: '+R$ 52.00',
-          category: 'Investimentos',
-          description: 'Ganhei no jogo do bicho',
-          iconName: 'close',
-        },
-      ],
-    },
-    {
-      id: '2',
-      day: 'Hoje',
-      total: '+ 52.00',
-      details: [
-        {
-          id: '13',
-          totalAmount: '+R$ 52.00',
-          category: 'Investimentos',
-          description: 'Ganhei no jogo do bicho',
-          iconName: 'close',
-        },
-      ],
-    },
-    {
-      id: '2',
-      day: 'Hoje',
-      total: '+ 52.00',
-      details: [
-        {
-          id: '13',
-          totalAmount: '+R$ 52.00',
-          category: 'Investimentos',
-          description: 'Ganhei no jogo do bicho',
-          iconName: 'close',
-        },
-      ],
-    },
-    {
-      id: '2',
-      day: 'Hoje',
-      total: '+ 52.00',
-      details: [
-        {
-          id: '13',
-          totalAmount: '+R$ 52.00',
-          category: 'Investimentos',
-          description: 'Ganhei no jogo do bicho',
-          iconName: 'close',
-        },
-      ],
-    },
-    {
-      id: '2',
-      day: 'Hoje',
-      total: '+ 52.00',
-      details: [
-        {
-          id: '13',
-          totalAmount: '+R$ 52.00',
-          category: 'Investimentos',
-          description: 'Ganhei no jogo do bicho',
-          iconName: 'close',
-        },
-      ],
-    },
-    {
-      id: '2',
-      day: 'Hoje',
-      total: '+ 52.00',
-      details: [
-        {
-          id: '13',
-          totalAmount: '+R$ 52.00',
-          category: 'Investimentos',
-          description: 'Ganhei no jogo do bicho',
-          iconName: 'close',
-        },
-      ],
-    },
-    {
-      id: '2',
-      day: 'Hoje',
-      total: '+ 52.00',
-      details: [
-        {
-          id: '13',
-          totalAmount: '+R$ 52.00',
-          category: 'Investimentos',
-          description: 'Ganhei no jogo do bicho',
-          iconName: 'close',
-        },
-      ],
-    },
-  ];
+    }];
 
   const DetailItem = ({ item }) => (
     <View style={{ flexDirection: 'column', margin: 10,  }}>

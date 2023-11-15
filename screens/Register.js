@@ -38,7 +38,7 @@ const Register = ({ navigation, route }) => {
   } = useForm({
     defaultValues: {
     description: "",
-    value: 0.0,
+    value: "",
     Comments: "",
     Installments: ""
     },
@@ -109,7 +109,6 @@ const Register = ({ navigation, route }) => {
   const { authData } = useAuth();
 
   const onSubmitForms = async (data) => {
-    console.log(data.value);
     const params = {
       type: selectedOption,
       token: authData.token,
