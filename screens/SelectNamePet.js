@@ -165,7 +165,7 @@ export default function SelectNamePet({ navigation }) {
               {isLoading ? (
                 <ActivityIndicator color="#BAE6BC" />
               ) : (
-                <Text style={styles.buttonText}>Confirmar</Text>
+                <Text style={[styles.buttonText, {color: COLORS.white}]}>Confirmar</Text>
               )}
             </TouchableOpacity>
 
@@ -179,7 +179,7 @@ export default function SelectNamePet({ navigation }) {
                 backgroundColor: "#fff",
                 color: COLORS.primary
               }}
-              onPress={navigation.goBack()}
+              onPress={() => navigation.goBack()}
             />
           </View>
         </View>

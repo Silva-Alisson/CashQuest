@@ -12,6 +12,10 @@ export const Profile = ({navigation}) => {
     const {authData} = useAuth();
     const isFocused = useIsFocused();
 
+    const [valorFormatadoCarteira, setValorFormatadoCarteira] = useState(0);
+    const [valorFormatadoReservas, setValorFormatadoReservas] = useState(0);
+    const [valorFormatadoGastos, setValorFormatadoGastos] = useState(0);
+
     useEffect(() => {
         if (isFocused){
             async function fetchData() {
@@ -23,8 +27,25 @@ export const Profile = ({navigation}) => {
                 setDados(arrayResponse);
             }
             fetchData();
+
+            if (dados.length > 0) {
+                setValorFormatadoCarteira(textValueBRL(dados[0]));
+                setValorFormatadoReservas(textValueBRL(dados[2]));
+                setValorFormatadoGastos(textValueBRL(dados[1]));
+            }            
         }
     }, [isFocused]);
+
+    const textValueBRL = (valor) => {
+        const valorFormatado = valor.toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+        });
+      
+        return (
+            <Text style={Styles2.textWallet}>{valorFormatado}</Text>
+        );
+    };
 
     return (
         <SafeAreaView style={Styles2.container2}>
@@ -46,17 +67,17 @@ export const Profile = ({navigation}) => {
 
                 <View style={Styles2.walletContainer}>
                     <View style={Styles2.viewWallet}>
-                        <Text style={Styles2.textWallet}>R$ {dados[0]}</Text>
+                        {dados ? textValueBRL(valorFormatadoCarteira): null}
                         <Text style={Styles2.textWallet}>Carteira</Text>
                     </View>
 
                     <View style={Styles2.viewWallet}>
-                        <Text style={Styles2.textWallet}>R$ {dados[2]}</Text>
+                        {dados ? textValueBRL(valorFormatadoReservas): null}
                         <Text style={Styles2.textWallet}>Reservas</Text>
                     </View>
 
                     <View style={Styles2.viewWallet}>
-                        <Text style={Styles2.textWallet}>R$ {dados[1]}</Text>
+                        {dados ? textValueBRL(valorFormatadoGastos): null}
                         <Text style={Styles2.textWallet}>Gastos no mês</Text>
                     </View>
                 </View>

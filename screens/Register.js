@@ -24,9 +24,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 
 const schema = yup.object().shape({
   value: yup
-    .number()
-    .required()
-    .test((value) => value !== 0.0),
+    .string()
+    .required(),
   description: yup.string().required("Insira uma descrição")
 });
 
@@ -39,7 +38,7 @@ const Register = ({ navigation, route }) => {
   } = useForm({
     defaultValues: {
     description: "",
-    value: 0.0,
+    value: "",
     Comments: "",
     Installments: ""
     },
@@ -116,7 +115,7 @@ const Register = ({ navigation, route }) => {
       userId: authData.userId,
       category: selectedCategory,
       description: data.description,
-      value: parseFloat(data.value),
+      value: parseFloat(data.value.replace(/[^\d,]/g, "").replace(",", ".")),
       isFixed: isCheckedFix,
       comments: data.comments || "",
       createAt: date,
@@ -216,7 +215,9 @@ const Register = ({ navigation, route }) => {
                       unit: "R$ "
                     }}
                     maxLength={18}
-                    onChangeText={onChange}
+                    onChangeText={
+                      onChange
+                    }
                   />
                 )}
               />
