@@ -151,7 +151,7 @@ export default function UploadProfileImg({ navigation }) {
           {isLoading ? (
             <ActivityIndicator color="#BAE6BC"/>
           ) : (
-            <Text style={styles.buttonText}>Fazer Upoload</Text>
+            <Text style={[styles.buttonText, {color: COLORS.white}]}>Fazer Upoload</Text>
           )}
         </TouchableOpacity>
       </View>
