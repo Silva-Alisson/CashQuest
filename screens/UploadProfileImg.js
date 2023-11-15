@@ -43,21 +43,21 @@ export default function UploadProfileImg({ navigation }) {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-          uploadUserPhoto(downloadURL);
+          const result = await UploadUserPhotoService(downloadURL);
+          if (result) {
+            setIsLoading(false);
+            navigation.navigate("NamePetStack");
+          } else {
+            setIsLoading(false);
+            setErrorUpload(true)
+          }
         });
       }
     );
   }
 
   const uploadUserPhoto = async (url) => {
-    const result = await UploadUserPhotoService(url);
-    if (result) {
-      setIsLoading(false);
-      navigation.navigate("NamePetStack");
-    } else {
-      setIsLoading(false);
-      setErrorUpload(true)
-    }
+    
   }
 
   const handleLoadData = async () => {
@@ -65,7 +65,14 @@ export default function UploadProfileImg({ navigation }) {
     if (uri) {
       await uploadImage(uri);
     } else {
-      uploadUserPhoto("https://firebasestorage.googleapis.com/v0/b/cashquest-a60d0.appspot.com/o/userProfile%2FGroup%202110.png?alt=media&token=ee3d13c9-2ba5-4962-9c5c-2578ee19892b")
+      const result = await UploadUserPhotoService("https://firebasestorage.googleapis.com/v0/b/cashquest-a60d0.appspot.com/o/userProfile%2FGroup%202110.png?alt=media&token=ee3d13c9-2ba5-4962-9c5c-2578ee19892b");
+      if (result) {
+        setIsLoading(false);
+        navigation.navigate("NamePetStack");
+      } else {
+        setIsLoading(false);
+        setErrorUpload(true)
+      }
     }
   };
 

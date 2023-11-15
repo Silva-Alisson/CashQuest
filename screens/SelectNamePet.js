@@ -179,7 +179,7 @@ export default function SelectNamePet({ navigation }) {
                 backgroundColor: "#fff",
                 color: COLORS.primary
               }}
-              onPress={navigation.goBack()}
+              onPress={() => navigation.goBack()}
             />
           </View>
         </View>
