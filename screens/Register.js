@@ -422,17 +422,6 @@ const Register = ({ navigation, route }) => {
                       />
                     )}
                   />
-                  <TextInput
-                    label={"quantidade"}
-                    value={installments}
-                    onChangeText={(text) => setInstallments(text)}
-                    placeholder="0"
-                    placeholderTextColor={COLORS.grey}
-                    style={{
-                      width: "100%"
-                    }}
-                    keyboardType="numeric"
-                  />
                 </View>
               </View>
             ) : null}

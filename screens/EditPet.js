@@ -11,11 +11,9 @@ export default function EditPet({ navigation }) {
 
     const [dadosPet, setDadosPet] = useState([]);
     const {authData} = useAuth();
-     console.log(dadosPet)
 
     useEffect(() => {
         async function fetchData() {
-            console.log(authData);
             const response = await getPet(authData.token, authData.userId); 
             const arrayResponse = Object.keys(response).map(chave => response[chave]);
             setDadosPet(arrayResponse);

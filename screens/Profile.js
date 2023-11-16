@@ -12,40 +12,19 @@ export const Profile = ({navigation}) => {
     const {authData} = useAuth();
     const isFocused = useIsFocused();
 
-    const [valorFormatadoCarteira, setValorFormatadoCarteira] = useState(0);
-    const [valorFormatadoReservas, setValorFormatadoReservas] = useState(0);
-    const [valorFormatadoGastos, setValorFormatadoGastos] = useState(0);
-
     useEffect(() => {
         if (isFocused){
             async function fetchData() {
                 const response = await getWallet(authData.token, authData.userId);
-                console.log(response);
                 const arrayResponse = Object.keys(response).map(
                     (chave) => response[chave]
                 );
                 setDados(arrayResponse);
             }
-            fetchData();
-
-            if (dados.length > 0) {
-                setValorFormatadoCarteira(textValueBRL(dados[0]));
-                setValorFormatadoReservas(textValueBRL(dados[2]));
-                setValorFormatadoGastos(textValueBRL(dados[1]));
-            }            
+            fetchData();          
         }
     }, [isFocused]);
 
-    const textValueBRL = (valor) => {
-        const valorFormatado = valor.toLocaleString('pt-BR', {
-          style: 'currency',
-          currency: 'BRL',
-        });
-      
-        return (
-            <Text style={Styles2.textWallet}>{valorFormatado}</Text>
-        );
-    };
 
     return (
         <SafeAreaView style={Styles2.container2}>
@@ -67,17 +46,23 @@ export const Profile = ({navigation}) => {
 
                 <View style={Styles2.walletContainer}>
                     <View style={Styles2.viewWallet}>
-                        {dados ? textValueBRL(valorFormatadoCarteira): null}
+                    <Text style={Styles2.textWallet}>R$ {parseFloat(dados[0]).toLocaleString("pt-BR", {
+                minimumFractionDigits: 2
+              })}</Text>
                         <Text style={Styles2.textWallet}>Carteira</Text>
                     </View>
 
                     <View style={Styles2.viewWallet}>
-                        {dados ? textValueBRL(valorFormatadoReservas): null}
+                    <Text style={Styles2.textWallet}>R$ {parseFloat(dados[2]).toLocaleString("pt-BR", {
+                minimumFractionDigits: 2
+              })}</Text>
                         <Text style={Styles2.textWallet}>Reservas</Text>
                     </View>
 
                     <View style={Styles2.viewWallet}>
-                        {dados ? textValueBRL(valorFormatadoGastos): null}
+                    <Text style={Styles2.textWallet}>R$ {parseFloat(dados[1]).toLocaleString("pt-BR", {
+                minimumFractionDigits: 2
+              })}</Text>
                         <Text style={Styles2.textWallet}>Gastos no mês</Text>
                     </View>
                 </View>

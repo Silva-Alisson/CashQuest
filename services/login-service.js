@@ -22,7 +22,6 @@ export const login = async (params) => {
 
   try {
     let existToken = await AsyncStorage.getItem('@asyncStorage:Token');
-    console.log(existToken);
     if (existToken == null) {
       fetch(baseUrl + "/auth/login", requestOptions)
         .then((response) => response.json())

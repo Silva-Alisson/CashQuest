@@ -14,7 +14,6 @@ export const getPet = async (token, userId) => {
             const response = await fetch(baseUrl + "/user-pet/get/" + userId, requestOptions);
             if (response.ok) {
                 const result = await response.json();
-                console.log(result[0])
                 const dataPet = {
                     photo: result[0].pet.photo,
                     xp: result[0].xps,
@@ -26,7 +25,7 @@ export const getPet = async (token, userId) => {
                 
             } else {
                 console.error("Erro na resposta da API. Status:", response.status);
-                console.log(await response.text());
+                // console.log(await response.text());
                 return null;
             }
             // .then(response => response.text())

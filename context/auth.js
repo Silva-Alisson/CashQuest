@@ -28,10 +28,8 @@ export const AuthProvider = ({ children }) => {
 
   async function signOut() {
     setAuthData({});
-    console.log({authData:authData})
     await AsyncStorage.removeItem('@AuthData');
     const authDataSerialized = await AsyncStorage.getItem('@AuthData');
-    console.log(authDataSerialized);
   }
 
   async function signIn(email, password) {
@@ -61,7 +59,6 @@ export const AuthProvider = ({ children }) => {
         await AsyncStorage.setItem('@AuthData', JSON.stringify(newAuthData));
         return true;
         } else {
-        console.log(response);
         return false;
         }
     })

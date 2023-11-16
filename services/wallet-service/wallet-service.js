@@ -1,8 +1,6 @@
 import baseUrl from "../../helpers/base-url-api";
 
 const getWallet = async (token, userId) => {
-  console.log({ token: token });
-  console.log({ id: userId });
   const myHeaders = new Headers();
   myHeaders.append("Authorization", "Bearer " + token);
 
@@ -23,7 +21,7 @@ const getWallet = async (token, userId) => {
       return result;
     } else {
       console.error("Erro na resposta da API. Status:", response.status);
-      console.log(await response.text());
+      // console.log(await response.text());
       return null;
     }
   } catch (error) {
