@@ -18,104 +18,206 @@ import { useIsFocused } from "@react-navigation/native";
 import getReportsHome from "../services/reports-service/get-monthly-report-home";
 
 
-function DetailItem({ item }) {
-  return (
-    <View style={{ flexDirection: "column", marginVertical: 5, marginHorizontal: 10  }}>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          borderTopWidth: 1,
-          borderTopColor: COLORS.grey,
-          paddingTop: 10,
-          paddingHorizontal: 10
-        }}
-      >
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <View
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: 999,
-              backgroundColor: "#BAE6BC",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-          >
-            <MaterialCommunityIcons
-              name={item.iconName}
-              size={30}
-              color="#5DA660"
-            />
-          </View>
+// function DetailItem({ item }) {
+//   return (
+//     <View style={{ flexDirection: "column", marginVertical: 5, marginHorizontal: 10  }}>
+//       <TouchableOpacity onPress={handleSelectionId(item.id)}
+//         style={{
+//           flexDirection: "row",
+//           alignItems: "center",
+//           justifyContent: "space-between",
+//           borderTopWidth: 1,
+//           borderTopColor: COLORS.grey,
+//           paddingTop: 10,
+//           paddingHorizontal: 10
+//         }}
+//       >
+//         <View style={{ flexDirection: "row", alignItems: "center" }}>
+//           <View
+//             style={{
+//               width: 40,
+//               height: 40,
+//               borderRadius: 999,
+//               backgroundColor: "#BAE6BC",
+//               justifyContent: "center",
+//               alignItems: "center"
+//             }}
+//           >
+//             <MaterialCommunityIcons
+//               name={item.iconName}
+//               size={30}
+//               color="#5DA660"
+//             />
+//           </View>
 
-          <View style={{ flexDirection: "column", paddingLeft: 10 }}>
-            <Text style={{ fontSize: 16 }}>{item.category}</Text>
-            <Text style={{ fontSize: 12 }}>{item.description}</Text>
-          </View>
-        </View>
-        <Text style={{ color: "#5DA660", fontSize: 18 }}>
-          {item.totalAmount}
-        </Text>
-      </View>
-    </View>
-  );
-}
+//           <View style={{ flexDirection: "column", paddingLeft: 10 }}>
+//             <Text style={{ fontSize: 16 }}>{item.category}</Text>
+//             <Text style={{ fontSize: 12 }}>{item.description}</Text>
+//           </View>
+//         </View>
+//         <Text style={{ color: "#5DA660", fontSize: 18 }}>
+//           {item.totalAmount}
+//         </Text>
+//       </TouchableOpacity>
+//     </View>
+//   );
+// }
 
-function DayItem({ item }) {
-  return (
-    <View
-      style={{
-        marginBottom: 10,
-        justifyContent: "center",
-        paddingVertical: 5,
-        backgroundColor: "#fff",
-        ...Platform.select({
-          android: {
-            elevation: 5,
-            backgroundColor: "#fff" // Adiciona uma cor de fundo para corrigir o problema no Android
-          },
-          ios: {
-            shadowColor: "#000",
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.3,
-            shadowRadius: 4
-          }
-        })
-      }}
-    >
-      <View style={{ marginBottom: 10, justifyContent: "center" }}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginHorizontal: 10
-          }}
-        >
-          <Text style={{ fontSize: 20, paddingHorizontal: 10 }}>
-            {item.day}
-          </Text>
-          <Text
-            style={{ fontSize: 20, paddingHorizontal: 10, color: COLORS.third }}
-          >
-            R$ {parseFloat(item.total).toLocaleString("pt-BR", {
-                minimumFractionDigits: 2
-              })}
-          </Text>
-        </View>
-        <FlatList
-          data={item.details}
-          keyExtractor={(item) => item.id}
-          renderItem={DetailItem}
-        />
-      </View>
-    </View>
-  );
-}
+// function DayItem({ item }) {
+//   return (
+//     <View
+//       style={{
+//         marginBottom: 10,
+//         justifyContent: "center",
+//         paddingVertical: 5,
+//         backgroundColor: "#fff",
+//         ...Platform.select({
+//           android: {
+//             elevation: 5,
+//             backgroundColor: "#fff" // Adiciona uma cor de fundo para corrigir o problema no Android
+//           },
+//           ios: {
+//             shadowColor: "#000",
+//             shadowOffset: { width: 0, height: 2 },
+//             shadowOpacity: 0.3,
+//             shadowRadius: 4
+//           }
+//         })
+//       }}
+//     >
+//       <View style={{ marginBottom: 10, justifyContent: "center" }}>
+//         <View
+//           style={{
+//             flexDirection: "row",
+//             justifyContent: "space-between",
+//             alignItems: "center",
+//             marginHorizontal: 10
+//           }}
+//         >
+//           <Text style={{ fontSize: 20, paddingHorizontal: 10 }}>
+//             {item.day}
+//           </Text>
+//           <Text
+//             style={{ fontSize: 20, paddingHorizontal: 10, color: COLORS.third }}
+//           >
+//             R$ {parseFloat(item.total).toLocaleString("pt-BR", {
+//                 minimumFractionDigits: 2
+//               })}
+//           </Text>
+//         </View>
+//         <FlatList
+//           data={item.details}
+//           keyExtractor={(item) => item.id}
+//           renderItem={DetailItem}
+//         />
+//       </View>
+//     </View>
+//   );
+// }
 
 const Home = ({ navigation }) => {
+
+  function handleSelectionId(id) {
+    navigation.navigate('Register', { registerId: id });
+  }
+  function DetailItem({ item }) {
+    return (
+      <View style={{ flexDirection: "column", marginVertical: 5, marginHorizontal: 10  }}>
+        <TouchableOpacity onPress={() => handleSelectionId(item.id)}
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            borderTopWidth: 1,
+            borderTopColor: COLORS.grey,
+            paddingTop: 10,
+            paddingHorizontal: 10
+          }}
+        >
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: 999,
+                backgroundColor: "#BAE6BC",
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
+              <MaterialCommunityIcons
+                name={item.iconName}
+                size={30}
+                color="#5DA660"
+              />
+            </View>
+  
+            <View style={{ flexDirection: "column", paddingLeft: 10 }}>
+              <Text style={{ fontSize: 16 }}>{item.category}</Text>
+              <Text style={{ fontSize: 12 }}>{item.description}</Text>
+            </View>
+          </View>
+          <Text style={{ color: "#5DA660", fontSize: 18 }}>
+            {item.totalAmount}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+  
+  function DayItem({ item }) {
+    return (
+      <View
+        style={{
+          marginBottom: 10,
+          justifyContent: "center",
+          paddingVertical: 5,
+          backgroundColor: "#fff",
+          ...Platform.select({
+            android: {
+              elevation: 5,
+              backgroundColor: "#fff" // Adiciona uma cor de fundo para corrigir o problema no Android
+            },
+            ios: {
+              shadowColor: "#000",
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.3,
+              shadowRadius: 4
+            }
+          })
+        }}
+      >
+        <View style={{ marginBottom: 10, justifyContent: "center" }}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginHorizontal: 10
+            }}
+          >
+            <Text style={{ fontSize: 20, paddingHorizontal: 10 }}>
+              {item.day}
+            </Text>
+            <Text
+              style={{ fontSize: 20, paddingHorizontal: 10, color: COLORS.third }}
+            >
+              R$ {parseFloat(item.total).toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2
+                })}
+            </Text>
+          </View>
+          <FlatList
+            data={item.details}
+            keyExtractor={(item) => item.id}
+            renderItem={DetailItem}
+          />
+        </View>
+      </View>
+    );
+  }
+
+
   const [dados, setDados] = useState([]);
   const { authData } = useAuth();
   const [dadosPet, setDadosPet] = useState([]);
@@ -143,12 +245,26 @@ const Home = ({ navigation }) => {
   const navigateMonth = (direction) => {
     if (direction === "next" && currentMonthIndex < months.length - 1) {
       setCurrentMonthIndex(currentMonthIndex + 1);
+      date.setMonth(currentMonthIndex + 1);
+      fetchDataReports();
+
     } else if (direction === "prev" && currentMonthIndex > 0) {
       setCurrentMonthIndex(currentMonthIndex - 1);
-    }
+      date.setMonth(currentMonthIndex - 1);
+      fetchDataReports();
+    } 
   };
 
   const currentMonth = months[currentMonthIndex];
+
+  async function fetchDataReports() {
+    const response = await getReportsHome(
+      authData.userId,
+      date,
+      authData.token
+    );
+    setDadosReports(response);
+  }
 
   const isFocused = useIsFocused();
   useEffect(() => {
@@ -175,14 +291,6 @@ const Home = ({ navigation }) => {
       }
       fetchDataWallet();
 
-      async function fetchDataReports() {
-        const response = await getReportsHome(
-          authData.userId,
-          date,
-          authData.token
-        );
-        setDadosReports(response);
-      }
       fetchDataReports();
     }
   }, [isFocused]);

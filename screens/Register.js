@@ -12,15 +12,17 @@ import Button from "../components/Button";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import styles from "../components/styles";
 import Checkbox from "expo-checkbox";
-import { format, startOfDay, addMinutes } from "date-fns";
+import { format, startOfDay, addMinutes, set } from "date-fns";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { new_resgister } from "../services/register-service/new-register";
+import { new_resgister } from "../services/register-service/new-register-service";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useAuth } from "../context/auth";
 import { TextInputMask } from "react-native-masked-text";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { get_resgister } from "../services/register-service/get-register-service";
+import { PartyMode } from "@mui/icons-material";
 
 const schema = yup.object().shape({
   value: yup
@@ -31,6 +33,7 @@ const schema = yup.object().shape({
 
 const Register = ({ navigation, route }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const { authData } = useAuth();
   const {
     control,
     handleSubmit,
@@ -61,9 +64,33 @@ const Register = ({ navigation, route }) => {
     initialIsCheckedTransfer
   );
 
+  const [id, setId] = useState();
+  const initEdit = async () => {
+    const result = await get_resgister({
+      token: authData.token,
+      registerId: id,
+    });
+    console.log({result});
+    if (result) {
+      
+      description.value = result;
+      value.value = result;
+      Comments.value = result;
+      Installments.value = result;
+      setDate(result);
+      setIsCheckedFix(result);
+      setSelectedOption(result);
+      setIsCheckedTransfer(result);
+      setSelectedCategory(result);
+    }
+  }
+
   useEffect(() => {
     if (route.params && route.params.selectedCategory) {
       setSelectedCategory(route.params.selectedCategory);
+    } else if(route.params && route.params.registerId) {
+      setId(route.params.registerId);
+      initEdit();
     }
   }, [route.params]);
 
@@ -106,7 +133,7 @@ const Register = ({ navigation, route }) => {
   };
 
   //forms
-  const { authData } = useAuth();
+  
 
   const onSubmitForms = async (data) => {
     const params = {
