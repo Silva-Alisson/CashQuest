@@ -85,7 +85,8 @@ function transformArray3(inputArray) {
               }),
             category: item.category,
             description: item.description,
-            iconName: icon
+            iconName: icon,
+            type: item.type,
           });
         }
       }

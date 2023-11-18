@@ -12,7 +12,7 @@ try {
     if(params.type == "entrada"){
         raw = buildRawEntrada(params);
     }
-    else{
+    else {
         raw = buildRaw(params);
     }
 
@@ -23,6 +23,7 @@ try {
     redirect: 'follow'
     };
 
+    console.log(params.type);
     if(params.type == "despesa"){
         const response = await fetch(baseUrl + "/spendings/create", requestOptions);
         if (response.ok) {
@@ -70,6 +71,7 @@ const buildRawEntrada = (params) => {
             "createAt": params.createAt,
             "installments": params.installments,
             "total": parseFloat(params.value),
+            "type": params.type
         });
         console.log(raw);
         return raw;
@@ -90,7 +92,8 @@ const buildRaw = (params) => {
             "createAt": params.createAt,
             "installments": params.installments,
             "total": parseFloat(params.value),
-            "isTransferred": params.isTransferred
+            "isTransferred": params.isTransferred,
+            "type": params.type
             });
             console.log(raw);
             return raw;

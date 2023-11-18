@@ -6,36 +6,44 @@ try {
 
     const myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer " + params.token);
-    let raw = [];
 
     var requestOptions = {
         method: 'GET',
         headers: myHeaders,
         redirect: 'follow'
     };
-    const result = {};
-
-        const response = await fetch(baseUrl + "/spendings/get-spending/" + params.resigerId, requestOptions);
+    if(params.type == "despesa"){
+        const response = await fetch(baseUrl + "/spendings/get-spending/" + params.registerId, requestOptions);
         if (response.ok) {
-            console.log("spendings")
-            result = await response.json();
+            console.log({response});
+            const result = await response.json();
+            console.log({result});
+            return result;
+        } else {
+            console.log({response});
+            console.log('Erro na solicitação');
+            return false;
         }      
-
-        const response1 = await fetch(baseUrl + "/deposit/get-deposit/" + params.resigerId, requestOptions);
+    } else if(params.type == "entrada"){
+        const response = await fetch(baseUrl + "/deposit/get-deposit/" + params.registerId, requestOptions);
         if (response.ok) {
-            console.log("deposit")
-            result = await response1.json();
-            
-        } 
-
-        const response2 = await fetch(baseUrl + "/savings/get-saving/" + params.resigerId, requestOptions);
-        if (response.ok) {
-            console.log("savings")
-            result = await response2.json();
+            const result = await response.json();
+            return result;
+        } else {
+            console.log('Erro na solicitação');
+            return false;
         }
-
-        return result;
-
+    } else if(params.type == "poupanca"){
+        const response = await fetch(baseUrl + "/savings/get-saving" + params.registerId, requestOptions);
+        if (response.ok) {
+            const result = await response.json();
+            return result;
+        } else {
+            console.log(response);
+            console.log('Erro na solicitação');
+            return false;
+        }
+    }
 } catch (error) {
     console.log('error', error);
     return false;

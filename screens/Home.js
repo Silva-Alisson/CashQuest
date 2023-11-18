@@ -117,13 +117,13 @@ import getReportsHome from "../services/reports-service/get-monthly-report-home"
 
 const Home = ({ navigation }) => {
 
-  function handleSelectionId(id) {
-    navigation.navigate('Register', { registerId: id });
+  function handleSelectionId(id, type) {
+    navigation.navigate('Register', { registerId: id, registerType: type });
   }
   function DetailItem({ item }) {
     return (
       <View style={{ flexDirection: "column", marginVertical: 5, marginHorizontal: 10  }}>
-        <TouchableOpacity onPress={() => handleSelectionId(item.id)}
+        <TouchableOpacity onPress={() => handleSelectionId(item.id, item.type)}
           style={{
             flexDirection: "row",
             alignItems: "center",

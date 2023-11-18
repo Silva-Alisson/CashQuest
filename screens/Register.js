@@ -37,7 +37,7 @@ const Register = ({ navigation, route }) => {
   const {
     control,
     handleSubmit,
-    formState: { errors }, reset
+    formState: { errors }, reset, setValue
   } = useForm({
     defaultValues: {
     description: "",
@@ -63,25 +63,28 @@ const Register = ({ navigation, route }) => {
   const [isCheckedTransfer, setIsCheckedTransfer] = useState(
     initialIsCheckedTransfer
   );
-
   const [id, setId] = useState();
+  
   const initEdit = async () => {
     const result = await get_resgister({
       token: authData.token,
       registerId: id,
+      type: selectedOption
     });
     console.log({result});
+    
     if (result) {
+      setValue('description', result.description);
+      setValue('value', result.value);
+      setValue('Comments', result.comments);
+      setValue('Installments', result.installments);
       
-      description.value = result;
-      value.value = result;
-      Comments.value = result;
-      Installments.value = result;
-      setDate(result);
-      setIsCheckedFix(result);
-      setSelectedOption(result);
-      setIsCheckedTransfer(result);
-      setSelectedCategory(result);
+      
+      console.log({date});
+      console.log({formattedDate});
+      setIsCheckedFix(result.isFixed);
+      setIsCheckedTransfer(result.isTransferred);
+      setSelectedCategory(result.category);
     }
   }
 
@@ -90,6 +93,7 @@ const Register = ({ navigation, route }) => {
       setSelectedCategory(route.params.selectedCategory);
     } else if(route.params && route.params.registerId) {
       setId(route.params.registerId);
+      setSelectedOption(route.params.registerType);
       initEdit();
     }
   }, [route.params]);
@@ -110,7 +114,7 @@ const Register = ({ navigation, route }) => {
   };
 
   const [showPicker, setShowPicker] = useState(false);
-  const formattedDate = format(date, "dd/MM/yy");
+  const formattedDate = format(date, "dd/MM/yy")
 
   const showDatePicker = () => {
     setShowPicker(true);
