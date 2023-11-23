@@ -25,9 +25,7 @@ import { get_resgister } from "../services/register-service/get-register-service
 import { PartyMode } from "@mui/icons-material";
 
 const schema = yup.object().shape({
-  value: yup
-    .string()
-    .required(),
+  value: yup.string().required(),
   description: yup.string().required("Insira uma descrição")
 });
 
@@ -37,13 +35,15 @@ const Register = ({ navigation, route }) => {
   const {
     control,
     handleSubmit,
-    formState: { errors }, reset, setValue
+    formState: { errors },
+    reset,
+    setValue
   } = useForm({
     defaultValues: {
-    description: "",
-    value: "",
-    Comments: "",
-    Installments: ""
+      description: "",
+      value: "",
+      Comments: "",
+      Installments: ""
     },
     resolver: yupResolver(schema)
   });
@@ -64,34 +64,36 @@ const Register = ({ navigation, route }) => {
     initialIsCheckedTransfer
   );
   const [id, setId] = useState();
-  
+
   const initEdit = async () => {
     const result = await get_resgister({
       token: authData.token,
       registerId: id,
       type: selectedOption
     });
-    console.log({result});
-    
+    console.log({ result });
+    console.log("before if");
     if (result) {
-      setValue('description', result.description);
-      setValue('value', result.value);
-      setValue('Comments', result.comments);
-      setValue('Installments', result.installments);
-      
-      
-      console.log({date});
-      console.log({formattedDate});
+      console.log("inside if");
+      setValue("description", result.description);
+      setValue("value", result.value);
+      setValue("Comments", result.comments);
+      setValue("Installments", result.installments);
+      const data = new Date(result.createAt);
+      data.setHours(24, 30, 30);
+      // console.log(data.getUTCDate());
+      // console.log(data.getUTCMonth());
+      setDate(data);
       setIsCheckedFix(result.isFixed);
       setIsCheckedTransfer(result.isTransferred);
       setSelectedCategory(result.category);
     }
-  }
+  };
 
   useEffect(() => {
     if (route.params && route.params.selectedCategory) {
       setSelectedCategory(route.params.selectedCategory);
-    } else if(route.params && route.params.registerId) {
+    } else if (route.params && route.params.registerId) {
       setId(route.params.registerId);
       setSelectedOption(route.params.registerType);
       initEdit();
@@ -114,7 +116,7 @@ const Register = ({ navigation, route }) => {
   };
 
   const [showPicker, setShowPicker] = useState(false);
-  const formattedDate = format(date, "dd/MM/yy")
+  const formattedDate = format(date, "dd/MM/yy");
 
   const showDatePicker = () => {
     setShowPicker(true);
@@ -137,7 +139,6 @@ const Register = ({ navigation, route }) => {
   };
 
   //forms
-  
 
   const onSubmitForms = async (data) => {
     const params = {
@@ -246,9 +247,7 @@ const Register = ({ navigation, route }) => {
                       unit: "R$ "
                     }}
                     maxLength={18}
-                    onChangeText={
-                      onChange
-                    }
+                    onChangeText={onChange}
                   />
                 )}
               />
@@ -545,50 +544,110 @@ const Register = ({ navigation, route }) => {
               ) : null}
             </View>
 
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "center",
-                gap: 16,
-                marginVertical: 16
-              }}
-            >
-              <TouchableOpacity
+            {id ? (
+              <View
                 style={{
-                  paddingBottom: 16,
-                  paddingVertical: 10,
-                  borderColor: COLORS.primary,
-                  backgroundColor: COLORS.primary,
-                  borderWidth: 2,
-                  borderRadius: 12,
-                  alignItems: "center",
-                  width: 120,
+                  flexDirection: "row",
                   justifyContent: "center",
-                  marginTop: 16
+                  gap: 16,
+                  marginVertical: 16
                 }}
-                disabled={isLoading}
-                onPress={handleSubmit(onSubmitForms)}
               >
-                {isLoading ? (
-                  <ActivityIndicator color="#BAE6BC" />
-                ) : (
-                  <Text style={styles.buttonText}>Confirmar</Text>
-                )}
-              </TouchableOpacity>
+                <TouchableOpacity
+                  disabled={isLoading}
+                  onPress={handleSubmit(onSubmitForms)}
+                >
+                  {isLoading ? (
+                    <ActivityIndicator color="#BAE6BC" />
+                  ) : (
+                    <View
+                      style={{
+                        width: 60,
+                        height: 60,
+                        borderRadius: 30,
+                        backgroundColor: COLORS.grey,
+                        justifyContent: "center",
+                        alignItems: "center"
+                      }}
+                    >
+                      <MaterialCommunityIcons
+                        name="cash-refund"
+                        size={40}
+                        color={COLORS.black}
+                      />
+                    </View>
+                  )}
+                </TouchableOpacity>
 
-              <Button
-                title="Cancelar"
-                filled
+                <TouchableOpacity
+                  style={{
+                    paddingBottom: 16,
+                    paddingVertical: 10,
+                    borderColor: COLORS.primary,
+                    backgroundColor: COLORS.primary,
+                    borderWidth: 2,
+                    borderRadius: 12,
+                    alignItems: "center",
+                    width: 120,
+                    justifyContent: "center",
+                    marginTop: 16
+                  }}
+                  disabled={isLoading}
+                  onPress={handleSubmit(onSubmitForms)}
+                >
+                  {isLoading ? (
+                    <ActivityIndicator color="#BAE6BC" />
+                  ) : (
+                    <Text style={{ color: COLORS.white }}>Atualizar</Text>
+                  )}
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <View
                 style={{
-                  padding: 16,
-                  width: 120,
-                  height: 60,
-                  backgroundColor: "#fff",
-                  color: COLORS.primary
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  gap: 16,
+                  marginVertical: 16
                 }}
-                onPress={handleGoBack}
-              />
-            </View>
+              >
+                <TouchableOpacity
+                  style={{
+                    paddingBottom: 16,
+                    paddingVertical: 10,
+                    borderColor: COLORS.primary,
+                    backgroundColor: COLORS.primary,
+                    borderWidth: 2,
+                    borderRadius: 12,
+                    alignItems: "center",
+                    width: 120,
+                    justifyContent: "center",
+                    marginTop: 16
+                  }}
+                  disabled={isLoading}
+                  onPress={handleSubmit(onSubmitForms)}
+                >
+                  {isLoading ? (
+                    <ActivityIndicator color="#BAE6BC" />
+                  ) : (
+                    <Text style={{ color: COLORS.white }}>Confirmar</Text>
+                  )}
+                </TouchableOpacity>
+
+                <Button
+                  title="Cancelar"
+                  filled
+                  style={{
+                    padding: 16,
+                    width: 120,
+                    height: 60,
+                    backgroundColor: "#fff",
+                    color: COLORS.primary
+                  }}
+                  onPress={handleGoBack}
+                />
+              </View>
+            )}
           </View>
         </View>
       </KeyboardAwareScrollView>
