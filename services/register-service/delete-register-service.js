@@ -1,31 +1,23 @@
 import baseUrl from "../../helpers/base-url-api";
 
-export const update_resgister = async (params) => {
+export const delete_resgister = async (params) => {
   try {
     console.log({ params: params.value });
 
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Authorization", "Bearer " + params.token);
-    let raw = [];
-
-    if (params.type == "entrada") {
-      raw = buildRawEntrada(params);
-    } else {
-      raw = buildRaw(params);
-    }
 
     const requestOptions = {
-      method: "PATCH",
+      method: "DELETE",
       headers: myHeaders,
-      body: raw,
       redirect: "follow"
     };
 
     console.log(params.type);
     if (params.type == "despesa") {
       const response = await fetch(
-        baseUrl + "/spendings/update/" + params.registerId,
+        baseUrl + "/spendings/delete/" + params.registerId,
         requestOptions
       );
       if (response.ok) {
@@ -36,7 +28,7 @@ export const update_resgister = async (params) => {
       }
     } else if (params.type == "entrada") {
       const response = await fetch(
-        baseUrl + "/depositi/update/" + params.registerId,
+        baseUrl + "/deposit/delete/" + params.registerId,
         requestOptions
       );
       if (response.ok) {
@@ -48,7 +40,7 @@ export const update_resgister = async (params) => {
     } else if (params.type == "poupanca") {
       console.log({ raw });
       const response = await fetch(
-        baseUrl + "/saving/update/" + params.registerId,
+        baseUrl + "/saving/delete/" + params.registerId,
         requestOptions
       );
       if (response.ok) {

@@ -23,6 +23,8 @@ import { TextInputMask } from "react-native-masked-text";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { get_resgister } from "../services/register-service/get-register-service";
 import { PartyMode } from "@mui/icons-material";
+import { update_resgister } from "../services/register-service/update-register-service";
+import { delete_resgister } from "../services/register-service/delete-register-service";
 
 const schema = yup.object().shape({
   value: yup.string().required(),
@@ -71,10 +73,7 @@ const Register = ({ navigation, route }) => {
       registerId: id,
       type: selectedOption
     });
-    console.log({ result });
-    console.log("before if");
     if (result) {
-      console.log("inside if");
       setValue("description", result.description);
       setValue("value", result.value);
       setValue("Comments", result.comments);
@@ -156,6 +155,47 @@ const Register = ({ navigation, route }) => {
     };
     setIsLoading(true);
     const result = await new_resgister(params);
+    if (result) {
+      setIsLoading(false);
+      clear();
+      navigation.goBack();
+    } else {
+      setIsLoading(false);
+    }
+  };
+
+  const onHandleDelete = async () => {
+    const params = {
+      type: selectedOption,
+      token: authData.token,
+      registerId: id
+    };
+    const result = await delete_resgister(params);
+    if (result) {
+      clear();
+      navigation.goBack();
+    } else {
+      setIsLoading(false);
+    }
+  };
+
+  const onSubmitUpdateForms = async (data) => {
+    const params = {
+      type: selectedOption,
+      token: authData.token,
+      userId: authData.userId,
+      category: selectedCategory,
+      description: data.description,
+      value: parseFloat(data.value.replace(/[^\d,]/g, "").replace(",", ".")),
+      isFixed: isCheckedFix,
+      comments: data.comments || "",
+      createAt: date,
+      installments: parseInt(data.installments) || 0,
+      isTransferred: isCheckedTransfer,
+      registerId: id
+    };
+    setIsLoading(true);
+    const result = await update_resgister(params);
     if (result) {
       setIsLoading(false);
       clear();
@@ -555,28 +595,24 @@ const Register = ({ navigation, route }) => {
               >
                 <TouchableOpacity
                   disabled={isLoading}
-                  onPress={handleSubmit(onSubmitForms)}
+                  onPress={() => onHandleDelete}
                 >
-                  {isLoading ? (
-                    <ActivityIndicator color="#BAE6BC" />
-                  ) : (
-                    <View
-                      style={{
-                        width: 60,
-                        height: 60,
-                        borderRadius: 30,
-                        backgroundColor: COLORS.grey,
-                        justifyContent: "center",
-                        alignItems: "center"
-                      }}
-                    >
-                      <MaterialCommunityIcons
-                        name="cash-refund"
-                        size={40}
-                        color={COLORS.black}
-                      />
-                    </View>
-                  )}
+                  <View
+                    style={{
+                      width: 60,
+                      height: 60,
+                      borderRadius: 30,
+                      backgroundColor: COLORS.grey,
+                      justifyContent: "center",
+                      alignItems: "center"
+                    }}
+                  >
+                    <MaterialCommunityIcons
+                      name="mdiTrashCanOutline"
+                      size={40}
+                      color={COLORS.black}
+                    />
+                  </View>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -593,7 +629,7 @@ const Register = ({ navigation, route }) => {
                     marginTop: 16
                   }}
                   disabled={isLoading}
-                  onPress={handleSubmit(onSubmitForms)}
+                  onPress={handleSubmit(onSubmitUpdateForms)}
                 >
                   {isLoading ? (
                     <ActivityIndicator color="#BAE6BC" />
