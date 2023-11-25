@@ -15,7 +15,6 @@ try {
     if(params.type == "despesa"){
         const response = await fetch(baseUrl + "/spendings/get-spending/" + params.registerId, requestOptions);
         if (response.ok) {
-            console.log({response});
             const result = await response.json();
             console.log({result});
             return result;

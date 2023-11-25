@@ -17,7 +17,7 @@ export default function Categories({ navigation }) {
   
     function renderItemIcons({ item }) {
       return (
-        <TouchableOpacity style={{ flex: 1, alignItems: 'center', margin: 4, gap: 8}}
+        <TouchableOpacity style={{ flex: 1, alignItems: 'center', margin: 4, gap: 8, maxWidth: 90, marginBottom: 16}}
         onPress={() => handleCategorySelection(item.name)}
         >
           <View style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: '#eee', justifyContent: 'center', alignItems: 'center' }}>
@@ -30,14 +30,16 @@ export default function Categories({ navigation }) {
   
     function renderItem({ item }) {
       return (
-        <View>
-          <Text style={{ fontSize: 20,  marginHorizontal: 10, marginBottom: 16, marginTop: 16, color: COLORS.primary}}>{item.categoria}</Text>
-          <View >
+        <View style={{marginHorizontal: 10}}>
+          <Text style={{ fontSize: 20, marginBottom: 5, marginTop: 16, color: COLORS.primary, paddingHorizontal: 5}}>{item.categoria}</Text>
+          <View style={{borderTopWidth: 1, 
+        borderTopColor: COLORS.primary, }}>
             <FlatList
                 data={item.itens}
                 numColumns={4}
                 keyExtractor={(item) => item.name}
                 renderItem={renderItemIcons}
+                style={{paddingBottom: 15, marginTop: 10, flex: 1, alignContent: "flex-start"}}
             />
           </View>
         </View>
@@ -52,13 +54,13 @@ export default function Categories({ navigation }) {
           </TouchableOpacity>
           <Text style={{ marginLeft: 10 }}>Categorias</Text>
         </View>
-        <ScrollView styles={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: 10}}>
+        <View styles={{ flexDirection: 'row', alignItems: 'center'}}>
             <FlatList  
                 data={groupedCategories}
                 keyExtractor={(item) => item.categoria}
                 renderItem={renderItem}
             />
-        </ScrollView>
+        </View>
       </SafeAreaView>
     );
   }

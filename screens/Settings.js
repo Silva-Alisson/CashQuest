@@ -35,7 +35,9 @@ export default function Settings({ navigation }) {
         </View>
         <View>
         
-            <FlatList data={settingsText} 
+            <FlatList 
+                data={settingsText} 
+                scrollEnabled={false}
                 renderItem={({ item }) => (
                     <TouchableOpacity  style={styles.list} onPress={()=> navigation.navigate(item.navigate)}>
                         <View style={styles.item}>

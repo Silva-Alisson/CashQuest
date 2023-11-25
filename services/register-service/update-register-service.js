@@ -31,6 +31,7 @@ export const update_resgister = async (params) => {
       if (response.ok) {
         return true;
       } else {
+        console.log(response);
         console.log("Erro na solicitação");
         return false;
       }
@@ -52,6 +53,7 @@ export const update_resgister = async (params) => {
         requestOptions
       );
       if (response.ok) {
+        cons
         return true;
       } else {
         console.log(response);

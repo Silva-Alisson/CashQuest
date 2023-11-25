@@ -22,7 +22,6 @@ import { useAuth } from "../context/auth";
 import { TextInputMask } from "react-native-masked-text";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { get_resgister } from "../services/register-service/get-register-service";
-import { PartyMode } from "@mui/icons-material";
 import { update_resgister } from "../services/register-service/update-register-service";
 import { delete_resgister } from "../services/register-service/delete-register-service";
 
@@ -80,8 +79,6 @@ const Register = ({ navigation, route }) => {
       setValue("Installments", result.installments);
       const data = new Date(result.createAt);
       data.setHours(24, 30, 30);
-      // console.log(data.getUTCDate());
-      // console.log(data.getUTCMonth());
       setDate(data);
       setIsCheckedFix(result.isFixed);
       setIsCheckedTransfer(result.isTransferred);
@@ -89,13 +86,20 @@ const Register = ({ navigation, route }) => {
     }
   };
 
+  // console.log(data.getUTCDate());
+  // console.log(data.getUTCMonth());
+
   useEffect(() => {
     if (route.params && route.params.selectedCategory) {
       setSelectedCategory(route.params.selectedCategory);
     } else if (route.params && route.params.registerId) {
+      console.log(route.params.registerId)
       setId(route.params.registerId);
       setSelectedOption(route.params.registerType);
-      initEdit();
+      if(id){
+        initEdit();
+      }
+      
     }
   }, [route.params]);
 
@@ -165,12 +169,14 @@ const Register = ({ navigation, route }) => {
   };
 
   const onHandleDelete = async () => {
+    console.log("chamou");
     const params = {
       type: selectedOption,
       token: authData.token,
       registerId: id
     };
     const result = await delete_resgister(params);
+    console.log({"del":result});
     if (result) {
       clear();
       navigation.goBack();
@@ -209,9 +215,9 @@ const Register = ({ navigation, route }) => {
     setSelectedOption(initialSelectedOption);
     setSelectedCategory(initialSelectedCategory);
     setDate(initialDate);
-    setSelectedOption(initialSelectedOption);
     setIsCheckedFix(initialIsCheckedFix);
     setIsCheckedTransfer(initialIsCheckedTransfer);
+    setId();
     reset();
   };
 
@@ -335,7 +341,7 @@ const Register = ({ navigation, route }) => {
               onPress={() => navigation.navigate("CategoriesStack")}
             >
               <TextInput
-                placeholder={selectedCategory}
+                value={selectedCategory}
                 style={{
                   width: "100%"
                 }}
@@ -594,21 +600,22 @@ const Register = ({ navigation, route }) => {
                 }}
               >
                 <TouchableOpacity
-                  disabled={isLoading}
-                  onPress={() => onHandleDelete}
+                  onPress={onHandleDelete}
                 >
                   <View
                     style={{
                       width: 60,
-                      height: 60,
                       borderRadius: 30,
                       backgroundColor: COLORS.grey,
                       justifyContent: "center",
-                      alignItems: "center"
+                      alignItems: "center",
+                      marginTop: 16,
+                      paddingBottom: 10,
+                      paddingVertical: 10,
                     }}
                   >
                     <MaterialCommunityIcons
-                      name="mdiTrashCanOutline"
+                      name="trash-can"
                       size={40}
                       color={COLORS.black}
                     />
@@ -617,8 +624,6 @@ const Register = ({ navigation, route }) => {
 
                 <TouchableOpacity
                   style={{
-                    paddingBottom: 16,
-                    paddingVertical: 10,
                     borderColor: COLORS.primary,
                     backgroundColor: COLORS.primary,
                     borderWidth: 2,
@@ -670,18 +675,26 @@ const Register = ({ navigation, route }) => {
                   )}
                 </TouchableOpacity>
 
-                <Button
-                  title="Cancelar"
-                  filled
+
+                <TouchableOpacity
                   style={{
-                    padding: 16,
+                    paddingBottom: 16,
+                    paddingVertical: 10,
+                    borderColor: COLORS.white,
+                    backgroundColor: COLORS.white,
+                    borderColor: COLORS.primary,
+                    borderWidth: 2,
+                    borderRadius: 12,
+                    alignItems: "center",
                     width: 120,
-                    height: 60,
-                    backgroundColor: "#fff",
-                    color: COLORS.primary
+                    justifyContent: "center",
+                    marginTop: 16
                   }}
+                  disabled={isLoading}
                   onPress={handleGoBack}
-                />
+                >
+                  <Text style={{ color: COLORS.primary }}>Cancelar</Text>
+                </TouchableOpacity>
               </View>
             )}
           </View>

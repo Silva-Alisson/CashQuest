@@ -6,11 +6,14 @@ import {COLORS, SIZES} from '../constants';
 import {useAuth} from '../context/auth';
 import getWallet from '../services/wallet-service/wallet-service';
 import { useIsFocused } from "@react-navigation/native";
+import { get_user_photo } from '../services/user-service/get-user-photo';
 
 export const Profile = ({navigation}) => {
     const [dados, setDados] = useState([]);
     const {authData} = useAuth();
     const isFocused = useIsFocused();
+    const [userPhoto, setUserPhoto] = useState();
+    const [userName, setUserName] = useState();
 
     useEffect(() => {
         if (isFocused){
@@ -21,7 +24,20 @@ export const Profile = ({navigation}) => {
                 );
                 setDados(arrayResponse);
             }
-            fetchData();          
+            fetchData();
+            
+            async function fetchPhoto() {
+                const response = await get_user_photo({token: authData.token, userId:authData.userId});
+                console.log(response);
+                setUserPhoto(response.userPhoto);
+            }
+
+            fetchPhoto();
+
+            async function fetchUserName() {
+                const response = await get_user_photo({token: authData.token, userId:authData.userId});
+                console.log(response);
+            }
         }
     }, [isFocused]);
 
@@ -30,7 +46,7 @@ export const Profile = ({navigation}) => {
         <SafeAreaView style={Styles2.container2}>
             <View style={Styles2.viewAvatar}>
                 <Image
-                    source={require('../assets/avatar.png')}
+                    source={{uri: userPhoto}}
                     resizeMode='contain'
                     style={Styles2.image}
                 />
