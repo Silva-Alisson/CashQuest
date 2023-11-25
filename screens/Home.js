@@ -168,6 +168,9 @@ const Home = ({ navigation }) => {
     setDadosReports(response);
   }
 
+  const calculateProgress = (value, min, max) => {
+    return Math.min(Math.max(value, min), max) / max;
+  };
   const isFocused = useIsFocused();
   useEffect(() => {
     if (isFocused) {
@@ -178,8 +181,8 @@ const Home = ({ navigation }) => {
         );
         setDadosPet(arrayResponse);
         if (arrayResponse) {
-          const calcProgress = arrayResponse[1] / 500;
-          setProgress(calcProgress);
+          const propress = ((arrayResponse[1] / 500) / 500) * 100;
+          setProgress(propress);
         }
       }
       fetchDataPet();
