@@ -24,6 +24,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { get_resgister } from "../services/register-service/get-register-service";
 import { update_resgister } from "../services/register-service/update-register-service";
 import { delete_resgister } from "../services/register-service/delete-register-service";
+import { useModal } from '../context/modalContext';
+
 
 const schema = yup.object().shape({
   value: yup.string().required(),
@@ -143,6 +145,8 @@ const Register = ({ navigation, route }) => {
 
   //forms
 
+  const { handleShowModal  } = useModal();
+
   const onSubmitForms = async (data) => {
     const params = {
       type: selectedOption,
@@ -162,6 +166,7 @@ const Register = ({ navigation, route }) => {
     if (result) {
       setIsLoading(false);
       clear();
+      showModal();
       navigation.goBack();
     } else {
       setIsLoading(false);
@@ -169,7 +174,6 @@ const Register = ({ navigation, route }) => {
   };
 
   const onHandleDelete = async () => {
-    console.log("chamou");
     const params = {
       type: selectedOption,
       token: authData.token,
@@ -210,6 +214,20 @@ const Register = ({ navigation, route }) => {
       setIsLoading(false);
     }
   };
+
+  const showModal = () => {
+    let text = "";
+    
+    if(selectedOption == "despesa"){
+      text = "Você ganhou 60 xps!"
+    }else if(selectedOption == "entrada"){
+      text = "Você ganhou 30 xps!"
+    }else if(selectedOption == "poupanca"){
+      text = "Você ganhou 45 xps!"
+    }
+
+    handleShowModal({ img: "", text1: "Tudo certo!", text2: text });
+  }
 
   const clear = () => {
     setSelectedOption(initialSelectedOption);
