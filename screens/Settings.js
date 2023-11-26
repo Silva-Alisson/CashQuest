@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Image, FlatList, TouchableOpacity } from "react
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuth } from "../context/auth";
+import { COLORS } from "../constants";
 
 const settingsText = [ 
     { key: "Editar perfil",
@@ -29,9 +30,9 @@ export default function Settings({ navigation }) {
         >
         <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: 10 }}>
             <TouchableOpacity onPress={() => navigation.goBack()}>
-                <MaterialCommunityIcons name="arrow-left" size={40} color="black" />
+                <MaterialCommunityIcons name="arrow-left" size={40} color={COLORS.greyDark} />
             </TouchableOpacity>
-            <Text style={{ marginLeft: 10 }}>Configurações</Text>
+            <Text style={{ marginLeft: 10, color:COLORS.greyDark }}>Configurações</Text>
         </View>
         <View>
         
@@ -46,7 +47,7 @@ export default function Settings({ navigation }) {
                                 <Text style={styles.description}>{item.description}</Text>
                             </View>
                             
-                            <MaterialCommunityIcons name="chevron-right" size={40} color="black" /> 
+                            <MaterialCommunityIcons name="chevron-right" size={40} color={COLORS.greyDark} /> 
                         </View> 
                     </TouchableOpacity>
                 )} 
@@ -60,7 +61,7 @@ export default function Settings({ navigation }) {
                                 <Text style={styles.description}>Excluir sua conta permanentemente</Text>
                             </View>
                             
-                            <MaterialCommunityIcons name="chevron-right" size={40} color="black" /> 
+                            <MaterialCommunityIcons name="chevron-right" size={40} color={COLORS.greyDark} /> 
                         </View> 
                 </TouchableOpacity>
         </View>        
@@ -88,12 +89,13 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1, 
         borderBottomColor: "#ccc", 
         padding: 10, 
-        
     }, 
     text: { 
         fontSize: 14, 
+        color:COLORS.darkBlue
     },
     description: {
-        fontSize: 12
+        fontSize: 12,
+        color:COLORS.greyDark
     }
 });

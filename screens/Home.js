@@ -98,7 +98,7 @@ const Home = ({ navigation }) => {
               marginHorizontal: 10
             }}
           >
-            <Text style={{ fontSize: 20, paddingHorizontal: 10, color: COLORS.black }}>
+            <Text style={{ fontSize: 20, paddingHorizontal: 10, color: COLORS.darkBlue }}>
               {item.day}
             </Text>
             <Text
@@ -381,7 +381,7 @@ const Home = ({ navigation }) => {
                 padding: 5
               }}
             >
-              <Text style={{ color: COLORS.greyDark, fontSize: 22 }}>
+              <Text style={{ color: COLORS.darkBlue, fontSize: 22 }}>
                 {currentMonth.name + " de " + currentYear}
               </Text>
               <Text style={{ color: COLORS.black, fontSize: 15,color: COLORS.greyDark }}>
