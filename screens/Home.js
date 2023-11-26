@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  FlatList
-} from "react-native";
+import { View, Text, Image, TouchableOpacity, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS } from "../constants";
@@ -153,22 +146,39 @@ const Home = ({ navigation }) => {
   ];
   const date = new Date();
   const mes = date.getMonth();
+  const year = date.getFullYear();
+  const currentDay = date.getDate();
   const [currentMonthIndex, setCurrentMonthIndex] = useState(mes);
+  const [currentYear, setCurrentYear] = useState(year);
+
+  const getLastDayOfMonth = (year, month) => {
+    return new Date(year, month + 1, 0).getDate();
+  };
 
   const navigateMonth = (direction) => {
-    if (direction === "next" && currentMonthIndex < months.length - 1) {
-      setCurrentMonthIndex(currentMonthIndex + 1);
-      date.setMonth(currentMonthIndex + 1);
-      fetchDataReports();
-    } else if (direction === "prev" && currentMonthIndex > 0) {
-      setCurrentMonthIndex(currentMonthIndex - 1);
-      date.setMonth(currentMonthIndex - 1);
-      fetchDataReports();
+    let newMonthIndex = currentMonthIndex;
+    let newYear = currentYear;
+    if (direction === "next") {
+      newMonthIndex = currentMonthIndex < 11 ? currentMonthIndex + 1 : 0;
+      newYear = currentMonthIndex === 11 ? currentYear + 1 : currentYear;
+    } else if (direction === "prev") {
+      newMonthIndex = currentMonthIndex > 0 ? currentMonthIndex - 1 : 11;
+      newYear = currentMonthIndex === 0 ? currentYear - 1 : currentYear;
     }
+
+    const lastDayOfMonth = getLastDayOfMonth(newYear, newMonthIndex);
+    const newDay = newMonthIndex != mes ? lastDayOfMonth : currentDay;
+
+    date.setMonth(newMonthIndex);
+    date.setYear(newYear);
+    date.setDate(newDay);
+
+    setCurrentMonthIndex(newMonthIndex);
+    setCurrentYear(newYear);
+    fetchDataReports();
   };
 
   const currentMonth = months[currentMonthIndex];
-
   async function fetchDataReports() {
     const response = await getReportsHome(
       authData.userId,
@@ -206,6 +216,8 @@ const Home = ({ navigation }) => {
       fetchDataWallet();
 
       fetchDataReports();
+      setCurrentMonthIndex(mes);
+      setCurrentYear(year);
     }
   }, [isFocused]);
 
@@ -336,6 +348,7 @@ const Home = ({ navigation }) => {
               justifyContent: "center",
               borderRadius: 16,
               backgroundColor: COLORS.white,
+              width: 380,
 
               ...Platform.select({
                 android: {
@@ -363,11 +376,13 @@ const Home = ({ navigation }) => {
                 flexDirection: "column",
                 paddingHorizontal: "14%",
                 alignItems: "center",
-                justifyContent: "center"
+                justifyContent: "center",
+                width: 300,
+                padding: 5
               }}
             >
-              <Text style={{ color: COLORS.black, fontSize: 36 }}>
-                {currentMonth.name}
+              <Text style={{ color: COLORS.black, fontSize: 22 }}>
+                {currentMonth.name + " de " + currentYear}
               </Text>
               <Text style={{ color: COLORS.black, fontSize: 15 }}>
                 Suas movimentações
@@ -382,13 +397,16 @@ const Home = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
-
         <View style={{ paddingBottom: 40, paddingTop: 5, maxHeight: "50%" }}>
-          <FlatList
-            data={dadosReports}
-            keyExtractor={(item, index) => item.id}
-            renderItem={DayItem}
-          />
+          {dadosReports[0] ? (
+            <FlatList
+              data={dadosReports}
+              keyExtractor={(item, index) => item.id}
+              renderItem={DayItem}
+            />
+          ) : (
+            <Text style={{ fontSize: 20, textAlign: "center", padding:100}}>Sem movimentações</Text>
+          )}
         </View>
       </View>
     </SafeAreaView>
