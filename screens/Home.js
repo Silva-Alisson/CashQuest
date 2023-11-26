@@ -55,11 +55,11 @@ const Home = ({ navigation }) => {
             </View>
 
             <View style={{ flexDirection: "column", paddingLeft: 10 }}>
-              <Text style={{ fontSize: 16 }}>{item.category}</Text>
-              <Text style={{ fontSize: 12 }}>{item.description}</Text>
+              <Text style={{ fontSize: 16, color:COLORS.greyDark }}>{item.category}</Text>
+              <Text style={{ fontSize: 12, color:COLORS.greyDark }}>{item.description}</Text>
             </View>
           </View>
-          <Text style={{ color: "#5DA660", fontSize: 18 }}>
+          <Text style={{ color: item.totalAmount.includes('-') ? COLORS.greyDark  : '#5DA660', fontSize: 18 }}>
             {item.totalAmount}
           </Text>
         </TouchableOpacity>
@@ -98,14 +98,14 @@ const Home = ({ navigation }) => {
               marginHorizontal: 10
             }}
           >
-            <Text style={{ fontSize: 20, paddingHorizontal: 10 }}>
+            <Text style={{ fontSize: 20, paddingHorizontal: 10, color: COLORS.black }}>
               {item.day}
             </Text>
             <Text
               style={{
                 fontSize: 20,
                 paddingHorizontal: 10,
-                color: COLORS.third
+                color: item.total < 0 ? COLORS.greyDark : COLORS.third
               }}
             >
               R${" "}
@@ -368,7 +368,7 @@ const Home = ({ navigation }) => {
               <MaterialCommunityIcons
                 name={"chevron-left"}
                 size={42}
-                color="#000"
+                color="#5D5D5F"
               />
             </TouchableOpacity>
             <View
@@ -381,10 +381,10 @@ const Home = ({ navigation }) => {
                 padding: 5
               }}
             >
-              <Text style={{ color: COLORS.black, fontSize: 22 }}>
+              <Text style={{ color: COLORS.greyDark, fontSize: 22 }}>
                 {currentMonth.name + " de " + currentYear}
               </Text>
-              <Text style={{ color: COLORS.black, fontSize: 15 }}>
+              <Text style={{ color: COLORS.black, fontSize: 15,color: COLORS.greyDark }}>
                 Suas movimentações
               </Text>
             </View>
@@ -392,7 +392,7 @@ const Home = ({ navigation }) => {
               <MaterialCommunityIcons
                 name={"chevron-right"}
                 size={42}
-                color="#000"
+                color="#5D5D5F"
               />
             </TouchableOpacity>
           </View>
@@ -405,7 +405,7 @@ const Home = ({ navigation }) => {
               renderItem={DayItem}
             />
           ) : (
-            <Text style={{ fontSize: 20, textAlign: "center", padding:100}}>Sem movimentações</Text>
+            <Text style={{ fontSize: 20, textAlign: "center", padding:100, color: COLORS.greyDark}}>Sem movimentações</Text>
           )}
         </View>
       </View>
