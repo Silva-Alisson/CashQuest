@@ -16,16 +16,23 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useAuth } from "../context/auth";
 import { useIsFocused } from "@react-navigation/native";
 import getReportsHome from "../services/reports-service/get-monthly-report-home";
+import { checkNivel } from "../services/pet-service/check-nivel-service";
 
 const Home = ({ navigation }) => {
-
   function handleSelectionId(id, type) {
-    navigation.navigate('Register', { registerId: id, registerType: type });
+    navigation.navigate("Register", { registerId: id, registerType: type });
   }
   function DetailItem({ item }) {
     return (
-      <View style={{ flexDirection: "column", marginVertical: 5, marginHorizontal: 10  }}>
-        <TouchableOpacity onPress={() => handleSelectionId(item.id, item.type)}
+      <View
+        style={{
+          flexDirection: "column",
+          marginVertical: 5,
+          marginHorizontal: 10
+        }}
+      >
+        <TouchableOpacity
+          onPress={() => handleSelectionId(item.id, item.type)}
           style={{
             flexDirection: "row",
             alignItems: "center",
@@ -53,7 +60,7 @@ const Home = ({ navigation }) => {
                 color="#5DA660"
               />
             </View>
-  
+
             <View style={{ flexDirection: "column", paddingLeft: 10 }}>
               <Text style={{ fontSize: 16 }}>{item.category}</Text>
               <Text style={{ fontSize: 12 }}>{item.description}</Text>
@@ -66,7 +73,7 @@ const Home = ({ navigation }) => {
       </View>
     );
   }
-  
+
   function DayItem({ item }) {
     return (
       <View
@@ -102,11 +109,16 @@ const Home = ({ navigation }) => {
               {item.day}
             </Text>
             <Text
-              style={{ fontSize: 20, paddingHorizontal: 10, color: COLORS.third }}
+              style={{
+                fontSize: 20,
+                paddingHorizontal: 10,
+                color: COLORS.third
+              }}
             >
-              R$ {parseFloat(item.total).toLocaleString("pt-BR", {
-                  minimumFractionDigits: 2
-                })}
+              R${" "}
+              {parseFloat(item.total).toLocaleString("pt-BR", {
+                minimumFractionDigits: 2
+              })}
             </Text>
           </View>
           <FlatList
@@ -118,7 +130,6 @@ const Home = ({ navigation }) => {
       </View>
     );
   }
-
 
   const [dados, setDados] = useState([]);
   const { authData } = useAuth();
@@ -149,12 +160,11 @@ const Home = ({ navigation }) => {
       setCurrentMonthIndex(currentMonthIndex + 1);
       date.setMonth(currentMonthIndex + 1);
       fetchDataReports();
-
     } else if (direction === "prev" && currentMonthIndex > 0) {
       setCurrentMonthIndex(currentMonthIndex - 1);
       date.setMonth(currentMonthIndex - 1);
       fetchDataReports();
-    } 
+    }
   };
 
   const currentMonth = months[currentMonthIndex];
@@ -168,10 +178,8 @@ const Home = ({ navigation }) => {
     setDadosReports(response);
   }
 
-  const calculateProgress = (value, min, max) => {
-    return Math.min(Math.max(value, min), max) / max;
-  };
   const isFocused = useIsFocused();
+
   useEffect(() => {
     if (isFocused) {
       async function fetchDataPet() {
@@ -181,8 +189,9 @@ const Home = ({ navigation }) => {
         );
         setDadosPet(arrayResponse);
         if (arrayResponse) {
-          const propress = ((arrayResponse[1] / 500) / 500) * 100;
+          const propress = (arrayResponse[1] / 500 / 500) * 100;
           setProgress(propress);
+          checkNivel({ nivel: arrayResponse[3] });
         }
       }
       fetchDataPet();
@@ -270,9 +279,10 @@ const Home = ({ navigation }) => {
                 }}
               >
                 {" "}
-                R$ {parseFloat(dados[0]).toLocaleString("pt-BR", {
-                minimumFractionDigits: 2
-              })}
+                R${" "}
+                {parseFloat(dados[0]).toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2
+                })}
               </Text>
               <Text
                 style={{
@@ -295,9 +305,10 @@ const Home = ({ navigation }) => {
                   color: COLORS.white
                 }}
               >
-                R$ {parseFloat(dados[2]).toLocaleString("pt-BR", {
-                minimumFractionDigits: 2
-              })}
+                R${" "}
+                {parseFloat(dados[2]).toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2
+                })}
               </Text>
               <Text
                 style={{
@@ -372,7 +383,7 @@ const Home = ({ navigation }) => {
           </View>
         </View>
 
-        <View style={{ paddingBottom: 40, paddingTop: 5, maxHeight: "50%"}}>
+        <View style={{ paddingBottom: 40, paddingTop: 5, maxHeight: "50%" }}>
           <FlatList
             data={dadosReports}
             keyExtractor={(item, index) => item.id}

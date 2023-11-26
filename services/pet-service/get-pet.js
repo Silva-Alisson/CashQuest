@@ -17,7 +17,8 @@ export const getPet = async (token, userId) => {
                 const dataPet = {
                     photo: result[0].pet.photo,
                     xp: result[0].xps,
-                    name: result[0].name
+                    name: result[0].name,
+                    nivel: result[0].pet.nivel
                 }
 
                 // console.log(result[0].pet.photo)

@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS } from "../constants";
-import Button from "../components/Button";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import styles from "../components/styles";
 import Checkbox from "expo-checkbox";
@@ -24,8 +23,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { get_resgister } from "../services/register-service/get-register-service";
 import { update_resgister } from "../services/register-service/update-register-service";
 import { delete_resgister } from "../services/register-service/delete-register-service";
-import { useModal } from '../context/modalContext';
-
+import { useModal } from "../context/modalContext";
+import { useIsFocused } from "@react-navigation/native";
 
 const schema = yup.object().shape({
   value: yup.string().required(),
@@ -69,41 +68,43 @@ const Register = ({ navigation, route }) => {
   const [id, setId] = useState();
 
   const initEdit = async () => {
-    const result = await get_resgister({
-      token: authData.token,
-      registerId: id,
-      type: selectedOption
-    });
-    if (result) {
-      setValue("description", result.description);
-      setValue("value", result.value);
-      setValue("Comments", result.comments);
-      setValue("Installments", result.installments);
-      const data = new Date(result.createAt);
-      data.setHours(24, 30, 30);
-      setDate(data);
-      setIsCheckedFix(result.isFixed);
-      setIsCheckedTransfer(result.isTransferred);
-      setSelectedCategory(result.category);
+    if (id) {
+      const result = await get_resgister({
+        token: authData.token,
+        registerId: id,
+        type: selectedOption
+      });
+      if (result) {
+        console.log("retornou os dados");
+        setValue("description", result.description);
+        setValue("value", result.value);
+        setValue("Comments", result.comments);
+        setValue("Installments", result.installments);
+        const data = new Date(result.createAt);
+        data.setHours(24, 30, 30);
+        setDate(data);
+        setIsCheckedFix(result.isFixed);
+        setIsCheckedTransfer(result.isTransferred);
+        setSelectedCategory(result.category);
+      }
     }
   };
 
   // console.log(data.getUTCDate());
   // console.log(data.getUTCMonth());
-
+  const isFocused = useIsFocused();
   useEffect(() => {
     if (route.params && route.params.selectedCategory) {
       setSelectedCategory(route.params.selectedCategory);
     } else if (route.params && route.params.registerId) {
-      console.log(route.params.registerId)
       setId(route.params.registerId);
       setSelectedOption(route.params.registerType);
-      if(id){
-        initEdit();
-      }
-      
     }
   }, [route.params]);
+
+  useEffect(() => {
+    initEdit();
+  }, [id]);
 
   const getButtonStyle = (option) => {
     return {
@@ -145,7 +146,7 @@ const Register = ({ navigation, route }) => {
 
   //forms
 
-  const { handleShowModal  } = useModal();
+  const { handleShowModal } = useModal();
 
   const onSubmitForms = async (data) => {
     const params = {
@@ -180,7 +181,7 @@ const Register = ({ navigation, route }) => {
       registerId: id
     };
     const result = await delete_resgister(params);
-    console.log({"del":result});
+    console.log({ del: result });
     if (result) {
       clear();
       navigation.goBack();
@@ -217,17 +218,17 @@ const Register = ({ navigation, route }) => {
 
   const showModal = () => {
     let text = "";
-    
-    if(selectedOption == "despesa"){
-      text = "Você ganhou 60 xps!"
-    }else if(selectedOption == "entrada"){
-      text = "Você ganhou 30 xps!"
-    }else if(selectedOption == "poupanca"){
-      text = "Você ganhou 45 xps!"
+
+    if (selectedOption == "despesa") {
+      text = "Você ganhou 60 xps!";
+    } else if (selectedOption == "entrada") {
+      text = "Você ganhou 30 xps!";
+    } else if (selectedOption == "poupanca") {
+      text = "Você ganhou 45 xps!";
     }
 
     handleShowModal({ img: "", text1: "Tudo certo!", text2: text });
-  }
+  };
 
   const clear = () => {
     setSelectedOption(initialSelectedOption);
@@ -576,7 +577,7 @@ const Register = ({ navigation, route }) => {
                 alignItems: "center"
               }}
             >
-              {selectedOption === "despesa" ? (
+              {selectedOption === "despesa" && !id ? (
                 <Text
                   style={{
                     fontSize: 16,
@@ -586,7 +587,7 @@ const Register = ({ navigation, route }) => {
                   Você vai ganhar 60 de xp!
                 </Text>
               ) : null}
-              {selectedOption === "entrada" ? (
+              {selectedOption === "entrada" && !id ? (
                 <Text
                   style={{
                     fontSize: 16,
@@ -596,7 +597,7 @@ const Register = ({ navigation, route }) => {
                   Você vai ganhar 30 de xp!
                 </Text>
               ) : null}
-              {selectedOption === "poupanca" ? (
+              {selectedOption === "poupanca" && !id ? (
                 <Text
                   style={{
                     fontSize: 16,
@@ -617,9 +618,7 @@ const Register = ({ navigation, route }) => {
                   marginVertical: 16
                 }}
               >
-                <TouchableOpacity
-                  onPress={onHandleDelete}
-                >
+                <TouchableOpacity onPress={onHandleDelete}>
                   <View
                     style={{
                       width: 60,
@@ -629,7 +628,7 @@ const Register = ({ navigation, route }) => {
                       alignItems: "center",
                       marginTop: 16,
                       paddingBottom: 10,
-                      paddingVertical: 10,
+                      paddingVertical: 10
                     }}
                   >
                     <MaterialCommunityIcons
@@ -692,7 +691,6 @@ const Register = ({ navigation, route }) => {
                     <Text style={{ color: COLORS.white }}>Confirmar</Text>
                   )}
                 </TouchableOpacity>
-
 
                 <TouchableOpacity
                   style={{

@@ -53,7 +53,6 @@ export const update_resgister = async (params) => {
         requestOptions
       );
       if (response.ok) {
-        cons
         return true;
       } else {
         console.log(response);
@@ -70,11 +69,9 @@ export const update_resgister = async (params) => {
 const buildRawEntrada = (params) => {
   if (params.value != null) {
     const raw = JSON.stringify({
-      userId: params.userId,
       category: params.category,
       description: params.description,
       value: params.value,
-      attachment: "",
       isFixed: params.isFixed,
       comments: params.comments,
       createAt: params.createAt,
@@ -82,7 +79,6 @@ const buildRawEntrada = (params) => {
       total: parseFloat(params.value),
       type: params.type
     });
-    console.log(raw);
     return raw;
   }
 };
@@ -90,11 +86,9 @@ const buildRawEntrada = (params) => {
 const buildRaw = (params) => {
   if (params.value != null) {
     const raw = JSON.stringify({
-      userId: params.userId,
       category: params.category,
       description: params.description,
       value: params.value,
-      attachment: "",
       isFixed: params.isFixed,
       comments: params.comments,
       createAt: params.createAt,
@@ -103,7 +97,6 @@ const buildRaw = (params) => {
       isTransferred: params.isTransferred,
       type: params.type
     });
-    console.log(raw);
     return raw;
   }
 };
