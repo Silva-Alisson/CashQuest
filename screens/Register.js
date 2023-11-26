@@ -283,10 +283,10 @@ const Register = ({ navigation, route }) => {
                 <MaterialCommunityIcons
                   name="arrow-left"
                   size={40}
-                  color="black"
+                  color={COLORS.greyDark}
                 />
               </TouchableOpacity>
-              <Text style={{ marginLeft: 10 }}>Nova Transação</Text>
+              <Text style={{ marginLeft: 10, color:COLORS.greyDark }}>Nova Transação</Text>
             </View>
             <View
               style={{
@@ -350,19 +350,21 @@ const Register = ({ navigation, route }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "normal",
-                marginVertical: 8
+                marginVertical: 8,
+                color:COLORS.greyDark
               }}
             >
               Categoria
             </Text>
             <TouchableOpacity
-              style={styles.input}
+              style={[styles.input, { borderColor: COLORS.greyDark }]}
               onPress={() => navigation.navigate("CategoriesStack")}
             >
               <TextInput
                 value={selectedCategory}
                 style={{
-                  width: "100%"
+                  width: "100%",
+                  color: COLORS.black
                 }}
                 editable={false}
               />
@@ -372,13 +374,14 @@ const Register = ({ navigation, route }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "normal",
-                marginVertical: 8
+                marginVertical: 8,
+                color:COLORS.greyDark
               }}
             >
               Descrição
             </Text>
 
-            <View style={styles.input}>
+            <View style={[styles.input, { borderColor: COLORS.greyDark }]}>
               <Controller
                 control={control}
                 name="description"
@@ -391,7 +394,7 @@ const Register = ({ navigation, route }) => {
                     placeholder="descrição"
                     placeholderTextColor={COLORS.grey}
                     style={{
-                      width: "100%"
+                      width: "100%",
                     }}
                   />
                 )}
@@ -406,13 +409,14 @@ const Register = ({ navigation, route }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "normal",
-                marginVertical: 8
+                marginVertical: 8,
+                color:COLORS.greyDark
               }}
             >
               Data
             </Text>
 
-            <TouchableOpacity style={styles.input} onPress={showDatePicker}>
+            <TouchableOpacity style={[styles.input, { borderColor: COLORS.greyDark }]} onPress={showDatePicker}>
               <Text
                 placeholderTextColor={COLORS.grey}
                 style={{
@@ -438,13 +442,14 @@ const Register = ({ navigation, route }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "normal",
-                marginVertical: 8
+                marginVertical: 8,
+                color:COLORS.greyDark
               }}
             >
               Comentário
             </Text>
 
-            <View style={styles.input}>
+            <View style={[styles.input, { borderColor: COLORS.greyDark }]}>
               <Controller
                 control={control}
                 name="comments"
@@ -457,7 +462,7 @@ const Register = ({ navigation, route }) => {
                     placeholder="comentário..."
                     placeholderTextColor={COLORS.grey}
                     style={{
-                      width: "100%"
+                      width: "100%",
                     }}
                   />
                 )}
@@ -474,7 +479,8 @@ const Register = ({ navigation, route }) => {
               <Text
                 style={{
                   fontSize: 16,
-                  fontWeight: "normal"
+                  fontWeight: "normal",
+                  color: COLORS.greyDark
                 }}
               >
                 Transação fixa
@@ -492,13 +498,14 @@ const Register = ({ navigation, route }) => {
                   style={{
                     fontSize: 16,
                     fontWeight: "normal",
-                    marginVertical: 8
+                    marginVertical: 8,
+                    color: COLORS.greyDark
                   }}
                 >
                   Quantidade
                 </Text>
 
-                <View style={styles.input}>
+                <View style={[styles.input, { borderColor: COLORS.greyDark }]}>
                   <Controller
                     control={control}
                     name="installments"
@@ -532,7 +539,8 @@ const Register = ({ navigation, route }) => {
                 <Text
                   style={{
                     fontSize: 16,
-                    fontWeight: "normal"
+                    fontWeight: "normal",
+                    color: COLORS.greyDark
                   }}
                 >
                   É uma transferência:
@@ -557,7 +565,8 @@ const Register = ({ navigation, route }) => {
                 <Text
                   style={{
                     fontSize: 16,
-                    fontWeight: "normal"
+                    fontWeight: "normal",
+                    color: COLORS.greyDark
                   }}
                 >
                   Retirado da poupança:
@@ -581,7 +590,8 @@ const Register = ({ navigation, route }) => {
                 <Text
                   style={{
                     fontSize: 16,
-                    fontWeight: "normal"
+                    fontWeight: "normal",
+                    color: COLORS.greyDark
                   }}
                 >
                   Você vai ganhar 60 de xp!
@@ -591,7 +601,8 @@ const Register = ({ navigation, route }) => {
                 <Text
                   style={{
                     fontSize: 16,
-                    fontWeight: "normal"
+                    fontWeight: "normal",
+                    color: COLORS.greyDark
                   }}
                 >
                   Você vai ganhar 30 de xp!
@@ -601,7 +612,8 @@ const Register = ({ navigation, route }) => {
                 <Text
                   style={{
                     fontSize: 16,
-                    fontWeight: "normal"
+                    fontWeight: "normal",
+                    color: COLORS.greyDark
                   }}
                 >
                   Você vai ganhar 45 de xp!
