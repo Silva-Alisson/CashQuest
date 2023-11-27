@@ -10,6 +10,7 @@ import { useAuth } from "../context/auth";
 import { useIsFocused } from "@react-navigation/native";
 import getReportsHome from "../services/reports-service/get-monthly-report-home";
 import { checkNivel } from "../services/pet-service/check-nivel-service";
+import { useModal } from "../context/modalContext";
 
 const Home = ({ navigation }) => {
   function handleSelectionId(id, type) {
@@ -150,6 +151,7 @@ const Home = ({ navigation }) => {
   const currentDay = date.getDate();
   const [currentMonthIndex, setCurrentMonthIndex] = useState(mes);
   const [currentYear, setCurrentYear] = useState(year);
+  const { handleShowModal } = useModal();
 
   const getLastDayOfMonth = (year, month) => {
     return new Date(year, month + 1, 0).getDate();
@@ -190,6 +192,12 @@ const Home = ({ navigation }) => {
 
   const isFocused = useIsFocused();
 
+  async function showModalNivel(response) {
+    if(response) {
+      handleShowModal({ text1: "Parabéns!", text2: "Nivel " + dadosPet[3]  + " alcançado." });
+    }
+  }
+  
   useEffect(() => {
     if (isFocused) {
       async function fetchDataPet() {
@@ -201,7 +209,8 @@ const Home = ({ navigation }) => {
         if (arrayResponse) {
           const propress = (arrayResponse[1] / 500 / 500) * 100;
           setProgress(propress);
-          checkNivel({ nivel: arrayResponse[3] });
+          const nivelResponse = await checkNivel({ nivel: arrayResponse[3] });
+          showModalNivel(nivelResponse)
         }
       }
       fetchDataPet();
@@ -213,6 +222,7 @@ const Home = ({ navigation }) => {
         );
         setDados(arrayResponse);
       }
+
       fetchDataWallet();
 
       fetchDataReports();

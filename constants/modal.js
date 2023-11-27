@@ -1,11 +1,23 @@
 // CustomModal.js
-import React, { useEffect } from "react";
-import { Modal, StyleSheet, Text, View, Image } from "react-native";
+import React, { useEffect, useRef } from "react";
+import { Modal, StyleSheet, Text, View, Image, PanResponder  } from "react-native";
 import { useModal } from "../context/modalContext";
+import { COLORS } from "./theme";
 
 export const CustomModal = () => {
   const { modalVisible, imageSource, text1, text2, handleCloseModal } =
     useModal();
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderRelease: (e, gestureState) => {
+        if (gestureState.dy > 100) {
+          handleCloseModal();
+        }
+      },
+    })
+  ).current;
 
   useEffect(() => {
     if (modalVisible) {
@@ -28,17 +40,19 @@ export const CustomModal = () => {
         handleCloseModal(!modalVisible);
       }}
     >
-      <View style={styles.centeredView}>
+      <View style={styles.centeredView} {...panResponder.panHandlers}>
         <View
           style={[
             styles.modalView,
           ]}
         >
           {imageSource && (
-            <Image style={styles.modalImage} source={{uri: imageSource}} />
+            <Image style={[styles.modalImage]} source={{uri: imageSource}} resizeMode="contain" />
           )}
-          <Text style={styles.modalText}>{text1}</Text>
-          <Text style={styles.modalText}>{text2}</Text>
+          <View style={styles.textView}>
+            <Text style={styles.modalText}>{text1}</Text>
+            <Text style={[styles.modalText, {fontSize: 18}]}>{text2}</Text>
+          </View>
         </View>
       </View>
     </Modal>
@@ -48,11 +62,12 @@ export const CustomModal = () => {
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-end",
+    marginBottom: 75,
     alignItems: "center",
-    marginTop: 22
   },
   modalView: {
+    flexDirection:"row",
     backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
@@ -64,16 +79,23 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
+    height: 110,
+    width: "95%",
   },
   modalImage: {
-    width: 100,
-    height: 100,
+    width: 75,
+    height: 75,
     marginBottom: 10
+  },
+  textView: {
+    flexDirection: "column",
+    alignItems: "flex-start",
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center"
+    textAlign: "left",
+    color: COLORS.greyDark
   }
 });
 

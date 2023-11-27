@@ -181,7 +181,6 @@ const Register = ({ navigation, route }) => {
       registerId: id
     };
     const result = await delete_resgister(params);
-    console.log({ del: result });
     if (result) {
       clear();
       navigation.goBack();
@@ -227,7 +226,7 @@ const Register = ({ navigation, route }) => {
       text = "Você ganhou 45 xps!";
     }
 
-    handleShowModal({ img: "", text1: "Tudo certo!", text2: text });
+    handleShowModal({ img: "https://firebasestorage.googleapis.com/v0/b/cashquest-a60d0.appspot.com/o/conquistas%2FConquista.png?alt=media&token=7b540eaf-80ee-475b-a069-c52c6676833e", text1: "Tudo certo!", text2: text });
   };
 
   const clear = () => {
@@ -242,6 +241,7 @@ const Register = ({ navigation, route }) => {
 
   const handleGoBack = () => {
     clear();
+    showModal();
     navigation.goBack();
   };
 
