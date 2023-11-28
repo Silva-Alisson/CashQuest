@@ -241,7 +241,6 @@ const Register = ({ navigation, route }) => {
 
   const handleGoBack = () => {
     clear();
-    showModal();
     navigation.goBack();
   };
 

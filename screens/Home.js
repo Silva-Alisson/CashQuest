@@ -174,6 +174,7 @@ const Home = ({ navigation }) => {
     date.setMonth(newMonthIndex);
     date.setYear(newYear);
     date.setDate(newDay);
+    console.log(date)
 
     setCurrentMonthIndex(newMonthIndex);
     setCurrentYear(newYear);

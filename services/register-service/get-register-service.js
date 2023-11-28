@@ -33,7 +33,7 @@ try {
             return false;
         }
     } else if(params.type == "poupanca"){
-        const response = await fetch(baseUrl + "/savings/get-saving" + params.registerId, requestOptions);
+        const response = await fetch(baseUrl + "/savings/get-saving/" + params.registerId, requestOptions);
         if (response.ok) {
             const result = await response.json();
             return result;
