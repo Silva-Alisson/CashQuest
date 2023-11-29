@@ -134,14 +134,19 @@ const Register = ({ navigation, route }) => {
 
   const handleDateChange = (event, selectedDate) => {
     if (selectedDate) {
-      const adjustedDate = startOfDay(
-        addMinutes(selectedDate, selectedDate.getTimezoneOffset())
-      );
-      setDate(adjustedDate);
+      adjustDate(selectedDate);
       hideDatePicker();
     } else {
       hideDatePicker();
     }
+  };
+
+  const adjustDate = (date) => {
+    hideDatePicker();
+    const adjustedDate = startOfDay(
+      addMinutes(date, date.getTimezoneOffset())
+    );
+    setDate(adjustedDate);
   };
 
   //forms
@@ -149,6 +154,7 @@ const Register = ({ navigation, route }) => {
   const { handleShowModal } = useModal();
 
   const onSubmitForms = async (data) => {
+    adjustDate(date);
     const params = {
       type: selectedOption,
       token: authData.token,
@@ -226,7 +232,11 @@ const Register = ({ navigation, route }) => {
       text = "Você ganhou 45 xps!";
     }
 
-    handleShowModal({ img: "https://firebasestorage.googleapis.com/v0/b/cashquest-a60d0.appspot.com/o/conquistas%2FConquista.png?alt=media&token=7b540eaf-80ee-475b-a069-c52c6676833e", text1: "Tudo certo!", text2: text });
+    handleShowModal({
+      img: "https://firebasestorage.googleapis.com/v0/b/cashquest-a60d0.appspot.com/o/conquistas%2FConquista.png?alt=media&token=7b540eaf-80ee-475b-a069-c52c6676833e",
+      text1: "Tudo certo!",
+      text2: text
+    });
   };
 
   const clear = () => {
@@ -285,7 +295,9 @@ const Register = ({ navigation, route }) => {
                   color={COLORS.greyDark}
                 />
               </TouchableOpacity>
-              <Text style={{ marginLeft: 10, color:COLORS.greyDark }}>Nova Transação</Text>
+              <Text style={{ marginLeft: 10, color: COLORS.greyDark }}>
+                Nova Transação
+              </Text>
             </View>
             <View
               style={{
@@ -350,7 +362,7 @@ const Register = ({ navigation, route }) => {
                 fontSize: 16,
                 fontWeight: "normal",
                 marginVertical: 8,
-                color:COLORS.greyDark
+                color: COLORS.greyDark
               }}
             >
               Categoria
@@ -374,7 +386,7 @@ const Register = ({ navigation, route }) => {
                 fontSize: 16,
                 fontWeight: "normal",
                 marginVertical: 8,
-                color:COLORS.greyDark
+                color: COLORS.greyDark
               }}
             >
               Descrição
@@ -393,7 +405,7 @@ const Register = ({ navigation, route }) => {
                     placeholder="descrição"
                     placeholderTextColor={COLORS.grey}
                     style={{
-                      width: "100%",
+                      width: "100%"
                     }}
                   />
                 )}
@@ -409,13 +421,16 @@ const Register = ({ navigation, route }) => {
                 fontSize: 16,
                 fontWeight: "normal",
                 marginVertical: 8,
-                color:COLORS.greyDark
+                color: COLORS.greyDark
               }}
             >
               Data
             </Text>
 
-            <TouchableOpacity style={[styles.input, { borderColor: COLORS.greyDark }]} onPress={showDatePicker}>
+            <TouchableOpacity
+              style={[styles.input, { borderColor: COLORS.greyDark }]}
+              onPress={showDatePicker}
+            >
               <Text
                 placeholderTextColor={COLORS.grey}
                 style={{
@@ -442,7 +457,7 @@ const Register = ({ navigation, route }) => {
                 fontSize: 16,
                 fontWeight: "normal",
                 marginVertical: 8,
-                color:COLORS.greyDark
+                color: COLORS.greyDark
               }}
             >
               Comentário
@@ -461,7 +476,7 @@ const Register = ({ navigation, route }) => {
                     placeholder="comentário..."
                     placeholderTextColor={COLORS.grey}
                     style={{
-                      width: "100%",
+                      width: "100%"
                     }}
                   />
                 )}

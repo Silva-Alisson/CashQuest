@@ -11,6 +11,7 @@ import { useIsFocused } from "@react-navigation/native";
 import getReportsHome from "../services/reports-service/get-monthly-report-home";
 import { checkNivel } from "../services/pet-service/check-nivel-service";
 import { useModal } from "../context/modalContext";
+import { format, startOfDay, addMinutes } from "date-fns";
 
 const Home = ({ navigation }) => {
   function handleSelectionId(id, type) {
@@ -56,11 +57,22 @@ const Home = ({ navigation }) => {
             </View>
 
             <View style={{ flexDirection: "column", paddingLeft: 10 }}>
-              <Text style={{ fontSize: 16, color:COLORS.greyDark }}>{item.category}</Text>
-              <Text style={{ fontSize: 12, color:COLORS.greyDark }}>{item.description}</Text>
+              <Text style={{ fontSize: 16, color: COLORS.greyDark }}>
+                {item.category}
+              </Text>
+              <Text style={{ fontSize: 12, color: COLORS.greyDark }}>
+                {item.description}
+              </Text>
             </View>
           </View>
-          <Text style={{ color: item.totalAmount.includes('-') ? COLORS.greyDark  : '#5DA660', fontSize: 18 }}>
+          <Text
+            style={{
+              color: item.totalAmount.includes("-")
+                ? COLORS.greyDark
+                : "#5DA660",
+              fontSize: 18
+            }}
+          >
             {item.totalAmount}
           </Text>
         </TouchableOpacity>
@@ -99,8 +111,14 @@ const Home = ({ navigation }) => {
               marginHorizontal: 10
             }}
           >
-            <Text style={{ fontSize: 20, paddingHorizontal: 10, color: COLORS.darkBlue }}>
-              {item.day}
+            <Text
+              style={{
+                fontSize: 20,
+                paddingHorizontal: 10,
+                color: COLORS.darkBlue
+              }}
+            >
+              {format(new Date(item.day), "dd/MM/yy")}
             </Text>
             <Text
               style={{
@@ -145,6 +163,7 @@ const Home = ({ navigation }) => {
     { name: "Novembro", id: 11 },
     { name: "Dezembro", id: 12 }
   ];
+
   const date = new Date();
   const mes = date.getMonth();
   const year = date.getFullYear();
@@ -170,11 +189,15 @@ const Home = ({ navigation }) => {
 
     const lastDayOfMonth = getLastDayOfMonth(newYear, newMonthIndex);
     const newDay = newMonthIndex != mes ? lastDayOfMonth : currentDay;
+    if (newDay != currentDay) {
+      date.setHours(24, 30, 30);
+    }
 
     date.setMonth(newMonthIndex);
     date.setYear(newYear);
     date.setDate(newDay);
-    console.log(date)
+
+    console.log({ comp: date });
 
     setCurrentMonthIndex(newMonthIndex);
     setCurrentYear(newYear);
@@ -183,22 +206,28 @@ const Home = ({ navigation }) => {
 
   const currentMonth = months[currentMonthIndex];
   async function fetchDataReports() {
+    const adjustedDate = startOfDay(addMinutes(date, date.getTimezoneOffset()));
+
     const response = await getReportsHome(
       authData.userId,
-      date,
+      adjustedDate,
       authData.token
     );
+    console.log({ response });
     setDadosReports(response);
   }
 
   const isFocused = useIsFocused();
 
   async function showModalNivel(response) {
-    if(response) {
-      handleShowModal({ text1: "Parabéns!", text2: "Nivel " + dadosPet[3]  + " alcançado." });
+    if (response) {
+      handleShowModal({
+        text1: "Parabéns!",
+        text2: "Nivel " + dadosPet[3] + " alcançado."
+      });
     }
   }
-  
+
   useEffect(() => {
     if (isFocused) {
       async function fetchDataPet() {
@@ -211,17 +240,19 @@ const Home = ({ navigation }) => {
           const propress = (arrayResponse[1] / 500 / 500) * 100;
           setProgress(propress);
           const nivelResponse = await checkNivel({ nivel: arrayResponse[3] });
-          showModalNivel(nivelResponse)
+          showModalNivel(nivelResponse);
         }
       }
       fetchDataPet();
 
       async function fetchDataWallet() {
         const response = await getWallet(authData.token, authData.userId);
+        console.log(response);
+        console.log(response.savings);
         const arrayResponse = Object.keys(response).map(
           (chave) => response[chave]
         );
-        setDados(arrayResponse);
+        setDados(response);
       }
 
       fetchDataWallet();
@@ -303,9 +334,11 @@ const Home = ({ navigation }) => {
               >
                 {" "}
                 R${" "}
-                {parseFloat(dados[0]).toLocaleString("pt-BR", {
-                  minimumFractionDigits: 2
-                })}
+                {dados.totalDeposits
+                  ? parseFloat(dados.totalDeposits).toLocaleString("pt-BR", {
+                      minimumFractionDigits: 2
+                    })
+                  : 0.0}
               </Text>
               <Text
                 style={{
@@ -329,9 +362,11 @@ const Home = ({ navigation }) => {
                 }}
               >
                 R${" "}
-                {parseFloat(dados[2]).toLocaleString("pt-BR", {
-                  minimumFractionDigits: 2
-                })}
+                {dados.savings
+                  ? parseFloat(dados.savings).toLocaleString("pt-BR", {
+                      minimumFractionDigits: 2
+                    })
+                  : 0.0}
               </Text>
               <Text
                 style={{
@@ -395,7 +430,13 @@ const Home = ({ navigation }) => {
               <Text style={{ color: COLORS.darkBlue, fontSize: 22 }}>
                 {currentMonth.name + " de " + currentYear}
               </Text>
-              <Text style={{ color: COLORS.black, fontSize: 15,color: COLORS.greyDark }}>
+              <Text
+                style={{
+                  color: COLORS.black,
+                  fontSize: 15,
+                  color: COLORS.greyDark
+                }}
+              >
                 Suas movimentações
               </Text>
             </View>
@@ -416,7 +457,16 @@ const Home = ({ navigation }) => {
               renderItem={DayItem}
             />
           ) : (
-            <Text style={{ fontSize: 20, textAlign: "center", padding:100, color: COLORS.greyDark}}>Sem movimentações</Text>
+            <Text
+              style={{
+                fontSize: 20,
+                textAlign: "center",
+                padding: 100,
+                color: COLORS.greyDark
+              }}
+            >
+              Sem movimentações
+            </Text>
           )}
         </View>
       </View>
