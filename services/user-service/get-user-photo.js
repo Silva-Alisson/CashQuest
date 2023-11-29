@@ -1,20 +1,11 @@
 import baseUrl from "../../helpers/base-url-api";
 
-var myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Mjg0Mzc2ODQwOGZlOGQxYWE3MDdlYSIsImlhdCI6MTY5OTIyNzc3NH0.Tt29QtjZ9y7BvKd2q5DC54NZgisQkMV0P8pqHBaNGyM");
-
-var requestOptions = {
-  method: 'GET',
-  headers: myHeaders,
-  redirect: 'follow'
-};
-
 export const get_user_photo = async (params) => {
     console.log(params);
-    var myHeaders = new Headers();
+    const myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer " + params.token);
 
-    var requestOptions = {
+    const requestOptions = {
     method: 'GET',
     headers: myHeaders,
     redirect: 'follow'

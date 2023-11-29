@@ -7,21 +7,19 @@ import { useAuth } from "../context/auth";
 import getWallet from "../services/wallet-service/wallet-service";
 import { useIsFocused } from "@react-navigation/native";
 import { get_user_photo } from "../services/user-service/get-user-photo";
+import { get_user_data } from "../services/user-service/get-user-name-service";
 
 export const Profile = ({ navigation }) => {
   const [dados, setDados] = useState([]);
   const { authData } = useAuth();
   const isFocused = useIsFocused();
   const [userPhoto, setUserPhoto] = useState();
-  const [userName, setUserName] = useState();
+  const [userData, setUserData] = useState();
 
   useEffect(() => {
     if (isFocused) {
       async function fetchData() {
         const response = await getWallet(authData.token, authData.userId);
-        const arrayResponse = Object.keys(response).map(
-          (chave) => response[chave]
-        );
         setDados(response);
       }
       fetchData();
@@ -31,19 +29,19 @@ export const Profile = ({ navigation }) => {
           token: authData.token,
           userId: authData.userId
         });
-        console.log(response);
         setUserPhoto(response.userPhoto);
       }
-
       fetchPhoto();
 
-      async function fetchUserName() {
-        const response = await get_user_photo({
+      async function fetchUserData() {
+        const response = await get_user_data({
           token: authData.token,
           userId: authData.userId
         });
-        console.log(response);
+        setUserData(response);
       }
+
+      fetchUserData();
     }
   }, [isFocused]);
 
@@ -55,7 +53,10 @@ export const Profile = ({ navigation }) => {
           resizeMode="contain"
           style={Styles2.image}
         />
-        <Text style={Styles2.textName}>Presdove</Text>
+        <Text style={Styles2.textName}>{userData
+                ? userData.firstName  + " " + userData.lastName
+                : ""}
+          </Text>
 
         <View
           style={{

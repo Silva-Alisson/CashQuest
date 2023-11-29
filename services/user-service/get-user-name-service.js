@@ -1,17 +1,21 @@
+import baseUrl from "../../helpers/base-url-api";
 
+export const get_user_data = async (params) => {
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", "Bearer " + params.token);
 
-fetch("http://localhost:8000/api//users", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
-
-export const get_user_name = async (params) => {
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer " + params.token);
-    
-    var requestOptions = {
+  const requestOptions = {
     method: 'GET',
     headers: myHeaders,
     redirect: 'follow'
-    };
+  };
+
+  const response = await fetch( baseUrl + "/users/get-user/" + params.userId, requestOptions)
+    if (response.ok) {
+      const result = await response.json();
+      return result;
+  } else {
+      console.log('Erro na solicitação');
+      return false;
+  }    
 }
