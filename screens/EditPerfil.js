@@ -66,6 +66,8 @@ const EditPerfil = ({ navigation }) => {
               paddingTop: 20
             }}
           >
+           
+           
             <Image
               source={{ uri: userPhoto }}
               style={{
@@ -74,6 +76,15 @@ const EditPerfil = ({ navigation }) => {
                 borderRadius: 999
               }}
             />
+             <View style={{flexDirection: "row",position: 'absolute', top: 54,left: 160}}>
+              <TouchableOpacity style={{marginRight: 5}}>
+                  <MaterialCommunityIcons name="pencil-outline" size={32} color="green" />
+              </TouchableOpacity>
+              
+              <TouchableOpacity style={{marginLeft: 5}}>
+                  <MaterialCommunityIcons name="trash-can-outline" size={32} color="red" />
+              </TouchableOpacity>
+            </View>
           </View>
 
           <View style={{ flex: 1, marginHorizontal: 22, top: 20 }}>
