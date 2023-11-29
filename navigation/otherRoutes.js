@@ -4,6 +4,7 @@ import Achievements from '../screens/Achievements';
 import Categories from '../screens/Categories';
 import DashboardScreen from '../screens/Dashboard';
 import EditPet from '../screens/EditPet';
+import EditPerfil from '../screens/EditPerfil';
 import Settings from '../screens/Settings';
 import TabNavigator from './TabNavigator'; // Importe o TabNavigator
 
@@ -54,6 +55,14 @@ const OtherRoutes = () => {
             <Stack.Screen
                 name='EditPetStack'
                 component={EditPet}
+                options={{
+                    headerShown: false,
+                    clearOnBlur: true,
+                }}
+            />
+            <Stack.Screen
+                name='EditPerfilStack'
+                component={EditPerfil}
                 options={{
                     headerShown: false,
                     clearOnBlur: true,

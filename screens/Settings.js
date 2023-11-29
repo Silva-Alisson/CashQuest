@@ -7,9 +7,9 @@ import { COLORS } from "../constants";
 
 const settingsText = [ 
     { key: "Editar perfil",
-    description: "Altere seu nome, foto e outras informações", navigate: "EditPetStack"}, 
+    description: "Altere seu nome, foto e outras informações", navigate: "EditPerfilStack"}, 
     { key: "Alterar informações do pet",
-    description: "Altere o nome do seu pet", navigate: "" }, 
+    description: "Altere o nome do seu pet", navigate: "EditPetStack" }, 
     { key: "Excluir conta permanentemente",
     description: "Excluir sua conta permanentemente", navigate: "" }
 ];
