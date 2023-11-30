@@ -11,7 +11,7 @@ import { useIsFocused } from "@react-navigation/native";
 import getReportsHome from "../services/reports-service/get-monthly-report-home";
 import { checkNivel } from "../services/pet-service/check-nivel-service";
 import { useModal } from "../context/modalContext";
-import { format, startOfDay, addMinutes } from "date-fns";
+import moment from "moment-timezone";
 
 const Home = ({ navigation }) => {
   function handleSelectionId(id, type) {
@@ -118,7 +118,7 @@ const Home = ({ navigation }) => {
                 color: COLORS.darkBlue
               }}
             >
-              {format(new Date(item.day), "dd/MM/yy")}
+              {item.day}
             </Text>
             <Text
               style={{
@@ -189,15 +189,10 @@ const Home = ({ navigation }) => {
 
     const lastDayOfMonth = getLastDayOfMonth(newYear, newMonthIndex);
     const newDay = newMonthIndex != mes ? lastDayOfMonth : currentDay;
-    if (newDay != currentDay) {
-      date.setHours(24, 30, 30);
-    }
 
     date.setMonth(newMonthIndex);
     date.setYear(newYear);
     date.setDate(newDay);
-
-    console.log({ comp: date });
 
     setCurrentMonthIndex(newMonthIndex);
     setCurrentYear(newYear);
@@ -206,14 +201,16 @@ const Home = ({ navigation }) => {
 
   const currentMonth = months[currentMonthIndex];
   async function fetchDataReports() {
-    const adjustedDate = startOfDay(addMinutes(date, date.getTimezoneOffset()));
-
+    const stringDate = moment(date)
+      .tz("America/Sao_Paulo")
+      .format("YYYY-MM-DD HH:mm:ss");
+      console.log(stringDate);
     const response = await getReportsHome(
       authData.userId,
-      adjustedDate,
+      stringDate,
       authData.token
     );
-    console.log({ response });
+    console.log({response});
     setDadosReports(response);
   }
 
@@ -237,8 +234,11 @@ const Home = ({ navigation }) => {
         );
         setDadosPet(arrayResponse);
         if (arrayResponse) {
-          const propress = (arrayResponse[1] / 500 / 500) * 100;
-          setProgress(propress);
+          while (arrayResponse[1] > 500) {
+            arrayResponse[1] -= 500;
+          }
+          const progress = arrayResponse[1] / 500;
+          setProgress(progress);
           const nivelResponse = await checkNivel({ nivel: arrayResponse[3] });
           showModalNivel(nivelResponse);
         }
@@ -249,9 +249,6 @@ const Home = ({ navigation }) => {
         const response = await getWallet(authData.token, authData.userId);
         console.log(response);
         console.log(response.savings);
-        const arrayResponse = Object.keys(response).map(
-          (chave) => response[chave]
-        );
         setDados(response);
       }
 

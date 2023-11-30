@@ -2,9 +2,6 @@ import baseUrl from "../../helpers/base-url-api";
 import categorias from "../../assets/data/categorias.json";
 
 const getReportsHome = async (userId, date, token) => {
-  console.log({userId});
-  console.log({token})
-  console.log({date})
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", "Bearer " + token);
@@ -54,11 +51,15 @@ function transformArray3(inputArray) {
   inputArray.combinedArray.forEach((item, index) => {
     const itemDate = new Date(item.createAt);
     const dayKey = itemDate.toISOString().split("T")[0];
+    const dia = itemDate.getDate();
+    const mes = itemDate.toLocaleString('pt-BR', { month: 'short' });
+    const ano = itemDate.getFullYear();
+    const dataFormatada = `${dia} de ${mes} de ${ano}`;
 
     if (!dateMap.has(dayKey)) {
       dateMap.set(dayKey, {
         id: id,
-        day: dayKey,
+        day: dataFormatada,
         total: total,
         details: []
       });

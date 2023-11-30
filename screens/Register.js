@@ -25,6 +25,8 @@ import { update_resgister } from "../services/register-service/update-register-s
 import { delete_resgister } from "../services/register-service/delete-register-service";
 import { useModal } from "../context/modalContext";
 import { useIsFocused } from "@react-navigation/native";
+import formatDate from "../helpers/dateFormatter";
+import moment from "moment-timezone";
 
 const schema = yup.object().shape({
   value: yup.string().required(),
@@ -75,13 +77,12 @@ const Register = ({ navigation, route }) => {
         type: selectedOption
       });
       if (result) {
-        console.log("retornou os dados");
+        console.log(result);
         setValue("description", result.description);
         setValue("value", result.value);
         setValue("Comments", result.comments);
         setValue("Installments", result.installments);
         const data = new Date(result.createAt);
-        data.setHours(24, 30, 30);
         setDate(data);
         setIsCheckedFix(result.isFixed);
         setIsCheckedTransfer(result.isTransferred);
@@ -134,27 +135,21 @@ const Register = ({ navigation, route }) => {
 
   const handleDateChange = (event, selectedDate) => {
     if (selectedDate) {
-      adjustDate(selectedDate);
+      setDate(selectedDate);
       hideDatePicker();
     } else {
       hideDatePicker();
     }
   };
-
-  const adjustDate = (date) => {
-    hideDatePicker();
-    const adjustedDate = startOfDay(
-      addMinutes(date, date.getTimezoneOffset())
-    );
-    setDate(adjustedDate);
-  };
-
   //forms
 
   const { handleShowModal } = useModal();
 
   const onSubmitForms = async (data) => {
-    adjustDate(date);
+    const stringDate = moment(date)
+      .tz("America/Sao_Paulo")
+      .format("YYYY-MM-DD HH:mm:ss");
+    console.log({ stringDate });
     const params = {
       type: selectedOption,
       token: authData.token,
@@ -164,7 +159,7 @@ const Register = ({ navigation, route }) => {
       value: parseFloat(data.value.replace(/[^\d,]/g, "").replace(",", ".")),
       isFixed: isCheckedFix,
       comments: data.comments || "",
-      createAt: date,
+      createAt: stringDate,
       installments: parseInt(data.installments) || 0,
       isTransferred: isCheckedTransfer
     };
@@ -196,6 +191,9 @@ const Register = ({ navigation, route }) => {
   };
 
   const onSubmitUpdateForms = async (data) => {
+    const stringDate = moment(date)
+      .tz("America/Sao_Paulo")
+      .format("YYYY-MM-DD HH:mm:ss");
     const params = {
       type: selectedOption,
       token: authData.token,
@@ -205,11 +203,12 @@ const Register = ({ navigation, route }) => {
       value: parseFloat(data.value.replace(/[^\d,]/g, "").replace(",", ".")),
       isFixed: isCheckedFix,
       comments: data.comments || "",
-      createAt: date,
+      createAt: stringDate,
       installments: parseInt(data.installments) || 0,
       isTransferred: isCheckedTransfer,
       registerId: id
     };
+    console.log(params);
     setIsLoading(true);
     const result = await update_resgister(params);
     if (result) {
