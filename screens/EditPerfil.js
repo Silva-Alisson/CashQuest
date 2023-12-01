@@ -8,13 +8,17 @@ import { useAuth } from "../context/auth";
 import { useIsFocused } from "@react-navigation/native";
 import { get_user_photo } from "../services/user-service/get-user-photo";
 import { get_user_data } from "../services/user-service/get-user-name-service";
+import * as ImagePicker from "expo-image-picker";
 
 const EditPerfil = ({ navigation }) => {
   const { authData } = useAuth();
   const isFocused = useIsFocused();
   const [userPhoto, setUserPhoto] = useState();
   const [userData, setUserData] = useState();
+  const [image, setImage] = useState(null);
+  const [uri, setUri] = useState();
 
+  
   useEffect(() => {
     if (isFocused) {
       async function fetchPhoto() {
@@ -38,6 +42,23 @@ const EditPerfil = ({ navigation }) => {
       fetchPhoto();
     }
   }, [isFocused]);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+      base64: true
+    });
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+      setUri(result.assets[0].uri);
+    }
+  };
+
+
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
@@ -77,7 +98,7 @@ const EditPerfil = ({ navigation }) => {
               }}
             />
              <View style={{flexDirection: "row",position: 'absolute', top: 54,left: 160}}>
-              <TouchableOpacity style={{marginRight: 5}}>
+              <TouchableOpacity style={{marginRight: 5}} onPress={pickImage}>
                   <MaterialCommunityIcons name="pencil-outline" size={32} color="green" />
               </TouchableOpacity>
               
