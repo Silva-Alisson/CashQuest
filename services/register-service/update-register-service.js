@@ -37,12 +37,13 @@ export const update_resgister = async (params) => {
       }
     } else if (params.type == "entrada") {
       const response = await fetch(
-        baseUrl + "/depositi/update/" + params.registerId,
+        baseUrl + "/deposit/update/" + params.registerId,
         requestOptions
       );
       if (response.ok) {
         return true;
       } else {
+        console.log(response);
         console.log("Erro na solicitação");
         return false;
       }

@@ -44,16 +44,12 @@ export default function SelectNamePet({ navigation }) {
     const result = await createUserPet(data.petname);
     setIsLoading(true);
     if (result) {
-      try {
-        const user = await AsyncStorage.getItem("@UserData");
-        const userData = JSON.parse(user);
-        signIn(userData.email, userData.senha);
-        await AsyncStorage.removeItem("@UserData");
-        setIsLoading(false);
-        reset();
-      } catch (error) {
-        setIsLoading(false);
-      }
+      const user = await AsyncStorage.getItem("@UserData");
+      const userData = JSON.parse(user);
+      signIn(userData.email, userData.senha);
+      await AsyncStorage.removeItem("@UserData");
+      setIsLoading(false);
+      reset();
     } else {
       setIsLoading(false);
     }
@@ -73,9 +69,6 @@ export default function SelectNamePet({ navigation }) {
             marginHorizontal: 10
           }}
         >
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <MaterialCommunityIcons name="arrow-left" size={40} color="black" />
-          </TouchableOpacity>
           <Text style={styles.title}>Qual o nome do seu novo pet?</Text>
         </View>
         <View
@@ -147,40 +140,18 @@ export default function SelectNamePet({ navigation }) {
             }}
           >
             <TouchableOpacity
-              style={{
-                paddingBottom: 16,
-                paddingVertical: 10,
-                borderColor: COLORS.primary,
-                backgroundColor: COLORS.primary,
-                borderWidth: 2,
-                borderRadius: 12,
-                alignItems: "center",
-                width: 120,
-                justifyContent: "center",
-                marginTop: 16
-              }}
+              style={styles.button}
               disabled={isLoading}
               onPress={handleSubmit(onSubmit)}
             >
               {isLoading ? (
                 <ActivityIndicator color="#BAE6BC" />
               ) : (
-                <Text style={[styles.buttonText, {color: COLORS.white}]}>Confirmar</Text>
+                <Text style={[styles.buttonText, { color: COLORS.white }]}>
+                  Confirmar
+                </Text>
               )}
             </TouchableOpacity>
-
-            <Button
-              title="Cancelar"
-              filled
-              style={{
-                padding: 16,
-                width: 120, // Corrigido: 'with' para 'width'
-                height: 60,
-                backgroundColor: "#fff",
-                color: COLORS.primary
-              }}
-              onPress={() => navigation.goBack()}
-            />
           </View>
         </View>
       </KeyboardAwareScrollView>
@@ -217,6 +188,17 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     margin: 10
+  },
+  button: {
+    width: "100%",
+    paddingBottom: 16,
+    paddingVertical: 10,
+    borderColor: COLORS.primary,
+    backgroundColor: COLORS.primary,
+    borderWidth: 2,
+    borderRadius: 12,
+    alignItems: "center",
+    justifyContent: "center"
   },
   icon: {
     width: 60,

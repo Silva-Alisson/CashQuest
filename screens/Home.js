@@ -1,4 +1,11 @@
-import { View, Text, Image, TouchableOpacity, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  FlatList,
+  ImageBackground
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS } from "../constants";
@@ -107,8 +114,7 @@ const Home = ({ navigation }) => {
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
-              alignItems: "center",
-              marginHorizontal: 10
+              alignItems: "center"
             }}
           >
             <Text
@@ -204,13 +210,13 @@ const Home = ({ navigation }) => {
     const stringDate = moment(date)
       .tz("America/Sao_Paulo")
       .format("YYYY-MM-DD HH:mm:ss");
-      console.log(stringDate);
+    console.log(stringDate);
     const response = await getReportsHome(
       authData.userId,
       stringDate,
       authData.token
     );
-    console.log({response});
+    console.log({ response });
     setDadosReports(response);
   }
 
@@ -268,120 +274,129 @@ const Home = ({ navigation }) => {
       }}
     >
       <View style={{ flex: 1 }}>
-        <View
-          style={{
-            alignItems: "center",
-            backgroundColor: COLORS.primary,
-            width: "100%",
-            height: "40%",
-            borderBottomEndRadius: 40,
-            borderBottomStartRadius: 40,
-            marginBottom: 10
-          }}
+        <ImageBackground
+          source={require("../assets/home-bg.jpg")}
+          resizeMode="cover"
+          borderRadius={(0, 0, 40, 40)}
+          style={{ height: 300 }}
         >
-          <Image
-            source={{ uri: dadosPet[0] }}
-            resizeMode="contain"
-            style={{
-              height: "40%",
-              width: "30%",
-              margin: 25
-            }}
-          />
-          <Text
-            style={{
-              color: COLORS.white,
-              fontSize: 20
-            }}
-          >
-            {dadosPet[2]}
-          </Text>
-
-          <View style={{ alignItems: "center" }}>
-            <Progress.Bar
-              progress={progress}
-              width={300}
-              height={20}
-              color={COLORS.third}
-              backgroundColor={COLORS.white}
-              borderRadius={15}
-              borderWidth={0}
-              style={{ margin: 10 }}
-            />
-          </View>
           <View
             style={{
-              flexDirection: "row",
-              borderRadius: 16,
-              width: "90%",
-              justifyContent: "center"
+              alignItems: "center",
+              backgroundColor: COLORS.primary,
+              opacity: 0.92,
+              width: "100%",
+              height: 300,
+              borderBottomEndRadius: 40,
+              borderBottomStartRadius: 40,
+              marginBottom: 10
             }}
           >
-            <View
+            <Image
+              source={{ uri: dadosPet[0] }}
+              resizeMode="contain"
               style={{
-                flexDirection: "column",
-                alignItems: "center",
-                marginHorizontal: 20
+                height: "40%",
+                width: "30%",
+                margin: 25
+              }}
+            />
+            <Text
+              style={{
+                color: COLORS.white,
+                fontSize: 20
               }}
             >
-              <Text
-                style={{
-                  color: COLORS.white
-                }}
-              >
-                {" "}
-                R${" "}
-                {dados.totalDeposits
-                  ? parseFloat(dados.totalDeposits).toLocaleString("pt-BR", {
-                      minimumFractionDigits: 2
-                    })
-                  : 0.0}
-              </Text>
-              <Text
-                style={{
-                  color: COLORS.white
-                }}
-              >
-                Carteira
-              </Text>
-            </View>
+              {dadosPet[2]}
+            </Text>
 
+            <View style={{ alignItems: "center" }}>
+              <Progress.Bar
+                progress={progress}
+                width={300}
+                height={20}
+                color={COLORS.third}
+                backgroundColor={COLORS.white}
+                borderRadius={15}
+                borderWidth={0}
+                style={{ margin: 10 }}
+              />
+            </View>
             <View
               style={{
-                flexDirection: "column",
-                alignItems: "center",
-                marginHorizontal: 20
+                flexDirection: "row",
+                borderRadius: 16,
+                width: "90%",
+                justifyContent: "center"
               }}
             >
-              <Text
+              <View
                 style={{
-                  color: COLORS.white
+                  flexDirection: "column",
+                  alignItems: "center",
+                  marginHorizontal: 20
                 }}
               >
-                R${" "}
-                {dados.savings
-                  ? parseFloat(dados.savings).toLocaleString("pt-BR", {
-                      minimumFractionDigits: 2
-                    })
-                  : 0.0}
-              </Text>
-              <Text
+                <Text
+                  style={{
+                    color: COLORS.white
+                  }}
+                >
+                  {" "}
+                  R${" "}
+                  {dados.totalDeposits
+                    ? parseFloat(dados.totalDeposits).toLocaleString("pt-BR", {
+                        minimumFractionDigits: 2
+                      })
+                    : 0.0}
+                </Text>
+                <Text
+                  style={{
+                    color: COLORS.white
+                  }}
+                >
+                  Carteira
+                </Text>
+              </View>
+
+              <View
                 style={{
-                  color: COLORS.white
+                  flexDirection: "column",
+                  alignItems: "center",
+                  marginHorizontal: 20
                 }}
               >
-                Reservas
-              </Text>
+                <Text
+                  style={{
+                    color: COLORS.white
+                  }}
+                >
+                  R${" "}
+                  {dados.savings
+                    ? parseFloat(dados.savings).toLocaleString("pt-BR", {
+                        minimumFractionDigits: 2
+                      })
+                    : 0.0}
+                </Text>
+                <Text
+                  style={{
+                    color: COLORS.white
+                  }}
+                >
+                  Reservas
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
+        </ImageBackground>
 
         <View
           style={{
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
-            marginTop: 2
+            marginTop: 2,
+            marginHorizontal: 10
           }}
         >
           <View
@@ -390,8 +405,9 @@ const Home = ({ navigation }) => {
               alignItems: "center",
               justifyContent: "center",
               borderRadius: 16,
+              marginTop: 6,
               backgroundColor: COLORS.white,
-              width: 380,
+              width: "100%",
 
               ...Platform.select({
                 android: {
@@ -417,11 +433,11 @@ const Home = ({ navigation }) => {
             <View
               style={{
                 flexDirection: "column",
-                paddingHorizontal: "14%",
+
                 alignItems: "center",
                 justifyContent: "center",
-                width: 300,
-                padding: 5
+                width: 250,
+                paddingVertical: 5
               }}
             >
               <Text style={{ color: COLORS.darkBlue, fontSize: 22 }}>

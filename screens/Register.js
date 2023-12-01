@@ -46,8 +46,8 @@ const Register = ({ navigation, route }) => {
     defaultValues: {
       description: "",
       value: "",
-      Comments: "",
-      Installments: ""
+      comments: "",
+      installments: ""
     },
     resolver: yupResolver(schema)
   });
@@ -77,11 +77,11 @@ const Register = ({ navigation, route }) => {
         type: selectedOption
       });
       if (result) {
-        console.log(result);
+        console.log({ com: result.comments });
         setValue("description", result.description);
         setValue("value", result.value);
-        setValue("Comments", result.comments);
-        setValue("Installments", result.installments);
+        setValue("comments", result.comments);
+        setValue("installments", result.installments);
         const data = new Date(result.createAt);
         setDate(data);
         setIsCheckedFix(result.isFixed);
@@ -158,7 +158,7 @@ const Register = ({ navigation, route }) => {
       description: data.description,
       value: parseFloat(data.value.replace(/[^\d,]/g, "").replace(",", ".")),
       isFixed: isCheckedFix,
-      comments: data.comments || "",
+      comments: data.comments ? data.comments : "",
       createAt: stringDate,
       installments: parseInt(data.installments) || 0,
       isTransferred: isCheckedTransfer
@@ -191,6 +191,16 @@ const Register = ({ navigation, route }) => {
   };
 
   const onSubmitUpdateForms = async (data) => {
+    let value = 0.0;
+    if (typeof data.value === "string") {
+      if (data.value.includes("R$")) {
+        value = parseFloat(data.value.replace(/[^\d,]/g, "").replace(",", "."));
+      } else {
+        value = parseFloat(data.value);
+      }
+    } else {
+      value = data.value;
+    }
     const stringDate = moment(date)
       .tz("America/Sao_Paulo")
       .format("YYYY-MM-DD HH:mm:ss");
@@ -200,15 +210,14 @@ const Register = ({ navigation, route }) => {
       userId: authData.userId,
       category: selectedCategory,
       description: data.description,
-      value: parseFloat(data.value.replace(/[^\d,]/g, "").replace(",", ".")),
+      value: value,
       isFixed: isCheckedFix,
-      comments: data.comments || "",
+      comments: data.comments ? data.comments : "",
       createAt: stringDate,
       installments: parseInt(data.installments) || 0,
       isTransferred: isCheckedTransfer,
       registerId: id
     };
-    console.log(params);
     setIsLoading(true);
     const result = await update_resgister(params);
     if (result) {

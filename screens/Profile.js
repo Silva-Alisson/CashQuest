@@ -1,6 +1,13 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ImageBackground
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS, SIZES } from "../constants";
 import { useAuth } from "../context/auth";
@@ -8,6 +15,7 @@ import getWallet from "../services/wallet-service/wallet-service";
 import { useIsFocused } from "@react-navigation/native";
 import { get_user_photo } from "../services/user-service/get-user-photo";
 import { get_user_data } from "../services/user-service/get-user-name-service";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export const Profile = ({ navigation }) => {
   const [dados, setDados] = useState([]);
@@ -53,74 +61,86 @@ export const Profile = ({ navigation }) => {
           resizeMode="contain"
           style={Styles2.image}
         />
-        <Text style={Styles2.textName}>{userData
-                ? userData.firstName  + " " + userData.lastName
-                : ""}
-          </Text>
-
-        <View
-          style={{
-            flexDirection: "row",
-            marginVertical: 6,
-            alignItems: "center"
-          }}
-        ></View>
+        <Text style={Styles2.textName}>
+          {userData ? userData.firstName + " " + userData.lastName : ""}
+        </Text>
 
         <View style={Styles2.walletContainer}>
-          <View style={Styles2.viewWallet}>
-            <Text style={Styles2.textWallet}>
-              R${" "}
-              {dados.totalDeposits
-                ? parseFloat(dados.totalDeposits).toLocaleString("pt-BR", {
-                    minimumFractionDigits: 2
-                  })
-                : 0.0}
-            </Text>
-            <Text style={Styles2.textWallet}>Carteira</Text>
-          </View>
+          <ImageBackground
+            source={require("../assets/profile-bg.jpg")}
+            style={Styles2.bg}
+            resizeMode="cover"
+            borderRadius={16}
+          >
+            <View style={Styles2.wallet} borderRadius={16}>
+              <View style={Styles2.viewWallet}>
+                <Text style={Styles2.textWallet}>
+                  R${" "}
+                  {dados.totalDeposits
+                    ? parseFloat(dados.totalDeposits).toLocaleString("pt-BR", {
+                        minimumFractionDigits: 2
+                      })
+                    : 0.0}
+                </Text>
+                <Text style={Styles2.textWallet}>Carteira</Text>
+              </View>
 
-          <View style={Styles2.viewWallet}>
-            <Text style={Styles2.textWallet}>
-              R${" "}
-              {dados.savings
-                ? parseFloat(dados.savings).toLocaleString("pt-BR", {
-                    minimumFractionDigits: 2
-                  })
-                : 0.0}
-            </Text>
-            <Text style={Styles2.textWallet}>Reservas</Text>
-          </View>
+              <View style={Styles2.viewWallet}>
+                <Text style={Styles2.textWallet}>
+                  R${" "}
+                  {dados.savings
+                    ? parseFloat(dados.savings).toLocaleString("pt-BR", {
+                        minimumFractionDigits: 2
+                      })
+                    : 0.0}
+                </Text>
+                <Text style={Styles2.textWallet}>Reservas</Text>
+              </View>
 
-          <View style={Styles2.viewWallet}>
-            <Text style={Styles2.textWallet}>
-              R${" "}
-              {dados.monthlySpendings
-                ? parseFloat(dados.monthlySpendings).toLocaleString("pt-BR", {
-                    minimumFractionDigits: 2
-                  })
-                : 0.0}
-            </Text>
-            <Text style={Styles2.textWallet}>Gastos no mês</Text>
-          </View>
+              <View style={Styles2.viewWallet}>
+                <Text style={Styles2.textWallet}>
+                  R${" "}
+                  {dados.monthlySpendings
+                    ? parseFloat(dados.monthlySpendings).toLocaleString(
+                        "pt-BR",
+                        {
+                          minimumFractionDigits: 2
+                        }
+                      )
+                    : 0.0}
+                </Text>
+                <Text style={Styles2.textWallet}>Gastos no mês</Text>
+              </View>
+            </View>
+          </ImageBackground>
         </View>
 
         <Text style={Styles2.textTittle}>Conquistas e relatórios</Text>
 
         <View style={Styles2.viewMarginH}>
           <TouchableOpacity
-            style={Styles2.formaIcon}
+            style={Styles2.buttonSair}
             onPress={() => navigation.navigate("AchievementsStack")}
           >
-            <MaterialIcons name="star" size={50} color="white" />
-            <Text style={Styles2.textIcon}>Conquistas</Text>
+            <Text style={Styles2.textButton}>Conquistas</Text>
+            <MaterialCommunityIcons
+              name="shield-star-outline"
+              size={20}
+              style={Styles2.textButton}
+            />
           </TouchableOpacity>
-
+        </View>
+        <View style={Styles2.viewMarginH}>
           <TouchableOpacity
-            style={Styles2.formaIcon}
+            style={Styles2.buttonSair}
             onPress={() => navigation.navigate("DashboardStack")}
           >
-            <MaterialIcons name="graphic-eq" size={50} color="white" />
-            <Text style={Styles2.textIcon}>Relatórios</Text>
+            <Text style={Styles2.textButton}>Relatórios</Text>
+            <MaterialCommunityIcons
+              name="chart-timeline-variant-shimmer"
+              size={20}
+              style={Styles2.textButton}
+            />
           </TouchableOpacity>
         </View>
 
@@ -130,8 +150,8 @@ export const Profile = ({ navigation }) => {
             onPress={() => navigation.navigate("SettingsStack")}
           >
             <Text style={Styles2.textButton}>Configurações</Text>
-            <MaterialIcons
-              name="chevron-right"
+            <MaterialCommunityIcons
+              name="cogs"
               size={20}
               style={Styles2.textButton}
             />
@@ -152,11 +172,8 @@ const Styles2 = StyleSheet.create({
     alignItems: "center"
   },
   image: {
-    height: "20%",
-    width: "40%",
-    borderRadius: 999,
-    borderColor: COLORS.primary,
-    borderWidth: 2,
+    height: 140,
+    width: 140,
     marginTop: 25
   },
   textName: {
@@ -164,14 +181,24 @@ const Styles2 = StyleSheet.create({
     marginVertical: 8,
     fontSize: 29
   },
+  bg: {
+    margin: 1
+  },
+  wallet: {
+    borderRadius: 16,
+    backgroundColor: COLORS.primary,
+    opacity: 0.85,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    paddingTop: 28,
+    paddingBottom: 28,
+    paddingLeft: 38,
+    paddingRight: 38
+  },
   walletContainer: {
     margin: 8,
-    flexDirection: "row",
-    backgroundColor: COLORS.primary,
-    borderRadius: 16,
-    width: "90%",
-    padding: 28,
-    justifyContent: "center"
+    borderRadius: 16
   },
   viewWallet: {
     flexDirection: "column",
@@ -183,12 +210,14 @@ const Styles2 = StyleSheet.create({
   },
   textTittle: {
     color: COLORS.primary,
-    paddingTop: 10,
+    padding: 10,
     fontSize: 24
   },
   viewMarginH: {
     flexDirection: "row",
-    marginHorizontal: 10
+    marginHorizontal: 10,
+    marginBottom: 5,
+    marginTop: 5
   },
   formaIcon: {
     width: "45%",
