@@ -9,9 +9,7 @@ import {
   ActivityIndicator
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { COLORS } from "../constants";
-import Button from "../components/Button";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { createUserPet } from "../services/pet-service/create-pet";
 import { useAuth } from "../context/auth";
@@ -21,7 +19,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 const schema = yup.object().shape({
-  petname: yup.string().required("POr favor, insira um nome para seu novo pet!")
+  petname: yup.string().required("Por favor, insira um nome para seu novo pet!")
 });
 
 export default function SelectNamePet({ navigation }) {
