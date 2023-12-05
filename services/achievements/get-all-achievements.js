@@ -1,6 +1,7 @@
 import baseUrl from "../../helpers/base-url-api";
 
 export const get_all_achievements = async (params) => {
+  console.log({ params });
   const myHeaders = new Headers();
   myHeaders.append("Authorization", "Bearer " + params.token);
 

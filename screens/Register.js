@@ -25,8 +25,8 @@ import { update_resgister } from "../services/register-service/update-register-s
 import { delete_resgister } from "../services/register-service/delete-register-service";
 import { useModal } from "../context/modalContext";
 import { useIsFocused } from "@react-navigation/native";
-import formatDate from "../helpers/dateFormatter";
 import moment from "moment-timezone";
+import { get_achievement } from "../services/achievements/get-achievements";
 
 const schema = yup.object().shape({
   value: yup.string().required(),
@@ -168,7 +168,16 @@ const Register = ({ navigation, route }) => {
     if (result) {
       setIsLoading(false);
       clear();
-      showModal();
+      showModalXP();
+      const achievement = await get_achievement({
+        token: authData.token,
+        userId: authData.userId,
+        type: selectedOption
+      });
+      if (achievement) {
+        console.log({ achievement });
+        showModalAchievements(achievement);
+      }
       navigation.goBack();
     } else {
       setIsLoading(false);
@@ -229,7 +238,7 @@ const Register = ({ navigation, route }) => {
     }
   };
 
-  const showModal = () => {
+  const showModalXP = () => {
     let text = "";
 
     if (selectedOption == "despesa") {
@@ -241,10 +250,20 @@ const Register = ({ navigation, route }) => {
     }
 
     handleShowModal({
-      img: "https://firebasestorage.googleapis.com/v0/b/cashquest-a60d0.appspot.com/o/conquistas%2FConquista.png?alt=media&token=7b540eaf-80ee-475b-a069-c52c6676833e",
+      img: "",
       text1: "Tudo certo!",
       text2: text
     });
+  };
+
+  const showModalAchievements = (achievement) => {
+    if (achievement.length > 0) {
+      console.log("chamou");
+      handleShowModal({
+        img: achievement.img,
+        text1: achievement.name
+      });
+    }
   };
 
   const clear = () => {

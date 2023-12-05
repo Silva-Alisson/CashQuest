@@ -5,8 +5,7 @@ import {
   SafeAreaView,
   FlatList,
   View,
-  Image,
-  ScrollView
+  Image
 } from "react-native";
 import { COLORS } from "../constants";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -20,6 +19,11 @@ export const Achievements = ({ navigation }) => {
   const isFocused = useIsFocused();
   const [dataAchievements, setDataAchievements] = useState();
 
+  const numberOfItemsToShow = 4; // Número desejado de itens a serem exibidos
+
+  // Pegue apenas os primeiros 'numberOfItemsToShow' itens
+  const slicedData = dataAchievements?.slice(-numberOfItemsToShow);
+
   async function getAchievementsData() {
     const result = await get_all_achievements({
       token: authData.token,
@@ -32,7 +36,7 @@ export const Achievements = ({ navigation }) => {
   function renderItem({ item }) {
     return (
       <View style={styles.itemContainer}>
-        <Image source={uri(item.url)} resizeMode="contain" />
+        <Image source={{ uri: item.url }} resizeMode="contain" />
         <Text style={[StylesAchievements.TextStyleSub, styles.text]}>
           {item.name}
         </Text>
@@ -43,7 +47,7 @@ export const Achievements = ({ navigation }) => {
   function renderItemHoreinzontal({ item }) {
     return (
       <View style={Vstyles.itemContainer}>
-        <Image source={uri(item.url)} resizeMode="contain" />
+        <Image source={{ uri: item.url }} resizeMode="contain" />
         <View
           style={{
             alignItens: "flex-start",
@@ -91,7 +95,7 @@ export const Achievements = ({ navigation }) => {
             <View style={{ height: 156, alignItems: "center" }}>
               {dataAchievements && dataAchievements.length > 0 ? (
                 <FlatList
-                  data={dataAchievements}
+                  data={slicedData}
                   keyExtractor={(item) => item.name}
                   renderItem={renderItem}
                   horizontal={true}
