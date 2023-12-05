@@ -62,7 +62,7 @@ const Login = ({ navigation }) => {
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
       <View style={{ marginHorinzontal: 22, alignItems: "center" }}>
         <Image
-          source={require("../assets/cashquest.png")}
+          source={require("../assets/Group28.png")}
           resizeMode="contain"
           style={{
             position: "absolute",

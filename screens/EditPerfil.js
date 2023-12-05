@@ -13,7 +13,6 @@ import * as ImagePicker from "expo-image-picker";
 const EditPerfil = ({ navigation }) => {
   const { authData } = useAuth();
   const isFocused = useIsFocused();
-  const [userPhoto, setUserPhoto] = useState();
   const [userData, setUserData] = useState();
   const [image, setImage] = useState(null);
   const [uri, setUri] = useState();
@@ -26,7 +25,7 @@ const EditPerfil = ({ navigation }) => {
           token: authData.token,
           userId: authData.userId
         });
-        setUserPhoto(response.userPhoto);
+        setImage(response.userPhoto);
       }
 
       async function fetchUserData() {
@@ -90,14 +89,16 @@ const EditPerfil = ({ navigation }) => {
            
            
             <Image
-              source={{ uri: userPhoto }}
+              source={{ uri: image }}
               style={{
-                width: 90,
-                height: 90,
-                borderRadius: 999
+                width: 100,
+                height: 100,
+                borderRadius: 999,
+                alignItems: "center",
+                justifyContent: "center"
               }}
             />
-             <View style={{flexDirection: "row",position: 'absolute', top: 54,left: 160}}>
+             <View style={{flexDirection: "row",position: 'absolute', top: 54}}>
               <TouchableOpacity style={{marginRight: 5}} onPress={pickImage}>
                   <MaterialCommunityIcons name="pencil-outline" size={32} color="green" />
               </TouchableOpacity>

@@ -74,7 +74,7 @@ const Signup = ({ navigation }) => {
       >
         <View style={{ marginHorinzontal: 22, alignItems: "center" }}>
           <Image
-            source={require("../assets/cashquest.png")}
+            source={require("../assets/Group29.png")}
             resizeMode="contain"
             style={{
               top: 15,
@@ -87,7 +87,7 @@ const Signup = ({ navigation }) => {
         <View style={{ flex: 1, marginHorizontal: 22, top: 80 }}>
           <View style={{ marginVertical: 10 }}>
             <Text
-              style={{
+              style={{  
                 fontSize: 22,
                 fontWeight: "bold",
                 marginBottom: 5,

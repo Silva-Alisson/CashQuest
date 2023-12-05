@@ -172,6 +172,7 @@ const Styles2 = StyleSheet.create({
     alignItems: "center"
   },
   image: {
+    borderRadius: 999,
     height: 140,
     width: 140,
     marginTop: 25
@@ -185,19 +186,18 @@ const Styles2 = StyleSheet.create({
     margin: 1
   },
   wallet: {
+    width: "100%",
     borderRadius: 16,
     backgroundColor: COLORS.primary,
     opacity: 0.85,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    paddingTop: 28,
-    paddingBottom: 28,
-    paddingLeft: 38,
-    paddingRight: 38
+    paddingVertical: 30,
+    paddingHorizontal: 19
   },
   walletContainer: {
-    margin: 8,
+    marginHorizontal: 12,
     borderRadius: 16
   },
   viewWallet: {
