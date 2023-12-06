@@ -17,6 +17,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import * as Animatable from 'react-native-animatable';
 
 const schema = yup.object().shape({
   nome: yup.string().required(),
@@ -72,7 +73,9 @@ const Signup = ({ navigation }) => {
         enableOnAndroid={true}
         extraHeight={Platform.OS === "android" ? 200 : 0}
       >
-        <View style={{ marginHorinzontal: 22, alignItems: "center" }}>
+        <Animatable.View 
+        animation="fadeInUp"
+        style={{ marginHorinzontal: 22, alignItems: "center" }}>
           <Image
             source={require("../assets/Group29.png")}
             resizeMode="contain"
@@ -83,10 +86,13 @@ const Signup = ({ navigation }) => {
               height: 80
             }}
           />
-        </View>
+        </Animatable.View>
+
         <View style={{ flex: 1, marginHorizontal: 22, top: 80 }}>
           <View style={{ marginVertical: 10 }}>
-            <Text
+            <Animatable.Text
+              animation="fadeInUp"
+              delay={100}
               style={{  
                 fontSize: 22,
                 fontWeight: "bold",
@@ -95,19 +101,24 @@ const Signup = ({ navigation }) => {
               }}
             >
               Crie Sua Conta
-            </Text>
+            </Animatable.Text>
 
-            <Text
+            <Animatable.Text
+            animation="fadeInUp"
+            delay={200}
               style={{
                 fontSize: 16,
                 color: COLORS.black
               }}
             >
               Seu financeiro sempre ao alcance.
-            </Text>
+            </Animatable.Text>
           </View>
 
-          <View style={{ marginBottom: 10 }}>
+          <Animatable.View
+          animation="fadeInUp"
+          delay={300}
+          style={{ marginBottom: 10 }}>
             <Text
               style={{
                 fontSize: 16,
@@ -144,9 +155,12 @@ const Signup = ({ navigation }) => {
                 )}
               />
             </View>
-          </View>
+          </Animatable.View>
 
-          <View style={{ marginBottom: 10 }}>
+          <Animatable.View
+            animation="fadeInUp"
+            delay={400}
+           style={{ marginBottom: 10 }}>
             <Text
               style={{
                 fontSize: 16,
@@ -183,9 +197,12 @@ const Signup = ({ navigation }) => {
                 )}
               />
             </View>
-          </View>
+          </Animatable.View>
 
-          <View style={{ marginBottom: 10 }}>
+          <Animatable.View
+          animation="fadeInUp"
+          delay={500}
+           style={{ marginBottom: 10 }}>
             <Text
               style={{
                 fontSize: 16,
@@ -227,9 +244,12 @@ const Signup = ({ navigation }) => {
                 {errors.email?.message}
               </Text>
             )}
-          </View>
+          </Animatable.View>
 
-          <View style={{ marginBottom: 10 }}>
+          <Animatable.View
+          animation="fadeInUp"
+          delay={600}
+           style={{ marginBottom: 10 }}>
             <Text
               style={{
                 fontSize: 16,
@@ -264,26 +284,26 @@ const Signup = ({ navigation }) => {
                 )}
               />
 
-              <TouchableOpacity
-                onPress={() => setIsPasswordShown(!isPasswordShown)}
-                style={{
-                  position: "absolute",
-                  right: 12
-                }}
-              >
-                {isPasswordShown == true ? (
-                  <Ionicons name="eye-off" size={24} color={COLORS.black} />
-                ) : (
-                  <Ionicons name="eye" size={24} color={COLORS.black} />
-                )}
-              </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => setIsPasswordShown(!isPasswordShown)}
+                  style={{
+                    position: "absolute",
+                    right: 12
+                  }}
+                >
+                  {isPasswordShown == true ? (
+                    <Ionicons name="eye-off" size={24} color={COLORS.black} />
+                  ) : (
+                    <Ionicons name="eye" size={24} color={COLORS.black} />
+                  )}
+                </TouchableOpacity>
             </View>
             {errors.password && (
               <Text style={{ color: "#ff6961", paddingTop: 8 }}>
                 {errors.password?.message}
               </Text>
             )}
-          </View>
+          </Animatable.View>
           {errorSignup && (
           <Text
             style={{ color: "#ff6961", paddingTop: 8, textAlign: "center" }}
@@ -291,36 +311,43 @@ const Signup = ({ navigation }) => {
             Falha ao criar seu cadastro, por favor tente novamente.
           </Text>
         )}
+        <Animatable.View
+        animation="fadeInUp"
+        delay={700}
+        >
           <TouchableOpacity
-            style={{
-              paddingBottom: 16,
-              paddingVertical: 10,
-              borderColor: COLORS.primary,
-              backgroundColor: COLORS.primary,
-              borderWidth: 2,
-              borderRadius: 12,
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: 16
-            }}
-            disabled={isLoading}
-            onPress={handleSubmit(onSubmit)}
-          >
-            {isLoading ? (
-              <ActivityIndicator color="#BAE6BC" />
-            ) : (
-              <Text style={{color: COLORS.white}}>Confirmar</Text>
-            )}
-          </TouchableOpacity>
-
-          <View
+              style={{
+                paddingBottom: 16,
+                paddingVertical: 10,
+                borderColor: COLORS.primary,
+                backgroundColor: COLORS.primary,
+                borderWidth: 2,
+                borderRadius: 12,
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: 16
+              }}
+              disabled={isLoading}
+              onPress={handleSubmit(onSubmit)}
+            >
+              {isLoading ? (
+                <ActivityIndicator color="#BAE6BC" />
+              ) : (
+                <Text style={{color: COLORS.white}}>Confirmar</Text>
+              )}
+            </TouchableOpacity>
+        </Animatable.View>
+          <Animatable.View
+            animation="fadeInUp"
+            delay={800}
             style={{
               flexDirection: "row",
               justifyContent: "center",
               marginVertical: 22
             }}
           >
-            <Text style={{ fontSize: 16, color: COLORS.black }}>
+            <Text
+             style={{ fontSize: 16, color: COLORS.black }}>
               Você já tem conta conosco ?
             </Text>
             <Pressable onPress={() => {navigation.navigate("LoginStack");
@@ -336,7 +363,7 @@ const Signup = ({ navigation }) => {
                 Login
               </Text>
             </Pressable>
-          </View>
+          </Animatable.View>
         </View>
       </KeyboardAwareScrollView>
     </SafeAreaView>

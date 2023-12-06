@@ -5,6 +5,7 @@ import { COLORS,  SIZES, icons, images } from '../constants'
 import Button from '../components/Button';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Login from './Login';
+import * as Animatable from 'react-native-animatable';
 
 const Welcome = ({ navigation }) => {
 
@@ -90,20 +91,29 @@ const Welcome = ({ navigation }) => {
 
                 {/* content  */}
 
-                <View style={{
+                <View
+                    style={{
                     paddingHorizontal: 22,
                     position: "absolute",
                     top: 400,
                     width: "100%"
                 }}>
-                    <Text style={{
+                    <Animatable.Text
+                        delay={100}
+                        animation="fadeInUp"
+                        style={{
                         marginTop: '7%',
                         fontSize: 33,
                         fontWeight: 800,
                         color: COLORS.white
-                    }}>Seja Inteligente Com Suas Finanças</Text>
+                    }}>Seja Inteligente Com Suas Finanças
+                    
+                    </Animatable.Text>
 
-                    <View style={{ marginVertical: 22 }}>
+                    <Animatable.View 
+                    delay={200}
+                    animation="fadeInUp"
+                    style={{ marginVertical: 22 }}>
                         <Text style={{
                             fontSize: 16,
                             color: COLORS.white,
@@ -114,18 +124,26 @@ const Welcome = ({ navigation }) => {
                             color: COLORS.white,
                             
                         }}>financeiro para um futuro próspero e seguro.</Text>
-                    </View>
+                    </Animatable.View>
 
-                    <Button
-                        title="Registre-se agora!"
-                        onPress={() => navigation.navigate("SignupStack")}
-                        style={{
-                            marginTop: '7%',
-                            width: "100%"
-                        }}
-                    />
-
-                    <View style={{
+                    <Animatable.View
+                        delay={300}
+                        animation="fadeInUp"
+                    >
+                        <Button
+                            title="Registre-se agora!"
+                            onPress={() => navigation.navigate("SignupStack")}
+                            style={{
+                                marginTop: '7%',
+                                width: "100%"
+                            }}
+                        />
+                    </Animatable.View>
+            
+                    <Animatable.View
+                        delay={400}
+                        animation="fadeInUp"
+                    style={{
                         flexDirection: "row",
                         marginTop: '6%',
                         justifyContent: "center"
@@ -145,7 +163,7 @@ const Welcome = ({ navigation }) => {
                             }}>Login</Text>
                         </Pressable>
 
-                    </View>
+                    </Animatable.View>
                 </View>
             </View>
         </LinearGradient>

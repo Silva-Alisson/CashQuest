@@ -19,6 +19,7 @@ import getReportsHome from "../services/reports-service/get-monthly-report-home"
 import { checkNivel } from "../services/pet-service/check-nivel-service";
 import { useModal } from "../context/modalContext";
 import moment from "moment-timezone";
+import * as Animatable from 'react-native-animatable';
 
 const Home = ({ navigation }) => {
   function handleSelectionId(id, type) {
@@ -26,7 +27,9 @@ const Home = ({ navigation }) => {
   }
   function DetailItem({ item }) {
     return (
-      <View
+      <Animatable.View
+      delay={200}
+      animation="fadeInUp"
         style={{
           flexDirection: "column",
           marginVertical: 5,
@@ -83,7 +86,7 @@ const Home = ({ navigation }) => {
             {item.totalAmount}
           </Text>
         </TouchableOpacity>
-      </View>
+      </Animatable.View>
     );
   }
 
@@ -109,7 +112,7 @@ const Home = ({ navigation }) => {
           })
         }}
       >
-        <View style={{ marginBottom: 10, justifyContent: "center" }}>
+        <Animatable.View delay={100} animation="fadeInUp" style={{ marginBottom: 10, justifyContent: "center" }}>
           <View
             style={{
               flexDirection: "row",
@@ -144,7 +147,7 @@ const Home = ({ navigation }) => {
             keyExtractor={(item) => item.id}
             renderItem={DetailItem}
           />
-        </View>
+        </Animatable.View>
       </View>
     );
   }
@@ -462,7 +465,8 @@ const Home = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{ paddingBottom: 40, paddingTop: 5, maxHeight: "50%" }}>
+        <View
+        style={{ paddingBottom: 40, paddingTop: 5, maxHeight: "50%" }}>
           {dadosReports[0] ? (
             <FlatList
               data={dadosReports}
