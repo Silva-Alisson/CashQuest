@@ -19,9 +19,8 @@ export const Achievements = ({ navigation }) => {
   const isFocused = useIsFocused();
   const [dataAchievements, setDataAchievements] = useState();
 
-  const numberOfItemsToShow = 4; // Número desejado de itens a serem exibidos
+  const numberOfItemsToShow = 4;
 
-  // Pegue apenas os primeiros 'numberOfItemsToShow' itens
   const slicedData = dataAchievements?.slice(-numberOfItemsToShow);
 
   async function getAchievementsData() {
@@ -36,7 +35,7 @@ export const Achievements = ({ navigation }) => {
   function renderItem({ item }) {
     return (
       <View style={styles.itemContainer}>
-        <Image source={{ uri: item.url }} resizeMode="contain" />
+        <Image source={{ uri: item.img }} resizeMode="contain" style={StylesAchievements.image} />
         <Text style={[StylesAchievements.TextStyleSub, styles.text]}>
           {item.name}
         </Text>
@@ -47,7 +46,7 @@ export const Achievements = ({ navigation }) => {
   function renderItemHoreinzontal({ item }) {
     return (
       <View style={Vstyles.itemContainer}>
-        <Image source={{ uri: item.url }} resizeMode="contain" />
+        <Image source={{ uri: item.img }} resizeMode="contain" style={Vstyles.image} />
         <View
           style={{
             alignItens: "flex-start",
@@ -98,7 +97,7 @@ export const Achievements = ({ navigation }) => {
                   data={slicedData}
                   keyExtractor={(item) => item.name}
                   renderItem={renderItem}
-                  horizontal={true}
+                  scrollEnabled={false}
                   showsHorizontalScrollIndicator={false}
                 />
               ) : (
@@ -195,7 +194,12 @@ const StylesAchievements = StyleSheet.create({
     fontSize: 12,
     fontStyle: "normal",
     fontWeight: 400
-  }
+  },
+  image: {
+    height: 100,
+    width: 140,
+    marginBottom: 15,
+  },
 });
 
 const styles = StyleSheet.create({
@@ -219,7 +223,11 @@ const Vstyles = StyleSheet.create({
   },
   text: {
     marginLeft: 8
-  }
+  },
+  image: {
+    height: 120,
+    width: 100,
+  },
 });
 
 export default Achievements;
