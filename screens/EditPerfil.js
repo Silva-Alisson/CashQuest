@@ -14,10 +14,9 @@ const EditPerfil = ({ navigation }) => {
   const { authData } = useAuth();
   const isFocused = useIsFocused();
   const [userData, setUserData] = useState();
-  const [image, setImage] = useState(null);
   const [uri, setUri] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
-  
   useEffect(() => {
     if (isFocused) {
       async function fetchPhoto() {
@@ -25,7 +24,7 @@ const EditPerfil = ({ navigation }) => {
           token: authData.token,
           userId: authData.userId
         });
-        setImage(response.userPhoto);
+        setUri(response.userPhoto);
       }
 
       async function fetchUserData() {
@@ -52,12 +51,68 @@ const EditPerfil = ({ navigation }) => {
     });
 
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
       setUri(result.assets[0].uri);
     }
   };
 
+  const [progress, setProgress] = useState(0);
+  const [errorUpload, setErrorUpload] = useState(false);
+  async function uploadImage(uri) {
+    const response = await fetch(uri);
+    const blob = await response.blob();
 
+    const storageRef = ref(storage, "userProfile/" + new Date().getTime());
+    const uploadTask = uploadBytesResumable(storageRef, blob);
+
+    // listen for events
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setProgress(progress.toFixed());
+      },
+      (error) => {
+        setErrorUpload(true);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+          const result = await UploadUserPhotoService(downloadURL);
+          if (result) {
+            setIsLoading(false);
+            navigation.navigate("NamePetStack");
+          } else {
+            setIsLoading(false);
+            setErrorUpload(true);
+          }
+        });
+      }
+    );
+  }
+
+  const handleLoadData = async () => {
+    setIsLoading(true);
+    if (uri) {
+      await uploadImage(uri);
+    } else {
+      const result = await UploadUserPhotoService(
+        "https://firebasestorage.googleapis.com/v0/b/cashquest-a60d0.appspot.com/o/userProfile%2FGroup%202110.png?alt=media&token=ee3d13c9-2ba5-4962-9c5c-2578ee19892b"
+      );
+      if (result) {
+        setIsLoading(false);
+        navigation.navigate("NamePetStack");
+      } else {
+        setIsLoading(false);
+        setErrorUpload(true);
+      }
+    }
+  };
+
+  const cancelar = () => {
+    setUri();
+    setUserData();
+    navigation.goBack();
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
@@ -83,28 +138,37 @@ const EditPerfil = ({ navigation }) => {
             style={{
               justifyContent: "center",
               alignItems: "center",
+              alignContent: "center",
               paddingTop: 20
             }}
           >
-           
-           
             <Image
-              source={{ uri: image }}
+              source={{ uri: uri }}
               style={{
-                width: 100,
-                height: 100,
+                width: 140,
+                height: 140,
                 borderRadius: 999,
                 alignItems: "center",
                 justifyContent: "center"
               }}
             />
-             <View style={{flexDirection: "row",position: 'absolute', top: 54}}>
-              <TouchableOpacity style={{marginRight: 5}} onPress={pickImage}>
-                  <MaterialCommunityIcons name="pencil-outline" size={32} color="green" />
+            <View
+              style={{ flexDirection: "row", position: "absolute" }}
+            >
+              <TouchableOpacity style={{ marginRight: 5 }} onPress={pickImage}>
+                <MaterialCommunityIcons
+                  name="pencil-outline"
+                  size={42}
+                  color="green"
+                />
               </TouchableOpacity>
-              
-              <TouchableOpacity style={{marginLeft: 5}}>
-                  <MaterialCommunityIcons name="trash-can-outline" size={32} color="red" />
+
+              <TouchableOpacity style={{ marginLeft: 5 }}>
+                <MaterialCommunityIcons
+                  name="trash-can-outline"
+                  size={42}
+                  color="red"
+                />
               </TouchableOpacity>
             </View>
           </View>
@@ -136,7 +200,7 @@ const EditPerfil = ({ navigation }) => {
               >
                 <TextInput
                   label={"setNome"}
-                  value={userData? userData.firstName: ""} 
+                  value={userData ? userData.firstName : ""}
                   placeholder="Insira seu Nome"
                   placeholderTextColor={COLORS.grey}
                   keyboardType="name-phone-pad"
@@ -173,7 +237,7 @@ const EditPerfil = ({ navigation }) => {
               >
                 <TextInput
                   label={"setSobrenome"}
-                  value={userData? userData.lastName: ""}
+                  value={userData ? userData.lastName : ""}
                   placeholder="Insira seu Sobrenome"
                   placeholderTextColor={COLORS.grey}
                   keyboardType="name-phone-pad"
@@ -210,7 +274,7 @@ const EditPerfil = ({ navigation }) => {
               >
                 <TextInput
                   label={"setEmail"}
-                  value={userData? userData.email: ""}
+                  value={userData ? userData.email : ""}
                   placeholder="Insira sua Senha"
                   placeholderTextColor={COLORS.grey}
                   keyboardType="name-phone-pad"
@@ -220,45 +284,64 @@ const EditPerfil = ({ navigation }) => {
                 />
               </View>
             </View>
-            
+
+            {errorUpload && (
+              <Text
+                style={{ color: "#ff6961", paddingTop: 8, textAlign: "center" }}
+              >
+                Falha ao alterar informações, por favor tente novamente.
+              </Text>
+            )}
           </View>
-          <View style={{flexDirection: "row",justifyContent: "center",alignItems: "center"}}>
-                    <TouchableOpacity
-                        style={{
-                        margin: 10,
-                        paddingVertical: 16,
-                        borderColor: COLORS.primary,
-                        backgroundColor: COLORS.primary,
-                        borderWidth: 2,
-                        borderRadius: 12,
-                        alignItems: "center",
-                        width: 120,
-                        justifyContent: "center",
-                        marginTop: 16
-                    }}
-                    >
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                margin: 10,
+                paddingVertical: 16,
+                borderColor: COLORS.primary,
+                backgroundColor: COLORS.primary,
+                borderWidth: 2,
+                borderRadius: 12,
+                alignItems: "center",
+                width: 120,
+                justifyContent: "center",
+                marginTop: 16
+              }}
+              disabled={isLoading}
+              onPress={handleLoadData}
+            >
+              {isLoading ? (
+            <ActivityIndicator color="#BAE6BC"/>
+          ) : (
+            <Text style={[{color: COLORS.white}]}>Confirmar</Text>
+          )}
+            </TouchableOpacity>
 
-                        <Text style={{ color: COLORS.white }}>Confirmar</Text>
-
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                    style={{
-                        margin: 10,
-                        paddingVertical: 16,
-                        borderColor: COLORS.white,
-                        backgroundColor: COLORS.white,
-                        borderColor: COLORS.primary,
-                        borderWidth: 2,
-                        borderRadius: 12,
-                        alignItems: "center",
-                        width: 120,
-                        justifyContent: "center",
-                        marginTop: 16
-                    }}>
-                        <Text style={{ color: COLORS.primary }}>Cancelar</Text>
-                    </TouchableOpacity>
-                    </View>
+            <TouchableOpacity
+              style={{
+                margin: 10,
+                paddingVertical: 16,
+                borderColor: COLORS.white,
+                backgroundColor: COLORS.white,
+                borderColor: COLORS.primary,
+                borderWidth: 2,
+                borderRadius: 12,
+                alignItems: "center",
+                width: 120,
+                justifyContent: "center",
+                marginTop: 16
+              }}
+              onPress={cancelar}
+            >
+              <Text style={{ color: COLORS.primary }}>Cancelar</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </KeyboardAwareScrollView>
     </SafeAreaView>

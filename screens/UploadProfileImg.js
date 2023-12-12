@@ -56,10 +56,6 @@ export default function UploadProfileImg({ navigation }) {
     );
   }
 
-  const uploadUserPhoto = async (url) => {
-    
-  }
-
   const handleLoadData = async () => {
     setIsLoading(true);
     if (uri) {
