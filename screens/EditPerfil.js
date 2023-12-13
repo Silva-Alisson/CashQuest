@@ -9,14 +9,36 @@ import { useIsFocused } from "@react-navigation/native";
 import { get_user_photo } from "../services/user-service/get-user-photo";
 import { get_user_data } from "../services/user-service/get-user-name-service";
 import * as ImagePicker from "expo-image-picker";
+import * as yup from "yup";
+import { useForm, Controller } from "react-hook-form";
+
+const schema = yup.object().shape({
+  nome: yup.string().required(),
+  sobrenome: yup.string().required(),
+  email: yup.string().email("Insira um email válido").required("Insira um e-mail")
+});
 
 const EditPerfil = ({ navigation }) => {
   const { authData } = useAuth();
   const isFocused = useIsFocused();
-  const [userData, setUserData] = useState();
   const [uri, setUri] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
+  
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    setValue
+  } = useForm({
+    defaultValues: {
+      nome: "",
+      sobrenome: "",
+      email: "",
+    },
+    resolver: yupResolver(schema)
+  });
   useEffect(() => {
     if (isFocused) {
       async function fetchPhoto() {
@@ -32,7 +54,9 @@ const EditPerfil = ({ navigation }) => {
           token: authData.token,
           userId: authData.userId
         });
-        setUserData(response);
+        setValue("nome", response.name);
+        setValue("email", response.email);
+        setValue("sobrenome", response.lastName);
       }
 
       fetchUserData();
@@ -190,24 +214,32 @@ const EditPerfil = ({ navigation }) => {
                 style={{
                   width: "100%",
                   height: 48,
-                  borderColor: COLORS.greyDark,
                   borderWidth: 1,
                   borderRadius: 8,
                   alignItems: "center",
                   justifyContent: "center",
-                  paddingLeft: 22
+                  paddingLeft: 22,
+                  borderColor: errors.nome ? "#ff6961" : COLORS.greyDark 
                 }}
               >
-                <TextInput
-                  label={"setNome"}
-                  value={userData ? userData.firstName : ""}
-                  placeholder="Insira seu Nome"
-                  placeholderTextColor={COLORS.grey}
-                  keyboardType="name-phone-pad"
-                  style={{
-                    width: "100%"
-                  }}
-                />
+                <Controller
+                control={control}
+                name="nome"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    label={"nome"}
+                    onBlur={onBlur}
+                    value={value}
+                    onChangeText={onChange}
+                    placeholder="Insira seu nome"
+                    placeholderTextColor={COLORS.grey}
+                    keyboardType="name-phone-pad"
+                    style={{
+                      width: "100%"
+                    }}
+                  />
+                )}
+              />
               </View>
             </View>
 
@@ -227,24 +259,32 @@ const EditPerfil = ({ navigation }) => {
                 style={{
                   width: "100%",
                   height: 48,
-                  borderColor: COLORS.greyDark,
                   borderWidth: 1,
                   borderRadius: 8,
                   alignItems: "center",
                   justifyContent: "center",
-                  paddingLeft: 22
+                  paddingLeft: 22,
+                  borderColor: errors.sobrenome ? "#ff6961" : COLORS.greyDark 
                 }}
               >
-                <TextInput
-                  label={"setSobrenome"}
-                  value={userData ? userData.lastName : ""}
-                  placeholder="Insira seu Sobrenome"
-                  placeholderTextColor={COLORS.grey}
-                  keyboardType="name-phone-pad"
-                  style={{
-                    width: "100%"
-                  }}
-                />
+                <Controller
+                control={control}
+                name="sobrenome"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    label={"sobrenome"}
+                    onBlur={onBlur}
+                    valur={value}
+                    onChangeText={onChange}
+                    placeholder="Insira seu sobrenome"
+                    placeholderTextColor={COLORS.grey}
+                    keyboardType="name-phone-pad"
+                    style={{
+                      width: "100%"
+                    }}
+                  />
+                )}
+              />
               </View>
             </View>
 
@@ -264,24 +304,32 @@ const EditPerfil = ({ navigation }) => {
                 style={{
                   width: "100%",
                   height: 48,
-                  borderColor: COLORS.greyDark,
                   borderWidth: 1,
                   borderRadius: 8,
                   alignItems: "center",
                   justifyContent: "center",
-                  paddingLeft: 22
+                  paddingLeft: 22,
+                  borderColor: errors.sobrenome ? "#ff6961" : COLORS.greyDark 
                 }}
               >
-                <TextInput
-                  label={"setEmail"}
-                  value={userData ? userData.email : ""}
-                  placeholder="Insira sua Senha"
-                  placeholderTextColor={COLORS.grey}
-                  keyboardType="name-phone-pad"
-                  style={{
-                    width: "100%"
-                  }}
-                />
+                <Controller
+                control={control}
+                name="email"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    label={"Email"}
+                    onBlur={onBlur}
+                    value={value}
+                    onChangeText={onChange}
+                    placeholder="Insira seu e-mail"
+                    placeholderTextColor={COLORS.grey}
+                    keyboardType="email-address"
+                    style={{
+                      width: "100%"
+                    }}
+                  />
+                )}
+              />
               </View>
             </View>
 
