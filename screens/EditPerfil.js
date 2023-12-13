@@ -1,4 +1,11 @@
-import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  ActivityIndicator
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS } from "../constants";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -10,12 +17,21 @@ import { get_user_photo } from "../services/user-service/get-user-photo";
 import { get_user_data } from "../services/user-service/get-user-name-service";
 import * as ImagePicker from "expo-image-picker";
 import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, Controller } from "react-hook-form";
+import { update_user } from "../services/user-service/update-user-service";
+import { update_use_photo } from "../services/upload-user-photo-service/update-photo-service";
+import * as Animatable from "react-native-animatable";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "../database/firebaseConfig";
 
 const schema = yup.object().shape({
   nome: yup.string().required(),
   sobrenome: yup.string().required(),
-  email: yup.string().email("Insira um email válido").required("Insira um e-mail")
+  email: yup
+    .string()
+    .email("Insira um email válido")
+    .required("Insira um e-mail")
 });
 
 const EditPerfil = ({ navigation }) => {
@@ -23,8 +39,8 @@ const EditPerfil = ({ navigation }) => {
   const isFocused = useIsFocused();
   const [uri, setUri] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [photoId, setPhotoId] = useState();
 
-  
   const {
     control,
     handleSubmit,
@@ -35,7 +51,7 @@ const EditPerfil = ({ navigation }) => {
     defaultValues: {
       nome: "",
       sobrenome: "",
-      email: "",
+      email: ""
     },
     resolver: yupResolver(schema)
   });
@@ -47,6 +63,7 @@ const EditPerfil = ({ navigation }) => {
           userId: authData.userId
         });
         setUri(response.userPhoto);
+        setPhotoId(response.id);
       }
 
       async function fetchUserData() {
@@ -54,9 +71,9 @@ const EditPerfil = ({ navigation }) => {
           token: authData.token,
           userId: authData.userId
         });
-        setValue("nome", response.name);
-        setValue("email", response.email);
+        setValue("nome", response.firstName);
         setValue("sobrenome", response.lastName);
+        setValue("email", response.email);
       }
 
       fetchUserData();
@@ -101,10 +118,15 @@ const EditPerfil = ({ navigation }) => {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-          const result = await UploadUserPhotoService(downloadURL);
+          const result = await update_use_photo({
+            url: downloadURL,
+            token: authData.token,
+            userId: authData.userId,
+            photoId: photoId
+          });
           if (result) {
             setIsLoading(false);
-            navigation.navigate("NamePetStack");
+            cancelar();
           } else {
             setIsLoading(false);
             setErrorUpload(true);
@@ -114,8 +136,12 @@ const EditPerfil = ({ navigation }) => {
     );
   }
 
-  const handleLoadData = async () => {
+  const handleLoadData = async (data) => {
     setIsLoading(true);
+    await update_user({
+      token: authData.token,
+      userId: authData.userId,
+      data: data});
     if (uri) {
       await uploadImage(uri);
     } else {
@@ -124,7 +150,7 @@ const EditPerfil = ({ navigation }) => {
       );
       if (result) {
         setIsLoading(false);
-        navigation.navigate("NamePetStack");
+        cancelar();
       } else {
         setIsLoading(false);
         setErrorUpload(true);
@@ -134,9 +160,9 @@ const EditPerfil = ({ navigation }) => {
 
   const cancelar = () => {
     setUri();
-    setUserData();
+    reset();
     navigation.goBack();
-  }
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
@@ -176,9 +202,7 @@ const EditPerfil = ({ navigation }) => {
                 justifyContent: "center"
               }}
             />
-            <View
-              style={{ flexDirection: "row", position: "absolute" }}
-            >
+            <View style={{ flexDirection: "row", position: "absolute" }}>
               <TouchableOpacity style={{ marginRight: 5 }} onPress={pickImage}>
                 <MaterialCommunityIcons
                   name="pencil-outline"
@@ -198,7 +222,11 @@ const EditPerfil = ({ navigation }) => {
           </View>
 
           <View style={{ flex: 1, marginHorizontal: 22, top: 20 }}>
-            <Animatable.View delay={100} animation="fadeInUp" style={{ marginBottom: 10 }}>
+            <Animatable.View
+              delay={100}
+              animation="fadeInUp"
+              style={{ marginBottom: 10 }}
+            >
               <Text
                 style={{
                   fontSize: 16,
@@ -219,31 +247,35 @@ const EditPerfil = ({ navigation }) => {
                   alignItems: "center",
                   justifyContent: "center",
                   paddingLeft: 22,
-                  borderColor: errors.nome ? "#ff6961" : COLORS.greyDark 
+                  borderColor: errors.nome ? "#ff6961" : COLORS.greyDark
                 }}
               >
                 <Controller
-                control={control}
-                name="nome"
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                    label={"nome"}
-                    onBlur={onBlur}
-                    value={value}
-                    onChangeText={onChange}
-                    placeholder="Insira seu nome"
-                    placeholderTextColor={COLORS.grey}
-                    keyboardType="name-phone-pad"
-                    style={{
-                      width: "100%"
-                    }}
-                  />
-                )}
-              />
+                  control={control}
+                  name="nome"
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <TextInput
+                      label={"nome"}
+                      onBlur={onBlur}
+                      value={value}
+                      onChangeText={onChange}
+                      placeholder="Insira seu nome"
+                      placeholderTextColor={COLORS.grey}
+                      keyboardType="name-phone-pad"
+                      style={{
+                        width: "100%"
+                      }}
+                    />
+                  )}
+                />
               </View>
             </Animatable.View>
 
-            <Animatable.View delay={200} animation="fadeInUp" style={{ marginBottom: 10 }}>
+            <Animatable.View
+              delay={200}
+              animation="fadeInUp"
+              style={{ marginBottom: 10 }}
+            >
               <Text
                 style={{
                   fontSize: 16,
@@ -264,31 +296,35 @@ const EditPerfil = ({ navigation }) => {
                   alignItems: "center",
                   justifyContent: "center",
                   paddingLeft: 22,
-                  borderColor: errors.sobrenome ? "#ff6961" : COLORS.greyDark 
+                  borderColor: errors.sobrenome ? "#ff6961" : COLORS.greyDark
                 }}
               >
                 <Controller
-                control={control}
-                name="sobrenome"
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                    label={"sobrenome"}
-                    onBlur={onBlur}
-                    valur={value}
-                    onChangeText={onChange}
-                    placeholder="Insira seu sobrenome"
-                    placeholderTextColor={COLORS.grey}
-                    keyboardType="name-phone-pad"
-                    style={{
-                      width: "100%"
-                    }}
-                  />
-                )}
-              />
+                  control={control}
+                  name="sobrenome"
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <TextInput
+                      label={"sobrenome"}
+                      onBlur={onBlur}
+                      value={value}
+                      onChangeText={onChange}
+                      placeholder="Insira seu sobrenome"
+                      placeholderTextColor={COLORS.grey}
+                      keyboardType="name-phone-pad"
+                      style={{
+                        width: "100%"
+                      }}
+                    />
+                  )}
+                />
               </View>
             </Animatable.View>
 
-            <Animatable.View delay={300} animation="fadeInUp" style={{ marginBottom: 10 }}>
+            <Animatable.View
+              delay={300}
+              animation="fadeInUp"
+              style={{ marginBottom: 10 }}
+            >
               <Text
                 style={{
                   fontSize: 16,
@@ -309,27 +345,27 @@ const EditPerfil = ({ navigation }) => {
                   alignItems: "center",
                   justifyContent: "center",
                   paddingLeft: 22,
-                  borderColor: errors.sobrenome ? "#ff6961" : COLORS.greyDark 
+                  borderColor: errors.sobrenome ? "#ff6961" : COLORS.greyDark
                 }}
               >
                 <Controller
-                control={control}
-                name="email"
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                    label={"Email"}
-                    onBlur={onBlur}
-                    value={value}
-                    onChangeText={onChange}
-                    placeholder="Insira seu e-mail"
-                    placeholderTextColor={COLORS.grey}
-                    keyboardType="email-address"
-                    style={{
-                      width: "100%"
-                    }}
-                  />
-                )}
-              />
+                  control={control}
+                  name="email"
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <TextInput
+                      label={"Email"}
+                      onBlur={onBlur}
+                      value={value}
+                      onChangeText={onChange}
+                      placeholder="Insira seu e-mail"
+                      placeholderTextColor={COLORS.grey}
+                      keyboardType="email-address"
+                      style={{
+                        width: "100%"
+                      }}
+                    />
+                  )}
+                />
               </View>
             </Animatable.View>
 
@@ -363,12 +399,12 @@ const EditPerfil = ({ navigation }) => {
                   marginTop: 16
                 }}
                 disabled={isLoading}
-                onPress={handleLoadData}
+                onPress={handleSubmit(handleLoadData)}
               >
                 {isLoading ? (
-                  <ActivityIndicator color="#BAE6BC"/>
+                  <ActivityIndicator color="#BAE6BC" />
                 ) : (
-                  <Text style={[{color: COLORS.white}]}>Confirmar</Text>
+                  <Text style={[{ color: COLORS.white }]}>Confirmar</Text>
                 )}
               </TouchableOpacity>
             </Animatable.View>
@@ -378,9 +414,8 @@ const EditPerfil = ({ navigation }) => {
                 style={{
                   margin: 10,
                   paddingVertical: 16,
-                  borderColor: COLORS.white,
-                  backgroundColor: COLORS.white,
                   borderColor: COLORS.primary,
+                  backgroundColor: COLORS.white,
                   borderWidth: 2,
                   borderRadius: 12,
                   alignItems: "center",
