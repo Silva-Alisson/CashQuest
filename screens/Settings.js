@@ -11,6 +11,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuth } from "../context/auth";
 import { COLORS } from "../constants";
+import * as Animatable from 'react-native-animatable';
 
 const settingsText = [
   {
@@ -66,7 +67,7 @@ export default function Settings({ navigation }) {
               style={styles.list}
               onPress={() => navigation.navigate(item.navigate)}
             >
-              <View style={styles.item}>
+              <Animatable.View delay={100} animation="fadeInRight" style={styles.item}>
                 <View>
                   <Text style={styles.text}>{item.key}</Text>
                   <Text style={styles.description}>{item.description}</Text>
@@ -77,12 +78,12 @@ export default function Settings({ navigation }) {
                   size={40}
                   color={COLORS.greyDark}
                 />
-              </View>
+              </Animatable.View>
             </TouchableOpacity>
           )}
         />
       </View>
-      <View>
+      <Animatable.View delay={100} animation="fadeInRight"> 
         <TouchableOpacity style={styles.list} onPress={signOut}>
           <View style={styles.item}>
             <View>
@@ -99,7 +100,7 @@ export default function Settings({ navigation }) {
             />
           </View>
         </TouchableOpacity>
-      </View>
+      </Animatable.View>
     </SafeAreaView>
   );
 }

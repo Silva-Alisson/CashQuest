@@ -9,6 +9,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { get_user_photo } from "../services/user-service/get-user-photo";
 import { get_user_data } from "../services/user-service/get-user-name-service";
 import * as ImagePicker from "expo-image-picker";
+import * as Animatable from 'react-native-animatable';
 
 const EditPerfil = ({ navigation }) => {
   const { authData } = useAuth();
@@ -174,7 +175,7 @@ const EditPerfil = ({ navigation }) => {
           </View>
 
           <View style={{ flex: 1, marginHorizontal: 22, top: 20 }}>
-            <View style={{ marginBottom: 10 }}>
+            <Animatable.View delay={100} animation="fadeInUp" style={{ marginBottom: 10 }}>
               <Text
                 style={{
                   fontSize: 16,
@@ -209,9 +210,9 @@ const EditPerfil = ({ navigation }) => {
                   }}
                 />
               </View>
-            </View>
+            </Animatable.View>
 
-            <View style={{ marginBottom: 10 }}>
+            <Animatable.View delay={200} animation="fadeInUp" style={{ marginBottom: 10 }}>
               <Text
                 style={{
                   fontSize: 16,
@@ -246,9 +247,9 @@ const EditPerfil = ({ navigation }) => {
                   }}
                 />
               </View>
-            </View>
+            </Animatable.View>
 
-            <View style={{ marginBottom: 10 }}>
+            <Animatable.View delay={300} animation="fadeInUp" style={{ marginBottom: 10 }}>
               <Text
                 style={{
                   fontSize: 16,
@@ -283,7 +284,7 @@ const EditPerfil = ({ navigation }) => {
                   }}
                 />
               </View>
-            </View>
+            </Animatable.View>
 
             {errorUpload && (
               <Text
@@ -300,47 +301,51 @@ const EditPerfil = ({ navigation }) => {
               alignItems: "center"
             }}
           >
-            <TouchableOpacity
-              style={{
-                margin: 10,
-                paddingVertical: 16,
-                borderColor: COLORS.primary,
-                backgroundColor: COLORS.primary,
-                borderWidth: 2,
-                borderRadius: 12,
-                alignItems: "center",
-                width: 120,
-                justifyContent: "center",
-                marginTop: 16
-              }}
-              disabled={isLoading}
-              onPress={handleLoadData}
-            >
-              {isLoading ? (
-            <ActivityIndicator color="#BAE6BC"/>
-          ) : (
-            <Text style={[{color: COLORS.white}]}>Confirmar</Text>
-          )}
-            </TouchableOpacity>
+            <Animatable.View delay={400} animation="fadeInLeft">
+              <TouchableOpacity
+                style={{
+                  margin: 10,
+                  paddingVertical: 16,
+                  borderColor: COLORS.primary,
+                  backgroundColor: COLORS.primary,
+                  borderWidth: 2,
+                  borderRadius: 12,
+                  alignItems: "center",
+                  width: 120,
+                  justifyContent: "center",
+                  marginTop: 16
+                }}
+                disabled={isLoading}
+                onPress={handleLoadData}
+              >
+                {isLoading ? (
+                  <ActivityIndicator color="#BAE6BC"/>
+                ) : (
+                  <Text style={[{color: COLORS.white}]}>Confirmar</Text>
+                )}
+              </TouchableOpacity>
+            </Animatable.View>
 
-            <TouchableOpacity
-              style={{
-                margin: 10,
-                paddingVertical: 16,
-                borderColor: COLORS.white,
-                backgroundColor: COLORS.white,
-                borderColor: COLORS.primary,
-                borderWidth: 2,
-                borderRadius: 12,
-                alignItems: "center",
-                width: 120,
-                justifyContent: "center",
-                marginTop: 16
-              }}
-              onPress={cancelar}
-            >
-              <Text style={{ color: COLORS.primary }}>Cancelar</Text>
-            </TouchableOpacity>
+            <Animatable.View delay={400} animation="fadeInRight">
+              <TouchableOpacity
+                style={{
+                  margin: 10,
+                  paddingVertical: 16,
+                  borderColor: COLORS.white,
+                  backgroundColor: COLORS.white,
+                  borderColor: COLORS.primary,
+                  borderWidth: 2,
+                  borderRadius: 12,
+                  alignItems: "center",
+                  width: 120,
+                  justifyContent: "center",
+                  marginTop: 16
+                }}
+                onPress={cancelar}
+              >
+                <Text style={{ color: COLORS.primary }}>Cancelar</Text>
+              </TouchableOpacity>
+            </Animatable.View>
           </View>
         </View>
       </KeyboardAwareScrollView>

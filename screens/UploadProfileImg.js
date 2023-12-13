@@ -14,6 +14,7 @@ import { COLORS } from "../constants";
 import { UploadUserPhotoService } from "../services/upload-user-photo-service/upload-user-photo-service";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../database/firebaseConfig";
+import * as Animatable from 'react-native-animatable';
 
 export default function UploadProfileImg({ navigation }) {
   const [image, setImage] = useState(null);
@@ -110,7 +111,7 @@ export default function UploadProfileImg({ navigation }) {
           marginTop: 150
         }}
       >
-        <View style={{ alignItems: "center" }}>
+        <Animatable.View delay={100} animation="fadeInUp" style={{ alignItems: "center" }}>
           <TouchableOpacity onPress={pickImage}>
             <View style={styles.photoView}>
               {!image ? (
@@ -130,7 +131,7 @@ export default function UploadProfileImg({ navigation }) {
               )}
             </View>
           </TouchableOpacity>
-        </View>
+        </Animatable.View>
 
         {errorUpload && (
           <Text
@@ -139,17 +140,19 @@ export default function UploadProfileImg({ navigation }) {
             Falha ao fazer upload da sua foto de perfil, por favor tente novamente.
           </Text>
         )}
-        <TouchableOpacity
-          style={styles.button}
-          disabled={isLoading}
-          onPress={handleLoadData}
-        >
-          {isLoading ? (
-            <ActivityIndicator color="#BAE6BC"/>
-          ) : (
-            <Text style={[styles.buttonText, {color: COLORS.white}]}>Fazer Upoload</Text>
-          )}
-        </TouchableOpacity>
+        <Animatable.View delay={200} animation="fadeInUp">
+          <TouchableOpacity
+            style={styles.button}
+            disabled={isLoading}
+            onPress={handleLoadData}
+          >
+            {isLoading ? (
+              <ActivityIndicator color="#BAE6BC"/>
+            ) : (
+              <Text style={[styles.buttonText, {color: COLORS.white}]}>Fazer Upoload</Text>
+            )}
+          </TouchableOpacity>
+        </Animatable.View>
       </View>
     </SafeAreaView>
   );

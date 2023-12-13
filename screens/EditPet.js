@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS } from "../constants";
 import { getPet } from "../services/pet-service/get-pet";
 import {useAuth} from '../context/auth';
-
+import * as Animatable from 'react-native-animatable';
 
 export default function EditPet({ navigation }) { 
 
@@ -43,7 +43,8 @@ export default function EditPet({ navigation }) {
                 }}
             />
         </View>
-        <View style={{ marginHorizontal: 10, marginTop: 30 }}>
+
+        <Animatable.View delay={100} animation="fadeInUp" style={{ marginHorizontal: 10, marginTop: 30 }}>
             <Text style={{
                 fontSize: 16,
                 fontWeight: 400,
@@ -70,7 +71,7 @@ export default function EditPet({ navigation }) {
                         }}
                     />
                 </View>
-        </View>
+        </Animatable.View>
         
         
         </SafeAreaView> 
