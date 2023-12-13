@@ -17,6 +17,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import * as Animatable from 'react-native-animatable';
 
 const schema = yup.object().shape({
   petname: yup.string().required("Por favor, insira um nome para seu novo pet!")
@@ -86,7 +87,7 @@ export default function SelectNamePet({ navigation }) {
               />
             </View>
           </View>
-          <View style={{ marginBottom: 10, width: "100%" }}>
+          <Animatable.View delay={100} animation="fadeInUp" style={{ marginBottom: 10, width: "100%" }}>
             <Text
               style={{
                 fontSize: 16,
@@ -123,13 +124,13 @@ export default function SelectNamePet({ navigation }) {
                 )}
               />
             </View>
-          </View>
+          </Animatable.View>
           {errors.petname && (
             <Text style={{ color: "#ff6961", paddingTop: 8 }}>
               {errors.petname?.message}
             </Text>
           )}
-          <View
+          <Animatable.View delay={200} animation="fadeInUp"
             style={{
               flexDirection: "row",
               justifyContent: "center",
@@ -150,7 +151,7 @@ export default function SelectNamePet({ navigation }) {
                 </Text>
               )}
             </TouchableOpacity>
-          </View>
+          </Animatable.View>
         </View>
       </KeyboardAwareScrollView>
     </SafeAreaView>

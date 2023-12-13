@@ -6,6 +6,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {COLORS} from '../../constants';
 import DunutChart from './DunutChart';
 import PieChartComponent from './PieChart';
+import * as Animatable from 'react-native-animatable';
 /**
  * Renders a dashboard screen in a React Native app.
  * @returns {JSX.Element} Dashboard screen component.
@@ -148,7 +149,7 @@ const DashboardScreen = () => {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.card}>
+                <Animatable.View delay={100} animation="fadeInUp" style={styles.card}>
                     <View
                         style={{
                             flexDirection: 'row',
@@ -176,8 +177,9 @@ const DashboardScreen = () => {
                         }}
                     />
                     <PieChartComponent data={data} />
-                </View>
-                <View style={styles.card}>
+                </Animatable.View>
+                
+                <Animatable.View delay={200} animation="fadeInUp" style={styles.card}>
                     <View
                         style={{
                             flexDirection: 'row',
@@ -206,8 +208,9 @@ const DashboardScreen = () => {
                     />
                     {/* Add the gauge chart component here */}
                     <DunutChart />
-                </View>
-                <View style={styles.card}>
+                </Animatable.View>
+                
+                <Animatable.View delay={300} animation="fadeInUp" style={styles.card}>
                     <View
                         style={{
                             flexDirection: 'row',
@@ -235,7 +238,7 @@ const DashboardScreen = () => {
                         }}
                     />
                     {/* <DunutChart data={chartData} /> */}
-                </View>
+                </Animatable.View>
             </ScrollView>
         </SafeAreaView>
     );
