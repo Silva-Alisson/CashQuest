@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, ActivityIndicator } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS } from "../constants";
@@ -11,6 +11,7 @@ export default function EditPet({ navigation }) {
 
     const [dadosPet, setDadosPet] = useState([]);
     const {authData} = useAuth();
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -72,8 +73,58 @@ export default function EditPet({ navigation }) {
                     />
                 </View>
         </Animatable.View>
-        
-        
+        <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <Animatable.View delay={150} animation="fadeInLeft">
+              <TouchableOpacity
+                style={{
+                  margin: 10,
+                  paddingVertical: 16,
+                  borderColor: COLORS.primary,
+                  backgroundColor: COLORS.primary,
+                  borderWidth: 2,
+                  borderRadius: 12,
+                  alignItems: "center",
+                  width: 120,
+                  justifyContent: "center",
+                  marginTop: 16
+                }}
+                disabled={isLoading}
+                // onPress={handleSubmit(handleLoadData)}
+              >
+                {isLoading ? (
+                  <ActivityIndicator color="#BAE6BC" />
+                ) : (
+                  <Text style={[{ color: COLORS.white }]}>Confirmar</Text>
+                )}
+              </TouchableOpacity>
+            </Animatable.View>
+
+            <Animatable.View delay={150} animation="fadeInRight">
+              <TouchableOpacity
+                style={{
+                  margin: 10,
+                  paddingVertical: 16,
+                  borderColor: COLORS.primary,
+                  backgroundColor: COLORS.white,
+                  borderWidth: 2,
+                  borderRadius: 12,
+                  alignItems: "center",
+                  width: 120,
+                  justifyContent: "center",
+                  marginTop: 16
+                }}
+                // onPress={cancelar}
+              >
+                <Text style={{ color: COLORS.primary }}>Cancelar</Text>
+              </TouchableOpacity>
+            </Animatable.View>
+        </View>
         </SafeAreaView> 
     );
 }
