@@ -28,7 +28,7 @@ const Home = ({ navigation }) => {
   function DetailItem({ item }) {
     return (
       <Animatable.View
-      delay={200}
+      delay={50}
       animation="fadeInUp"
         style={{
           flexDirection: "column",

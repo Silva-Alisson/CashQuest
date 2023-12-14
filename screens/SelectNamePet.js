@@ -87,7 +87,7 @@ export default function SelectNamePet({ navigation }) {
               />
             </View>
           </View>
-          <Animatable.View delay={100} animation="fadeInUp" style={{ marginBottom: 10, width: "100%" }}>
+          <Animatable.View delay={50} animation="fadeInUp" style={{ marginBottom: 10, width: "100%" }}>
             <Text
               style={{
                 fontSize: 16,
@@ -130,7 +130,7 @@ export default function SelectNamePet({ navigation }) {
               {errors.petname?.message}
             </Text>
           )}
-          <Animatable.View delay={200} animation="fadeInUp"
+          <Animatable.View delay={150} animation="fadeInUp"
             style={{
               flexDirection: "row",
               justifyContent: "center",

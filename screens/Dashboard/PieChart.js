@@ -6,7 +6,7 @@ const PieChartComponent = () => {
     const data = [
         {
             name: 'Income',
-            population: 5000,
+            population: 1000,
             color: '#37A11C',
             legendFontColor: '#7F7F7F',
             legendFontSize: 12,

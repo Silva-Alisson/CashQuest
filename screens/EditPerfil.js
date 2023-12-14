@@ -175,7 +175,7 @@ const EditPerfil = ({ navigation }) => {
           </View>
 
           <View style={{ flex: 1, marginHorizontal: 22, top: 20 }}>
-            <Animatable.View delay={100} animation="fadeInUp" style={{ marginBottom: 10 }}>
+            <Animatable.View delay={50} animation="fadeInUp" style={{ marginBottom: 10 }}>
               <Text
                 style={{
                   fontSize: 16,
@@ -212,7 +212,7 @@ const EditPerfil = ({ navigation }) => {
               </View>
             </Animatable.View>
 
-            <Animatable.View delay={200} animation="fadeInUp" style={{ marginBottom: 10 }}>
+            <Animatable.View delay={100} animation="fadeInUp" style={{ marginBottom: 10 }}>
               <Text
                 style={{
                   fontSize: 16,
@@ -249,7 +249,7 @@ const EditPerfil = ({ navigation }) => {
               </View>
             </Animatable.View>
 
-            <Animatable.View delay={300} animation="fadeInUp" style={{ marginBottom: 10 }}>
+            <Animatable.View delay={150} animation="fadeInUp" style={{ marginBottom: 10 }}>
               <Text
                 style={{
                   fontSize: 16,
@@ -301,7 +301,7 @@ const EditPerfil = ({ navigation }) => {
               alignItems: "center"
             }}
           >
-            <Animatable.View delay={400} animation="fadeInLeft">
+            <Animatable.View delay={200} animation="fadeInLeft">
               <TouchableOpacity
                 style={{
                   margin: 10,
@@ -326,7 +326,7 @@ const EditPerfil = ({ navigation }) => {
               </TouchableOpacity>
             </Animatable.View>
 
-            <Animatable.View delay={400} animation="fadeInRight">
+            <Animatable.View delay={200} animation="fadeInRight">
               <TouchableOpacity
                 style={{
                   margin: 10,

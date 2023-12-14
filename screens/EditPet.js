@@ -44,7 +44,7 @@ export default function EditPet({ navigation }) {
             />
         </View>
 
-        <Animatable.View delay={100} animation="fadeInUp" style={{ marginHorizontal: 10, marginTop: 30 }}>
+        <Animatable.View delay={50} animation="fadeInUp" style={{ marginHorizontal: 10, marginTop: 30 }}>
             <Text style={{
                 fontSize: 16,
                 fontWeight: 400,
