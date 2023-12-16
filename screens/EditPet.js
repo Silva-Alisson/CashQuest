@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, ActivityIndicator } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, ActivityIndicator, ImageBackground } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS } from "../constants";
@@ -24,56 +25,71 @@ export default function EditPet({ navigation }) {
     }, []);
 
     return ( 
-        <SafeAreaView
-            style={styles.container}
+      <ImageBackground
+      source={require("../assets/fundo-figma.png")} // Substitua pelo caminho correto da sua imagem
+      style={{
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center",
+      }}
+      resizeMode="cover"
+      >
+        <SafeAreaView style={{flex: 1,backgroundColor: COLORS.transparent}}>
+
+        <KeyboardAwareScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        enableOnAndroid={true}
+        extraHeight={Platform.OS === "android" ? 200 : 0}
         >
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: 10 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: 10 }}>
             <TouchableOpacity onPress={() => navigation.goBack()}>
-                <MaterialCommunityIcons name="arrow-left" size={40} color="black" />
+              <MaterialCommunityIcons name="arrow-left" size={40} color="black" />
             </TouchableOpacity>
             <Text style={{ marginLeft: 10 }}>Editar nome do pet</Text>
-        </View>
-        <View style={{  alignItems: 'center', marginHorizontal: 10 }}>
-            <Image
-                source={{uri: dadosPet[0]}}
-                style={{
-                    width: '58%',
-                    height:355,
-                    borderRadius:999
-                   
-                }}
-            />
-        </View>
+          </View>
+          <View style={{  alignItems: 'center', marginHorizontal: 10 }}>
+              <Image
+                  source={{uri: dadosPet[0]}}
+                  style={{
+                      width: '58%',
+                      height:355,
+                      borderRadius:999
+                      
+                  }}
+              />
+          </View>
 
-        <Animatable.View delay={50} animation="fadeInUp" style={{ marginHorizontal: 10, marginTop: 30 }}>
-            <Text style={{
-                fontSize: 16,
-                fontWeight: 400,
-                marginVertical: 8,
-            }}>Nome</Text>
+          <Animatable.View delay={50} animation="fadeInUp" style={{ marginHorizontal: 10, marginTop: 30 }}>
+              <Text style={{
+                  fontSize: 16,
+                  fontWeight: 400,
+                  marginVertical: 8,
+              }}>Nome</Text>
 
-                <View style={{width: "100%",
-                            height: 48,
-                            borderColor: COLORS.black,
-                            borderWidth: 1,
-                            borderRadius: 8,
-                            alignItems: "center",
-                            justifyContent: "center",
-                            paddingLeft: 22,}}>
-                    <TextInput
-                        label={'nome'}
-                        onChangeText={text => setValue('nome', text)}
-                        placeholder='Insira o novo nome'
-                        value={dadosPet[2]}
-                        placeholderTextColor={COLORS.grey}
-                        keyboardType='name-phone-pad'
-                        style={{
-                            width: "100%"
-                        }}
-                    />
-                </View>
-        </Animatable.View>
-        <View
+              <View 
+              style={{width: "100%",
+              height: 48,
+              borderColor: COLORS.black,
+              borderWidth: 1,
+              borderRadius: 8,
+              alignItems: "center",
+              justifyContent: "center",
+              paddingLeft: 22,}}
+              >
+                <TextInput
+                  label={'nome'}
+                  onChangeText={text => setValue('nome', text)}
+                  placeholder='Insira o novo nome'
+                  value={dadosPet[2]}
+                  placeholderTextColor={COLORS.grey}
+                  keyboardType='name-phone-pad'
+                  style={{
+                      width: "100%"
+                  }}
+                />
+              </View>
+          </Animatable.View>
+          <View
             style={{
               flexDirection: "row",
               justifyContent: "center",
@@ -124,9 +140,11 @@ export default function EditPet({ navigation }) {
                 <Text style={{ color: COLORS.primary }}>Cancelar</Text>
               </TouchableOpacity>
             </Animatable.View>
-        </View>
-        </SafeAreaView> 
-    );
+          </View>
+        </KeyboardAwareScrollView>
+      </SafeAreaView> 
+    </ImageBackground>
+  );
 }
 
 const styles = StyleSheet.create({ 

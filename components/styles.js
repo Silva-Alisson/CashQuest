@@ -3,6 +3,10 @@ import React from "react";
 import COLORS from "../constants/theme";
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.transparent,
+  },
   input: {
     width: "100%",
     height: 48,
@@ -25,6 +29,11 @@ const styles = StyleSheet.create({
   },
   textButton: {
     color: COLORS.white
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center"
   }
 });
 

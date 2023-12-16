@@ -6,7 +6,8 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
-  ActivityIndicator
+  ActivityIndicator,
+  ImageBackground
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS } from "../constants";
@@ -55,106 +56,116 @@ export default function SelectNamePet({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAwareScrollView
+    <ImageBackground
+        source={require("../assets/fundo-figma.png")}
+        style={{
+          flex: 1,
+          resizeMode: "cover",
+          justifyContent: "center",
+        }}
+        resizeMode="cover"
+    >
+      <SafeAreaView style={{flex: 1,backgroundColor: COLORS.transparent}}>
+        <KeyboardAwareScrollView
         contentContainerStyle={{ flexGrow: 1 }}
         enableOnAndroid={true}
         extraHeight={Platform.OS === "android" ? 200 : 0}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginHorizontal: 10
-          }}
         >
-          <Text style={styles.title}>Qual o nome do seu novo pet?</Text>
-        </View>
-        <View
-          style={{
-            flex: 1,
-            marginHorizontal: 22,
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 43
-          }}
-        >
-          <View style={{}}>
-            <View style={styles.photoView}>
-              <Image
-                source={require("../assets/egg.png")}
-                style={styles.photo}
-              />
-            </View>
-          </View>
-          <Animatable.View delay={50} animation="fadeInUp" style={{ marginBottom: 10, width: "100%" }}>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: 400,
-                marginVertical: 8,
-                color: errors.petname ? "#ff6961" : null
-              }}
-            >
-              Nome
-            </Text>
-
-            <View
-              style={[
-                styles.input,
-                { borderColor: errors.petname ? "#ff6961" : null }
-              ]}
-            >
-              <Controller
-                control={control}
-                name="petname"
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                    label={"petname"}
-                    value={value}
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    placeholder="Insira o novo nome"
-                    placeholderTextColor={COLORS.grey}
-                    style={{
-                      width: "100%",
-                      height: "100%"
-                    }}
-                  />
-                )}
-              />
-            </View>
-          </Animatable.View>
-          {errors.petname && (
-            <Text style={{ color: "#ff6961", paddingTop: 8 }}>
-              {errors.petname?.message}
-            </Text>
-          )}
-          <Animatable.View delay={150} animation="fadeInUp"
+          <View
             style={{
               flexDirection: "row",
-              justifyContent: "center",
-              gap: 16,
-              marginVertical: 16
+              alignItems: "center",
+              marginHorizontal: 10
             }}
           >
-            <TouchableOpacity
-              style={styles.button}
-              disabled={isLoading}
-              onPress={handleSubmit(onSubmit)}
+            <Text style={styles.title}>Qual o nome do seu novo pet?</Text>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              marginHorizontal: 22,
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 43
+            }}
+          >
+            <View style={{}}>
+              <View style={styles.photoView}>
+                <Image
+                  source={require("../assets/egg.png")}
+                  style={styles.photo}
+                />
+              </View>
+            </View>
+            <Animatable.View delay={50} animation="fadeInUp" style={{ marginBottom: 10, width: "100%" }}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: 400,
+                  marginVertical: 8,
+                  color: errors.petname ? "#ff6961" : null
+                }}
+              >
+                Nome
+              </Text>
+
+              <View
+                style={[
+                  styles.input,
+                  { borderColor: errors.petname ? "#ff6961" : null }
+                ]}
+              >
+                <Controller
+                  control={control}
+                  name="petname"
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <TextInput
+                      label={"petname"}
+                      value={value}
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      placeholder="Insira o novo nome"
+                      placeholderTextColor={COLORS.grey}
+                      style={{
+                        width: "100%",
+                        height: "100%"
+                      }}
+                    />
+                  )}
+                />
+              </View>
+            </Animatable.View>
+            {errors.petname && (
+              <Text style={{ color: "#ff6961", paddingTop: 8 }}>
+                {errors.petname?.message}
+              </Text>
+            )}
+            <Animatable.View delay={150} animation="fadeInUp"
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                gap: 16,
+                marginVertical: 16
+              }}
             >
-              {isLoading ? (
-                <ActivityIndicator color="#BAE6BC" />
-              ) : (
-                <Text style={[styles.buttonText, { color: COLORS.white }]}>
-                  Confirmar
-                </Text>
-              )}
-            </TouchableOpacity>
-          </Animatable.View>
-        </View>
-      </KeyboardAwareScrollView>
-    </SafeAreaView>
+              <TouchableOpacity
+                style={styles.button}
+                disabled={isLoading}
+                onPress={handleSubmit(onSubmit)}
+              >
+                {isLoading ? (
+                  <ActivityIndicator color="#BAE6BC" />
+                ) : (
+                  <Text style={[styles.buttonText, { color: COLORS.white }]}>
+                    Confirmar
+                  </Text>
+                )}
+              </TouchableOpacity>
+            </Animatable.View>
+          </View>
+        </KeyboardAwareScrollView>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }
 
