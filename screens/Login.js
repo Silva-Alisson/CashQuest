@@ -61,8 +61,7 @@ const Login = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <Animatable.View 
-      animation="fadeInUp"
+      <Animatable.View delay={50} animation="fadeInUp"
       style={{ marginHorinzontal: 22, alignItems: "center" }}>
         <Image
           source={require("../assets/Group28.png")}
@@ -103,7 +102,7 @@ const Login = ({ navigation }) => {
 
         <Animatable.View 
         animation="fadeInUp"
-        delay={200}
+        delay={150}
         style={{ marginBottom: 12 }}
         >
           <Text
@@ -150,9 +149,10 @@ const Login = ({ navigation }) => {
         </Animatable.View>
 
         <Animatable.View 
-        animation="fadeInUp"
-        delay={300}
-        style={{ marginBottom: 12 }}>
+          animation="fadeInUp"
+          delay={200}
+          style={{ marginBottom: 12 
+        }}>
           <Text
             style={{
               fontSize: 16,

@@ -73,7 +73,8 @@ const Signup = ({ navigation }) => {
         enableOnAndroid={true}
         extraHeight={Platform.OS === "android" ? 200 : 0}
       >
-        <Animatable.View 
+        <Animatable.View
+        delay={50}
         animation="fadeInUp"
         style={{ marginHorinzontal: 22, alignItems: "center" }}>
           <Image
@@ -92,7 +93,7 @@ const Signup = ({ navigation }) => {
           <View style={{ marginVertical: 10 }}>
             <Animatable.Text
               animation="fadeInUp"
-              delay={100}
+              delay={150}
               style={{  
                 fontSize: 22,
                 fontWeight: "bold",
@@ -117,7 +118,7 @@ const Signup = ({ navigation }) => {
 
           <Animatable.View
           animation="fadeInUp"
-          delay={300}
+          delay={250}
           style={{ marginBottom: 10 }}>
             <Text
               style={{
@@ -159,7 +160,7 @@ const Signup = ({ navigation }) => {
 
           <Animatable.View
             animation="fadeInUp"
-            delay={400}
+            delay={300}
            style={{ marginBottom: 10 }}>
             <Text
               style={{
@@ -201,7 +202,7 @@ const Signup = ({ navigation }) => {
 
           <Animatable.View
           animation="fadeInUp"
-          delay={500}
+          delay={350}
            style={{ marginBottom: 10 }}>
             <Text
               style={{
@@ -248,7 +249,7 @@ const Signup = ({ navigation }) => {
 
           <Animatable.View
           animation="fadeInUp"
-          delay={600}
+          delay={400}
            style={{ marginBottom: 10 }}>
             <Text
               style={{
@@ -313,7 +314,7 @@ const Signup = ({ navigation }) => {
         )}
         <Animatable.View
         animation="fadeInUp"
-        delay={700}
+        delay={450}
         >
           <TouchableOpacity
               style={{
@@ -339,7 +340,7 @@ const Signup = ({ navigation }) => {
         </Animatable.View>
           <Animatable.View
             animation="fadeInUp"
-            delay={800}
+            delay={500}
             style={{
               flexDirection: "row",
               justifyContent: "center",

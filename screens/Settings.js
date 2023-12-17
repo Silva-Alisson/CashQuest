@@ -67,7 +67,7 @@ export default function Settings({ navigation }) {
               style={styles.list}
               onPress={() => navigation.navigate(item.navigate)}
             >
-              <Animatable.View delay={100} animation="fadeInRight" style={styles.item}>
+              <Animatable.View delay={50} animation="fadeInRight" style={styles.item}>
                 <View>
                   <Text style={styles.text}>{item.key}</Text>
                   <Text style={styles.description}>{item.description}</Text>
@@ -83,7 +83,7 @@ export default function Settings({ navigation }) {
           )}
         />
       </View>
-      <Animatable.View delay={100} animation="fadeInRight"> 
+      <Animatable.View delay={50} animation="fadeInRight"> 
         <TouchableOpacity style={styles.list} onPress={signOut}>
           <View style={styles.item}>
             <View>

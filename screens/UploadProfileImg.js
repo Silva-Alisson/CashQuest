@@ -111,7 +111,7 @@ export default function UploadProfileImg({ navigation }) {
           marginTop: 150
         }}
       >
-        <Animatable.View delay={100} animation="fadeInUp" style={{ alignItems: "center" }}>
+        <Animatable.View delay={50} animation="fadeInUp" style={{ alignItems: "center" }}>
           <TouchableOpacity onPress={pickImage}>
             <View style={styles.photoView}>
               {!image ? (
@@ -140,7 +140,7 @@ export default function UploadProfileImg({ navigation }) {
             Falha ao fazer upload da sua foto de perfil, por favor tente novamente.
           </Text>
         )}
-        <Animatable.View delay={200} animation="fadeInUp">
+        <Animatable.View delay={100} animation="fadeInUp">
           <TouchableOpacity
             style={styles.button}
             disabled={isLoading}

@@ -223,7 +223,7 @@ const EditPerfil = ({ navigation }) => {
 
           <View style={{ flex: 1, marginHorizontal: 22, top: 20 }}>
             <Animatable.View
-              delay={100}
+              delay={50}
               animation="fadeInUp"
               style={{ marginBottom: 10 }}
             >
@@ -272,7 +272,7 @@ const EditPerfil = ({ navigation }) => {
             </Animatable.View>
 
             <Animatable.View
-              delay={200}
+              delay={100}
               animation="fadeInUp"
               style={{ marginBottom: 10 }}
             >
@@ -321,7 +321,7 @@ const EditPerfil = ({ navigation }) => {
             </Animatable.View>
 
             <Animatable.View
-              delay={300}
+              delay={150}
               animation="fadeInUp"
               style={{ marginBottom: 10 }}
             >
@@ -384,7 +384,7 @@ const EditPerfil = ({ navigation }) => {
               alignItems: "center"
             }}
           >
-            <Animatable.View delay={400} animation="fadeInLeft">
+            <Animatable.View delay={150} animation="fadeInLeft">
               <TouchableOpacity
                 style={{
                   margin: 10,
@@ -409,7 +409,7 @@ const EditPerfil = ({ navigation }) => {
               </TouchableOpacity>
             </Animatable.View>
 
-            <Animatable.View delay={400} animation="fadeInRight">
+            <Animatable.View delay={150} animation="fadeInRight">
               <TouchableOpacity
                 style={{
                   margin: 10,
