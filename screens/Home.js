@@ -19,7 +19,7 @@ import getReportsHome from "../services/reports-service/get-monthly-report-home"
 import { checkNivel } from "../services/pet-service/check-nivel-service";
 import { useModal } from "../context/modalContext";
 import moment from "moment-timezone";
-import * as Animatable from 'react-native-animatable';
+import * as Animatable from "react-native-animatable";
 
 const Home = ({ navigation }) => {
   function handleSelectionId(id, type) {
@@ -28,8 +28,8 @@ const Home = ({ navigation }) => {
   function DetailItem({ item }) {
     return (
       <Animatable.View
-      delay={50}
-      animation="fadeInUp"
+        delay={50}
+        animation="fadeInUp"
         style={{
           flexDirection: "column",
           marginVertical: 5,
@@ -112,7 +112,11 @@ const Home = ({ navigation }) => {
           })
         }}
       >
-        <Animatable.View delay={100} animation="fadeInUp" style={{ marginBottom: 10, justifyContent: "center" }}>
+        <Animatable.View
+          delay={100}
+          animation="fadeInUp"
+          style={{ marginBottom: 10, justifyContent: "center" }}
+        >
           <View
             style={{
               flexDirection: "row",
@@ -229,7 +233,7 @@ const Home = ({ navigation }) => {
     if (response) {
       handleShowModal({
         text1: "Parabéns!",
-        text2: "Nivel " + dadosPet[3] + " alcançado."
+        text2: "Nivel " + dadosPet.nivel + " alcançado."
       });
     }
   }
@@ -238,17 +242,14 @@ const Home = ({ navigation }) => {
     if (isFocused) {
       async function fetchDataPet() {
         const response = await getPet(authData.token, authData.userId);
-        const arrayResponse = Object.keys(response).map(
-          (chave) => response[chave]
-        );
-        setDadosPet(arrayResponse);
-        if (arrayResponse) {
-          while (arrayResponse[1] > 500) {
-            arrayResponse[1] -= 500;
+        setDadosPet(response);
+        if (response) {
+          while (response.xp > 500) {
+            response.xp -= 500;
           }
-          const progress = arrayResponse[1] / 500;
+          const progress = response.xp / 500;
           setProgress(progress);
-          const nivelResponse = await checkNivel({ nivel: arrayResponse[3] });
+          const nivelResponse = await checkNivel({ nivel: response.nivel });
           showModalNivel(nivelResponse);
         }
       }
@@ -296,7 +297,7 @@ const Home = ({ navigation }) => {
             }}
           >
             <Image
-              source={{ uri: dadosPet[0] }}
+              source={{ uri: dadosPet.photo }}
               resizeMode="contain"
               style={{
                 height: "40%",
@@ -310,7 +311,7 @@ const Home = ({ navigation }) => {
                 fontSize: 20
               }}
             >
-              {dadosPet[2]}
+              {dadosPet.name}
             </Text>
 
             <View style={{ alignItems: "center" }}>
@@ -465,8 +466,7 @@ const Home = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
-        <View
-        style={{ paddingBottom: 40, paddingTop: 5, maxHeight: "50%" }}>
+        <View style={{ paddingBottom: 40, paddingTop: 5, maxHeight: "50%" }}>
           {dadosReports[0] ? (
             <FlatList
               data={dadosReports}

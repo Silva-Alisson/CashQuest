@@ -18,7 +18,8 @@ export const getPet = async (token, userId) => {
                     photo: result[0].pet.photo,
                     xp: result[0].xps,
                     name: result[0].name,
-                    nivel: result[0].pet.nivel
+                    nivel: result[0].pet.nivel,
+                    id: result[0].id
                 }
 
                 // console.log(result[0].pet.photo)
@@ -29,9 +30,6 @@ export const getPet = async (token, userId) => {
                 // console.log(await response.text());
                 return null;
             }
-            // .then(response => response.text())
-            // .then(result => console.log(result))
-            // .catch(error => console.log('error', error));
     }catch (error) {
         console.error("Erro na requisição:", error);
         return null;
