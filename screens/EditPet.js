@@ -17,6 +17,7 @@ export default function EditPet({ navigation }) {
             const response = await getPet(authData.token, authData.userId); 
             const arrayResponse = Object.keys(response).map(chave => response[chave]);
             setDadosPet(arrayResponse);
+            console.log({dadosPet: dadosPet});
         }
 
         fetchData();
