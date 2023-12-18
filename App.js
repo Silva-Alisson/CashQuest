@@ -1,6 +1,6 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import AppNavigator from "./navigation/AppNavigator";
+import AppNavigator from "./routes/AppNavigator";
 import {AuthProvider} from './context/auth';
 import {ModalProvider} from './context/modalContext';
 import CustomModal from "./constants/modal";

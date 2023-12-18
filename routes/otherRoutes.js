@@ -2,7 +2,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import Achievements from '../screens/Achievements';
 import Categories from '../screens/Categories';
-import DashboardScreen from '../screens/Dashboard';
+import DashboardScreen from '../screens/DashboardScreen';
 import EditPet from '../screens/EditPet';
 import EditPerfil from '../screens/EditPerfil';
 import Settings from '../screens/Settings';

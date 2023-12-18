@@ -57,13 +57,13 @@ export default function SelectNamePet({ navigation }) {
 
   return (
     <ImageBackground
-        source={require("../assets/fundo-figma.png")}
-        style={{
-          flex: 1,
-          resizeMode: "cover",
-          justifyContent: "center",
-        }}
-        resizeMode="cover"
+      source={require("../assets/fundo-figma.png")}
+      style={{
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center",
+      }}
+      resizeMode="cover"
     >
       <SafeAreaView style={{flex: 1,backgroundColor: COLORS.transparent}}>
         <KeyboardAwareScrollView

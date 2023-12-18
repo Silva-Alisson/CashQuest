@@ -3,16 +3,16 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { COLORS } from "../../constants";
-import DunutChart from "./DunutChart";
-import PieChartComponent from "./PieChart";
+import { COLORS } from "../constants";
+import { PieChart } from 'react-native-svg-charts';
 import * as Animatable from "react-native-animatable";
-
 import moment from "moment-timezone";
-import { useAuth } from "../../context/auth";
-import { getReport } from "../../services/reports-service/get-grp1";
+import { useAuth } from "../context/auth";
+import { getReport } from "../services/reports-service/get-grp1";
 
 const getDatesForSearchType = (searchType) => {
+
+
   const currentDate = moment().tz("America/Sao_Paulo");
   let startDate, endDate;
 
@@ -37,11 +37,62 @@ const getDatesForSearchType = (searchType) => {
  * Renders a dashboard screen in a React Native app.
  * @returns {JSX.Element} Dashboard screen component.
  */
+
 const DashboardScreen = () => {
   const navigation = useNavigation();
   const [activeButton, setActiveButton] = useState("month");
   const { authData } = useAuth();
   const [dataLoaded, setDataLoaded] = useState(false);
+
+  const economia = 10;
+  const gastos = 90;
+
+  const data = [
+    {
+      key: 1,
+      value: economia,
+      svg: { fill: '#37A11C' }, 
+      description: 'Economia', 
+    },
+    {
+      key: 2,
+      value: gastos,
+      svg: { fill: '#F3722C' },
+      description: 'Gastos', 
+    },
+  ];
+
+  const Label = ({ slices }) => {
+    return slices.map((slice, index) => {
+      const { pieCentroid, data } = slice;
+      return (
+        <Text
+          key={`label-${index}`}
+          x={pieCentroid[0]}
+          y={pieCentroid[1]}
+          fill='white'
+          textAnchor={'middle'}
+          alignmentBaseline={'middle'}
+          fontSize={16}
+        >
+          {data.value}%
+        </Text>
+      );
+    });
+  };
+
+  const Legend = () => {
+    return (
+      <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 100 }}>
+        {data.map((item, index) => (
+          <View key={`legend-${index}`} style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10, marginLeft: 10}}>
+            <View style={{ width: 12, height: 12, backgroundColor: item.svg.fill, marginRight: 5}} />
+            <Text>{item.description}</Text>
+          </View>
+        ))}
+      </View>
+    );
+  };
 
   const isFocused = useIsFocused();
 
@@ -85,21 +136,15 @@ const DashboardScreen = () => {
     }
   }, [dataLoaded, activeButton]);
 
-  const chartData = [
-    { label: "Economias de emergência", value: 50, color: "#96E283" },
-    { label: "Poupança", value: 30, color: "#72C990" },
-    { label: "Poupança para férias", value: 20, color: "#1C5926" }
-  ];
   /**
    * Updates the active button state.
    * @param {string} button - The button value.
    */
+
   const handleButtonPress = (buttonType) => {
     setActiveButton(buttonType);
     setDataLoaded(false);
   };
-
-  const dunutData = [50, 10, 40];
 
   return (
     <SafeAreaView style={styles.container}>
@@ -196,10 +241,22 @@ const DashboardScreen = () => {
               marginRight: "-5%"
             }}
           />
-          <PieChartComponent data={{ income: income, outcome: outcome }} />
+            <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+              <View style={{ flex: 1 }}>
+                <PieChart
+                  style={{ height: 200, width: 200 }}
+                  data={data}
+                >
+                  <Label />
+                </PieChart>
+              </View>
+              <View style={{ flex: 1 }}>
+                <Legend />
+              </View>
+            </View>
         </Animatable.View>
 
-        <Animatable.View delay={200} animation="fadeInUp" style={styles.card}>
+        {/* <Animatable.View delay={200} animation="fadeInUp" style={styles.card}>
           <View
             style={{
               flexDirection: "row",
@@ -227,11 +284,9 @@ const DashboardScreen = () => {
               marginRight: "-5%"
             }}
           />
-          {/* Add the gauge chart component here */}
-          <DunutChart />
-        </Animatable.View>
+        </Animatable.View> */}
 
-        <Animatable.View delay={300} animation="fadeInUp" style={styles.card}>
+        {/* <Animatable.View delay={300} animation="fadeInUp" style={styles.card}>
           <View
             style={{
               flexDirection: "row",
@@ -259,8 +314,7 @@ const DashboardScreen = () => {
               marginRight: "-5%"
             }}
           />
-          <DunutChart data={chartData} />
-        </Animatable.View>
+        </Animatable.View> */}
       </ScrollView>
     </SafeAreaView>
   );
