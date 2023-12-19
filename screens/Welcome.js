@@ -10,7 +10,7 @@ import * as Animatable from "react-native-animatable";
 const Welcome = ({ navigation }) => {
   return (
     <ImageBackground
-      source={require("../assets/fundo-figma.png")}
+      source={require("../assets/fundo-welcome.png")}
       style={{
         flex: 1,
         resizeMode: "cover",
@@ -28,55 +28,7 @@ const Welcome = ({ navigation }) => {
         }}
       >
         <View style={{ flex: 1 }}>
-          <View>
-            <Image
-              source={require("../assets/turtle_nivel_1.png")}
-              style={{
-                height: 100,
-                width: 80,
-                position: "absolute",
-                top: 10,
-                transform: [
-                  { translateX: 20 },
-                  { translateY: 50 },
-                  { rotate: "15deg" }
-                ]
-              }}
-            />
-
-            <Image
-              source={require("../assets/egg.png")}
-              style={{
-                height: 80,
-                width: 65,
-                position: "absolute",
-                top: -30,
-                left: 100,
-                transform: [
-                  { translateX: 50 },
-                  { translateY: 50 },
-                  { rotate: "-5deg" }
-                ]
-              }}
-            />
-
-            <Image
-              source={require("../assets/turtle_nivel_2.png")}
-              style={{
-                width: 140,
-                height: 160,
-                borderRadius: 20,
-                position: "absolute",
-                top: 130,
-                left: -50,
-                transform: [
-                  { translateX: 60 },
-                  { translateY: 50 },
-                  { rotate: "-15deg" }
-                ]
-              }}
-            />
-
+          <Animatable.View animation="fadeInLeft" delay={700}>
             <Image
               source={require("../assets/turtle_nivel_3.png")}
               style={{
@@ -84,16 +36,16 @@ const Welcome = ({ navigation }) => {
                 width: 140,
                 borderRadius: 20,
                 position: "absolute",
-                top: 110,
-                left: 115,
+                top: 290,
+                left: -100,
                 transform: [
-                  { translateX: 65 },
-                  { translateY: 45 },
-                  { rotate: "-8deg" }
+                  { translateX: 70 },
+                  { translateY: 80 },
+                  { rotate: "50deg" }
                 ]
               }}
             />
-          </View>
+          </Animatable.View>
 
           {/* content  */}
 
@@ -101,7 +53,7 @@ const Welcome = ({ navigation }) => {
             style={{
               paddingHorizontal: 22,
               position: "absolute",
-              top: 400,
+              top: 0,
               width: "100%"
             }}
           >
@@ -109,7 +61,7 @@ const Welcome = ({ navigation }) => {
               delay={100}
               animation="fadeInUp"
               style={{
-                marginTop: "7%",
+                marginTop: "2%",
                 fontSize: 33,
                 fontWeight: 800,
                 color: COLORS.white
@@ -121,13 +73,13 @@ const Welcome = ({ navigation }) => {
             <Animatable.View
               delay={200}
               animation="fadeInUp"
-              style={{ marginVertical: 22 }}
+              
             >
               <Text
                 style={{
                   fontSize: 16,
                   color: COLORS.white,
-                  marginTop: "1%"
+                  marginTop: "0.5%"
                 }}
               >
                 Comece hoje a construir seu planejamento
@@ -141,7 +93,17 @@ const Welcome = ({ navigation }) => {
                 financeiro para um futuro próspero e seguro.
               </Text>
             </Animatable.View>
+          </View>
 
+          <View
+            style={{
+              paddingHorizontal: 22,
+              position: "absolute",
+              top: 600,
+              width: "100%"
+            }}
+          >
+            
             <Animatable.View delay={300} animation="fadeInUp">
               <Button
                 title="Registre-se agora!"
