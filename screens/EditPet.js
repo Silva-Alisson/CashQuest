@@ -117,15 +117,14 @@ export default function EditPet({ navigation }) {
               justifyContent: "center",
               alignItems: "center",
               marginTop: "50%",
-              marginHorizontal: 10,
               marginLeft: "15%"
             }}
           >
             <Image
               source={{ uri: dadosPet ? dadosPet.photo : null }}
               style={{
-                width: 217,
-                height: 287
+                width: "50%",
+                height: "100%"
               }}
             />
           </View>
