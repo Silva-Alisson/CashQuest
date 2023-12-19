@@ -16,13 +16,14 @@ import { useAuth } from "../context/auth";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import * as Animatable from 'react-native-animatable';
+import * as Animatable from "react-native-animatable";
 
 const schema = yup.object().shape({
-  email: yup.string().email("Insira um email válido").required("Insira um e-mail"),
-  password: yup
+  email: yup
     .string()
-    .required("insira uma senha")
+    .email("Insira um email válido")
+    .required("Insira um e-mail"),
+  password: yup.string().required("insira uma senha")
 });
 
 const Login = ({ navigation }) => {
@@ -47,9 +48,13 @@ const Login = ({ navigation }) => {
     try {
       setIsLoading(true);
       const login = await signIn(data.email, data.password);
+      console.log(login);
       if (login) {
         setIsLoading(false);
         reset();
+      } else {
+        setIsLoading(false);
+        setErrorLogin(true);
       }
     } catch (error) {
       setIsLoading(false);
@@ -61,8 +66,11 @@ const Login = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <Animatable.View delay={50} animation="fadeInUp"
-      style={{ marginHorinzontal: 22, alignItems: "center" }}>
+      <Animatable.View
+        delay={50}
+        animation="fadeInUp"
+        style={{ marginHorinzontal: 22, alignItems: "center" }}
+      >
         <Image
           source={require("../assets/Group28.png")}
           resizeMode="contain"
@@ -78,7 +86,8 @@ const Login = ({ navigation }) => {
         <Animatable.View
           animation="fadeInUp"
           delay={100}
-          style={{ marginVertical: 25 }}>
+          style={{ marginVertical: 25 }}
+        >
           <Text
             style={{
               fontSize: 22,
@@ -100,17 +109,17 @@ const Login = ({ navigation }) => {
           </Text>
         </Animatable.View>
 
-        <Animatable.View 
-        animation="fadeInUp"
-        delay={150}
-        style={{ marginBottom: 12 }}
+        <Animatable.View
+          animation="fadeInUp"
+          delay={150}
+          style={{ marginBottom: 12 }}
         >
           <Text
             style={{
               fontSize: 16,
               fontWeight: 400,
               marginVertical: 8,
-              color: errors.password ? "#ff6961" : null
+              color: errors.email ? "#ff6961" : null
             }}
           >
             E-mail
@@ -148,11 +157,11 @@ const Login = ({ navigation }) => {
           )}
         </Animatable.View>
 
-        <Animatable.View 
+        <Animatable.View
           animation="fadeInUp"
           delay={200}
-          style={{ marginBottom: 12 
-        }}>
+          style={{ marginBottom: 12 }}
+        >
           <Text
             style={{
               fontSize: 16,
@@ -216,64 +225,60 @@ const Login = ({ navigation }) => {
           </Text>
         )}
 
-        <Animatable.View
-        animation="fadeInUp"
-        delay={400}
-        >
+        <Animatable.View animation="fadeInUp" delay={400}>
           <TouchableOpacity
-          style={{
-            paddingBottom: 16,
-            paddingVertical: 10,
-            borderColor: COLORS.primary,
-            backgroundColor: COLORS.primary,
-            borderWidth: 2,
-            borderRadius: 12,
-            alignItems: "center",
-            justifyContent: "center",
-            marginTop: 16
-          }}
-          disabled={isLoading}
-          onPress={handleSubmit(handleLogin)}
-        >
-          {isLoading ? (
-            <ActivityIndicator color="#BAE6BC" />
-          ) : (
-            <Text style={{color: COLORS.white}}>Entrar</Text>
-          )}
-        </TouchableOpacity>
-      
+            style={{
+              paddingBottom: 16,
+              paddingVertical: 10,
+              borderColor: COLORS.primary,
+              backgroundColor: COLORS.primary,
+              borderWidth: 2,
+              borderRadius: 12,
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: 16
+            }}
+            disabled={isLoading}
+            onPress={handleSubmit(handleLogin)}
+          >
+            {isLoading ? (
+              <ActivityIndicator color="#BAE6BC" />
+            ) : (
+              <Text style={{ color: COLORS.white }}>Entrar</Text>
+            )}
+          </TouchableOpacity>
         </Animatable.View>
 
         <Animatable.View
-        animation="fadeInUp"
-        delay={500}
-        style={{
-          flexDirection: "row",
-          justifyContent: "center",
-          marginVertical: 22
-        }}
-      >
-        <Text style={{ fontSize: 16, color: COLORS.black }}>
-          Não tem uma conta ?{" "}
-        </Text>
-        <Pressable
-          onPress={() => {
-            navigation.navigate("SignupStack");
-            reset();
+          animation="fadeInUp"
+          delay={500}
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            marginVertical: 22
           }}
         >
-          <Text
-            style={{
-              fontSize: 16,
-              color: COLORS.primary,
-              fontWeight: "bold",
-              marginLeft: 6
+          <Text style={{ fontSize: 16, color: COLORS.black }}>
+            Não tem uma conta ?{" "}
+          </Text>
+          <Pressable
+            onPress={() => {
+              navigation.navigate("SignupStack");
+              reset();
             }}
           >
-            Registre-se
-          </Text>
-        </Pressable>
-      </Animatable.View>
+            <Text
+              style={{
+                fontSize: 16,
+                color: COLORS.primary,
+                fontWeight: "bold",
+                marginLeft: 6
+              }}
+            >
+              Registre-se
+            </Text>
+          </Pressable>
+        </Animatable.View>
       </View>
     </SafeAreaView>
   );

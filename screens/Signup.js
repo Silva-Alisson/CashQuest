@@ -17,12 +17,15 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import * as Animatable from 'react-native-animatable';
+import * as Animatable from "react-native-animatable";
 
 const schema = yup.object().shape({
   nome: yup.string().required(),
   sobrenome: yup.string().required(),
-  email: yup.string().email("Insira um email válido").required("Insira um e-mail"),
+  email: yup
+    .string()
+    .email("Insira um email válido")
+    .required("Insira um e-mail"),
   password: yup
     .string()
     .matches(
@@ -74,9 +77,10 @@ const Signup = ({ navigation }) => {
         extraHeight={Platform.OS === "android" ? 200 : 0}
       >
         <Animatable.View
-        delay={50}
-        animation="fadeInUp"
-        style={{ marginHorinzontal: 22, alignItems: "center" }}>
+          delay={50}
+          animation="fadeInUp"
+          style={{ marginHorinzontal: 22, alignItems: "center" }}
+        >
           <Image
             source={require("../assets/Group29.png")}
             resizeMode="contain"
@@ -94,7 +98,7 @@ const Signup = ({ navigation }) => {
             <Animatable.Text
               animation="fadeInUp"
               delay={150}
-              style={{  
+              style={{
                 fontSize: 22,
                 fontWeight: "bold",
                 marginBottom: 5,
@@ -105,8 +109,8 @@ const Signup = ({ navigation }) => {
             </Animatable.Text>
 
             <Animatable.Text
-            animation="fadeInUp"
-            delay={200}
+              animation="fadeInUp"
+              delay={200}
               style={{
                 fontSize: 16,
                 color: COLORS.black
@@ -117,9 +121,10 @@ const Signup = ({ navigation }) => {
           </View>
 
           <Animatable.View
-          animation="fadeInUp"
-          delay={250}
-          style={{ marginBottom: 10 }}>
+            animation="fadeInUp"
+            delay={250}
+            style={{ marginBottom: 10 }}
+          >
             <Text
               style={{
                 fontSize: 16,
@@ -161,7 +166,8 @@ const Signup = ({ navigation }) => {
           <Animatable.View
             animation="fadeInUp"
             delay={300}
-           style={{ marginBottom: 10 }}>
+            style={{ marginBottom: 10 }}
+          >
             <Text
               style={{
                 fontSize: 16,
@@ -201,9 +207,10 @@ const Signup = ({ navigation }) => {
           </Animatable.View>
 
           <Animatable.View
-          animation="fadeInUp"
-          delay={350}
-           style={{ marginBottom: 10 }}>
+            animation="fadeInUp"
+            delay={350}
+            style={{ marginBottom: 10 }}
+          >
             <Text
               style={{
                 fontSize: 16,
@@ -248,9 +255,10 @@ const Signup = ({ navigation }) => {
           </Animatable.View>
 
           <Animatable.View
-          animation="fadeInUp"
-          delay={400}
-           style={{ marginBottom: 10 }}>
+            animation="fadeInUp"
+            delay={400}
+            style={{ marginBottom: 10 }}
+          >
             <Text
               style={{
                 fontSize: 16,
@@ -262,10 +270,12 @@ const Signup = ({ navigation }) => {
               Senha
             </Text>
 
-            <View style={[
-              styles.input,
-              { borderColor: errors.password ? "#ff6961" : null }
-            ]}>
+            <View
+              style={[
+                styles.input,
+                { borderColor: errors.password ? "#ff6961" : null }
+              ]}
+            >
               <Controller
                 control={control}
                 name="password"
@@ -285,19 +295,19 @@ const Signup = ({ navigation }) => {
                 )}
               />
 
-                <TouchableOpacity
-                  onPress={() => setIsPasswordShown(!isPasswordShown)}
-                  style={{
-                    position: "absolute",
-                    right: 12
-                  }}
-                >
-                  {isPasswordShown == true ? (
-                    <Ionicons name="eye-off" size={24} color={COLORS.black} />
-                  ) : (
-                    <Ionicons name="eye" size={24} color={COLORS.black} />
-                  )}
-                </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => setIsPasswordShown(!isPasswordShown)}
+                style={{
+                  position: "absolute",
+                  right: 12
+                }}
+              >
+                {isPasswordShown == true ? (
+                  <Ionicons name="eye-off" size={24} color={COLORS.black} />
+                ) : (
+                  <Ionicons name="eye" size={24} color={COLORS.black} />
+                )}
+              </TouchableOpacity>
             </View>
             {errors.password && (
               <Text style={{ color: "#ff6961", paddingTop: 8 }}>
@@ -306,17 +316,14 @@ const Signup = ({ navigation }) => {
             )}
           </Animatable.View>
           {errorSignup && (
-          <Text
-            style={{ color: "#ff6961", paddingTop: 8, textAlign: "center" }}
-          >
-            Falha ao criar seu cadastro, por favor tente novamente.
-          </Text>
-        )}
-        <Animatable.View
-        animation="fadeInUp"
-        delay={450}
-        >
-          <TouchableOpacity
+            <Text
+              style={{ color: "#ff6961", paddingTop: 8, textAlign: "center" }}
+            >
+              Falha ao criar seu cadastro, por favor tente novamente.
+            </Text>
+          )}
+          <Animatable.View animation="fadeInUp" delay={450}>
+            <TouchableOpacity
               style={{
                 paddingBottom: 16,
                 paddingVertical: 10,
@@ -334,10 +341,10 @@ const Signup = ({ navigation }) => {
               {isLoading ? (
                 <ActivityIndicator color="#BAE6BC" />
               ) : (
-                <Text style={{color: COLORS.white}}>Confirmar</Text>
+                <Text style={{ color: COLORS.white }}>Confirmar</Text>
               )}
             </TouchableOpacity>
-        </Animatable.View>
+          </Animatable.View>
           <Animatable.View
             animation="fadeInUp"
             delay={500}
@@ -347,12 +354,15 @@ const Signup = ({ navigation }) => {
               marginVertical: 22
             }}
           >
-            <Text
-             style={{ fontSize: 16, color: COLORS.black }}>
+            <Text style={{ fontSize: 16, color: COLORS.black }}>
               Você já tem conta conosco ?
             </Text>
-            <Pressable onPress={() => {navigation.navigate("LoginStack");
-          reset()}}>
+            <Pressable
+              onPress={() => {
+                navigation.navigate("LoginStack");
+                reset();
+              }}
+            >
               <Text
                 style={{
                   fontSize: 16,

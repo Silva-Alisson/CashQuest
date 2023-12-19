@@ -1,9 +1,6 @@
 import baseUrl from "../../helpers/base-url-api";
 
-export const getReport = async (params) => {
-  console.log({ params });
-  console.log("veio aqui!");
-  console.log({ params });
+export const getSavingReport = async (params) => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", "Bearer " + params.token);
@@ -22,9 +19,10 @@ export const getReport = async (params) => {
   };
 
   const response = await fetch(
-    baseUrl + "/reports/get-depoist-spending-report",
+    baseUrl + "/reports/get-savings-report",
     requestOptions
   );
+
   if (response.ok) {
     const result = await response.json();
     return result;

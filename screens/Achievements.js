@@ -35,7 +35,11 @@ export const Achievements = ({ navigation }) => {
   function renderItem({ item }) {
     return (
       <View style={styles.itemContainer}>
-        <Image source={{ uri: item.img }} resizeMode="contain" style={StylesAchievements.image} />
+        <Image
+          source={{ uri: item.img }}
+          resizeMode="contain"
+          style={StylesAchievements.image}
+        />
         <Text style={[StylesAchievements.TextStyleSub, styles.text]}>
           {item.name}
         </Text>
@@ -46,7 +50,11 @@ export const Achievements = ({ navigation }) => {
   function renderItemHoreinzontal({ item }) {
     return (
       <View style={Vstyles.itemContainer}>
-        <Image source={{ uri: item.img }} resizeMode="contain" style={Vstyles.image} />
+        <Image
+          source={{ uri: item.img }}
+          resizeMode="contain"
+          style={Vstyles.image}
+        />
         <View
           style={{
             alignItens: "flex-start",
@@ -98,6 +106,7 @@ export const Achievements = ({ navigation }) => {
                   keyExtractor={(item) => item.name}
                   renderItem={renderItem}
                   scrollEnabled={false}
+                  horizontal={true}
                   showsHorizontalScrollIndicator={false}
                 />
               ) : (
@@ -198,8 +207,8 @@ const StylesAchievements = StyleSheet.create({
   image: {
     height: 100,
     width: 140,
-    marginBottom: 15,
-  },
+    marginBottom: 15
+  }
 });
 
 const styles = StyleSheet.create({
@@ -226,8 +235,8 @@ const Vstyles = StyleSheet.create({
   },
   image: {
     height: 120,
-    width: 100,
-  },
+    width: 100
+  }
 });
 
 export default Achievements;
