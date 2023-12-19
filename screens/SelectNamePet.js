@@ -18,7 +18,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import * as Animatable from 'react-native-animatable';
+import * as Animatable from "react-native-animatable";
 
 const schema = yup.object().shape({
   petname: yup.string().required("Por favor, insira um nome para seu novo pet!")
@@ -61,15 +61,15 @@ export default function SelectNamePet({ navigation }) {
       style={{
         flex: 1,
         resizeMode: "cover",
-        justifyContent: "center",
+        justifyContent: "center"
       }}
       resizeMode="cover"
     >
-      <SafeAreaView style={{flex: 1,backgroundColor: COLORS.transparent}}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.transparent }}>
         <KeyboardAwareScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
-        enableOnAndroid={true}
-        extraHeight={Platform.OS === "android" ? 200 : 0}
+          contentContainerStyle={{ flexGrow: 1 }}
+          enableOnAndroid={true}
+          extraHeight={Platform.OS === "android" ? 200 : 0}
         >
           <View
             style={{
@@ -97,13 +97,17 @@ export default function SelectNamePet({ navigation }) {
                 />
               </View>
             </View>
-            <Animatable.View delay={50} animation="fadeInUp" style={{ marginBottom: 10, width: "100%" }}>
+            <Animatable.View
+              delay={50}
+              animation="fadeInUp"
+              style={{ marginBottom: 10, width: "100%" }}
+            >
               <Text
                 style={{
                   fontSize: 16,
                   fontWeight: 400,
                   marginVertical: 8,
-                  color: errors.petname ? "#ff6961" : null
+                  color: errors.petname ? "#ff6961" : COLORS.white
                 }}
               >
                 Nome
@@ -112,7 +116,7 @@ export default function SelectNamePet({ navigation }) {
               <View
                 style={[
                   styles.input,
-                  { borderColor: errors.petname ? "#ff6961" : null }
+                  { borderColor: errors.petname ? "#ff6961" : COLORS.white }
                 ]}
               >
                 <Controller
@@ -128,7 +132,8 @@ export default function SelectNamePet({ navigation }) {
                       placeholderTextColor={COLORS.grey}
                       style={{
                         width: "100%",
-                        height: "100%"
+                        height: "100%",
+                        color: COLORS.white
                       }}
                     />
                   )}
@@ -140,28 +145,36 @@ export default function SelectNamePet({ navigation }) {
                 {errors.petname?.message}
               </Text>
             )}
-            <Animatable.View delay={150} animation="fadeInUp"
+            <View
               style={{
-                flexDirection: "row",
-                justifyContent: "center",
-                gap: 16,
-                marginVertical: 16
+                width: 370,
+                marginHorizontal: 10
               }}
             >
-              <TouchableOpacity
-                style={styles.button}
-                disabled={isLoading}
-                onPress={handleSubmit(onSubmit)}
-              >
-                {isLoading ? (
-                  <ActivityIndicator color="#BAE6BC" />
-                ) : (
-                  <Text style={[styles.buttonText, { color: COLORS.white }]}>
-                    Confirmar
-                  </Text>
-                )}
-              </TouchableOpacity>
-            </Animatable.View>
+              <Animatable.View delay={150} animation="fadeInLeft">
+                <TouchableOpacity
+                  style={{
+                    width: "100%",
+                    paddingVertical: 10,
+                    borderColor: COLORS.white,
+                    backgroundColor: COLORS.white,
+                    borderWidth: 2,
+                    borderRadius: 12,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginTop: 30
+                  }}
+                  disabled={isLoading}
+                  onPress={handleSubmit(onSubmit)}
+                >
+                  {isLoading ? (
+                    <ActivityIndicator color="#BAE6BC" />
+                  ) : (
+                    <Text style={[{ color: COLORS.primary }]}>Confirmar</Text>
+                  )}
+                </TouchableOpacity>
+              </Animatable.View>
+            </View>
           </View>
         </KeyboardAwareScrollView>
       </SafeAreaView>
@@ -180,7 +193,7 @@ const styles = StyleSheet.create({
   input: {
     width: "100%",
     height: 48,
-    borderColor: COLORS.black,
+    borderColor: COLORS.white,
     borderWidth: 1,
     borderRadius: 8,
     alignItems: "center",
@@ -220,7 +233,7 @@ const styles = StyleSheet.create({
     width: 287,
     height: 287,
     borderRadius: 200,
-    backgroundColor: COLORS.white,
+    marginTop: "50%",
     justifyContent: "center",
     alignItems: "center"
   },
