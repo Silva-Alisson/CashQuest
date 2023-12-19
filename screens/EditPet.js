@@ -124,7 +124,7 @@ export default function EditPet({ navigation }) {
               source={{ uri: dadosPet ? dadosPet.photo : null }}
               style={{
                 width: "50%",
-                height: "100%"
+                height: "10 0%"
               }}
             />
           </View>
